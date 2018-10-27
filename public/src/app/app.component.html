@@ -1,0 +1,23 @@
+<mat-drawer-container class="root-container" autosize>
+
+    <mat-drawer #drawer class="root-sidenav" mode="over">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a class="nav-link" routerLink="/">Home</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link" routerLink="movies">Movies</a>
+            </li>
+            <li class="list-group-item">
+                <a class="nav-link">Music</a>
+            </li>
+        </ul>
+    </mat-drawer>
+
+    <div class="root-sidenav-content">
+        <nav class="navbar navbar-expand-lg bg-dark">
+            <a mat-button (click)="drawer.toggle()" style="cursor: pointer;" class="sidenav-trigger"><i class="fas fa-bars fa-2x text-white"></i></a>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+</mat-drawer-container>

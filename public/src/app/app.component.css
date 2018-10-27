@@ -1,0 +1,16 @@
+.root-container {
+    /* width: 500px;*/
+    height: 100vh;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+  
+/* .root-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+   */
+.root-sidenav {
+  width: 300px;
+}

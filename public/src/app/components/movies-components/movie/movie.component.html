@@ -1,0 +1,48 @@
+<div [@changeState]="currentState" class="container mt-5 pt-5">
+  <h1 class="text-right">
+    <button class="btn btn-danger" (click)="closeMovieDetails()">X</button>
+  </h1>
+  <div class="row">
+    <div class="col-md-4">
+      <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" />
+    </div>
+
+    <div class="col-md-8">
+      <h2 class="text-secondary">{{movie.title}}
+        <small class="badge badge-success pull-right" *ngIf="movie.vote_average">
+          {{movie.vote_average}}
+          <i class="fas fa-star"></i>
+        </small>
+      </h2>
+      <p>Come Fall In love, All Over Again..</p>
+      <p>
+        <a routerLink="/genres/{{genre.id}}/{{genre.name}}" *ngFor="let genre of movie.genres" class="label label-info m-r-md">
+          {{genre.name}}
+        </a>
+      </p>
+
+      <h3 class="mt-4 text-secondary">Overview</h3>
+      <p class="text">{{movie.overview}}</p>
+      <!-- <div class="row">
+        <div class="col-md-3">
+          pictures here
+        </div>
+        <div class="col-md-3">
+          pictures here
+        </div>
+        <div class="col-md-3">
+          pictures here
+        </div>
+        <div class="col-md-3">
+          pictures here
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="text-center mt-5" *ngIf="video">
+    <h3 class="text text-secondary mb-2">{{video.name}}</h3>
+    <iframe class="rounded" width="750" height="400" [src]="video.url" frameborder="0" allow="autoplay; encrypted-media"
+      allowfullscreen></iframe>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+.social-media a{
+  padding-left: 0px;
+}
+.social-media a i{
+  color: #808080;
+}
+
+.list-inline li a, .footer{
+  color: #808080;
+  font-size: 0.7rem;
+}

@@ -1,0 +1,118 @@
+<!-- Header -->
+<!-- Fixed navbar -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top mb-5 pl-5 pr-5">
+    <a class="navbar-brand" routerLink="/"><img class="myflix-icon" src="../../../assets/images/myflix.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" routerLink="/movies" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" ngbDropdown>
+                <a class="nav-link btn" id="genderDropdown" ngbDropdownToggle>Genres</a>
+                <div ngbDropdownMenu aria-labelledby="genderDropdown" class="genderDropdown p-2">
+                    <div class="row">
+                        <div class="col-md-3 mr-5">
+                            <ul class="list-inline">
+                                <li *ngFor="let genre of rowOneGenres; let i = index;">
+                                    <a routerLink="genres/{{genre.id}}/{{genre.name}}" routerLinkActive="active">{{genre.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3">
+                            <ul class="list-inline">
+                                <li *ngFor="let genre of rowTwoGenres; let i = index;">
+                                    <a routerLink="genres/{{genre.id}}/{{genre.name}}" routerLinkActive="active">{{genre.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <ul class="list-inline">
+                                <li *ngFor="let genre of rowThreeGenres; let i = index;">
+                                    <a routerLink="genres/{{genre.id}}/{{genre.name}}" routerLinkActive="active">{{genre.name}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <div class="navbar-expand right">
+            <ul class="navbar-nav">
+                <li class="nav-item mr-2">
+                    <div class="navbar-right">
+                        <form>
+                            <div class="input-group mt-1" *ngIf="show">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-lg" placeholder="Title, people, genres"
+                                    [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
+                            </div>
+                        </form>
+                    </div>
+                </li>
+
+                <li class="nav-item mr-2">
+                    <a class="nav-link" style="cursor:pointer;" (click)="show=!show"><i class="fas fa-search"></i></a>
+                </li>
+
+                <li class="nav-item mr-2" ngbDropdown placement="bottom-right">
+                    <a class="nav-link" id="notificationsDropdown" ngbDropdownToggle><i class="fas fa-bell"></i></a>
+                    <div ngbDropdownMenu aria-labelledby="notificationsDropdown" class="notificationsDropdown">
+                        <div class="list-group">
+                            <a style="cursor:pointer;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                                blandit.
+                                <br>
+                                <small class="text-muted">3 days ago</small>
+                            </a>
+                            <a style="cursor:pointer;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                                blandit.
+                                <br>
+                                <small class="text-muted">3 days ago</small>
+                            </a>
+                            <a style="cursor:pointer;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
+                                blandit.
+                                <br>
+                                <small class="text-muted">3 days ago</small>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item mr-2">
+                    <a class="nav-link" style="cursor:pointer;"><i class="fas fa-user-alt"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Carousel for video -->
+<header>
+    <div class="overlay"></div>
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+    </video>
+    <div class="container h-100">
+        <div class="d-flex text-center h-100">
+            <div class="my-auto w-100 text-white">
+                <h1 class="display-1 text-danger font-weight-bold">MYFLIX</h1>
+                <h2>The new online <span class="text-danger">movies</span> streaming in the <span class="text-danger">block</span></h2>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- End HEADER -->
+
+<router-outlet></router-outlet>
+
+<!-- Footer contents -->
+<app-footer></app-footer>
