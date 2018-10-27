@@ -20,6 +20,7 @@ import { GenresComponent } from './components/movies-components/genres/genres.co
 import { MoviesComponent } from './components/movies-components/movies/movies.component';
 import { HomeComponent } from './components/movies-components/home/home.component';
 import { MovieComponent } from './components/movies-components/movie/movie.component';
+import { PlaygroundComponent } from './components/playground/playground.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MovieComponent } from './components/movies-components/movie/movie.compo
     GenresComponent,
     MoviesComponent,
     HomeComponent,
-    MovieComponent
+    MovieComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,
