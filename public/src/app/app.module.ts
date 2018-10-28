@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { HttpModule, JsonpModule } from '@angular/http'
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { appRoutes } from './app-routing.module';
@@ -22,9 +23,42 @@ import { HomeComponent } from './components/movies-components/home/home.componen
 import { MovieComponent } from './components/movies-components/movie/movie.component';
 import { PlaygroundComponent } from './components/playground/playground.component';
 
+
+// music components
+import { DiscoverComponent } from './components/music-components/discover/discover.component';
+import { SoonComponent } from './components/music-components/soon/soon.component';
+import { SearchComponent } from './components/music-components/search/search.component';
+import { LikesComponent } from './components/music-components/likes/likes.component';
+
+import { MusicHomeComponent } from './components/music-components/music-home/music-home.component'
+import { MenuComponent } from './components/music-components/menu/menu.component';
+import { MainComponent } from './components/music-components/main/main.component';
+import { CueComponent } from './components/music-components/cue/cue.component';
+import { FeedComponent } from './components/music-components/feed/feed.component';
+import { DzService } from './services/Dz.service';
+
+import { EbusService } from './services/Ebus.service';
+import { LikesService } from './services/Likes.service';
+import { MusicsComponent } from './components/music-components/musics/musics.component';
+
+// shopping components
+import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
+
+// authentification
+import { RegisterComponent } from './components/authentification/register/register.component';
+import { LoginComponent } from './components/authentification/login/login.component';
+
+
+
+
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
+    // movies
     HeaderComponent,
     FooterComponent,
     MovieCardComponent,
@@ -32,7 +66,22 @@ import { PlaygroundComponent } from './components/playground/playground.componen
     MoviesComponent,
     HomeComponent,
     MovieComponent,
-    PlaygroundComponent
+    PlaygroundComponent,
+    // music
+    DiscoverComponent,
+    SoonComponent,
+    SearchComponent,
+    LikesComponent,
+    MusicHomeComponent,
+    MenuComponent,
+    MainComponent,
+    CueComponent,
+    FeedComponent,
+    MusicsComponent,
+    ShoppingHomeComponent,
+    RegisterComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
@@ -45,9 +94,11 @@ import { PlaygroundComponent } from './components/playground/playground.componen
     BrowserAnimationsModule,
     MatSidenavModule,
     MatExpansionModule,
+    HttpClientModule,
+    HttpClientJsonpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [DzService, EbusService, LikesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

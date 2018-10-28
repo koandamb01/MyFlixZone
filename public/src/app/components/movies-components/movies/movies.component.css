@@ -1,3 +1,5 @@
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+@import url('../../../../movies-global-css/style.css');
 /* Navbar CSS */
 .nav-item .nav-link {
     font-size: 0.8rem;

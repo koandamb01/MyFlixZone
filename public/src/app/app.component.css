@@ -1,10 +1,17 @@
 .root-container {
-    height: 100vh;
+    height: 100%;
     border: 1px solid rgba(0, 0, 0, 0.5);
-    background-color: #0e0f11 !important;
-    color: aliceblue;
+    /* background-color: #0e0f11 !important; */
+    /* color: aliceblue; */
 }
 
 .root-sidenav {
   width: 300px;
+}
+
+.root-sidenav-content{
+  position: fixed; 
+  left: 25px; 
+  top: 94vh; 
+  z-index: 3;
 }
