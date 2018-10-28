@@ -23,6 +23,10 @@ public class Zipcode {
 
 	public Zipcode() {
 	}
+
+	public Zipcode(int code) {
+		this.code = code;
+	}
 	public Long getId() {
 		return id;
 	}

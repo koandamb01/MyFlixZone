@@ -5,6 +5,7 @@ import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.paypal.ShippingAddress;
 import com.David.javaProject.models.shopping.Order;
 import com.David.javaProject.models.shopping.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -32,31 +33,45 @@ public class User {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
+
+	@JsonIgnore
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private PaymentInfo paymentInfo;
-	
+
+	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id")
     private Role role;
-    
+
+	@JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="subscription_id")
     private Subscription subscription;
-	
+
+	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Favorite> favorites;
 
+	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<ShippingAddress> shippingAddresses;
-    
+
+	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Order> orders;
-    
+
+	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Product> product;
 	
 	public User() {
+	}
+
+	public User(String fn, String ln, String email, String pw) {
+		this.firstName = fn;
+		this.lastName = ln;
+		this.email = email;
+		this.password = pw;
 	}
 	public Long getId() {
 		return id;

@@ -2,6 +2,7 @@ package com.David.javaProject.models.paypal;
 
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.shopping.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,12 +33,22 @@ public class ShippingAddress {
 	@JoinColumn(name="zipcode_id")
 	private Zipcode zipcode;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
     
 	public ShippingAddress() {
 	}
+
+	public ShippingAddress(String street, City city, State state, Zipcode zipcode, User user) {
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+		this.user = user;
+	}
+
 	public Long getId() {
 		return id;
 	}

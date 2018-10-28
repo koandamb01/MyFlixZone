@@ -33,6 +33,15 @@ public class PaymentInfo {
 	@JoinColumn(name="zipcode_id")
 	private Zipcode zipcode;
 
+	public PaymentInfo(String ccnumber, String street, User user, City city, State state, Zipcode zipcode) {
+		this.ccnumber = ccnumber;
+		this.street = street;
+		this.user = user;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+	}
+
 	public PaymentInfo() {
 	}
 	public Long getId() {

@@ -8,6 +8,8 @@ import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.UserRepo;
 import com.David.javaProject.models.paypal.City;
 import com.David.javaProject.models.paypal.CityRepo;
+import com.David.javaProject.models.paypal.ShippingAddressRepo;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +25,7 @@ import com.David.javaProject.models.general.User;
 
 import javax.validation.Valid;
 
+
 @RestController
 @RequestMapping("/user")
 //this lets Angular access this server
@@ -32,16 +35,39 @@ public class UserController {
 	private UserRepo userRepository;
 	@Autowired
 	private CityRepo cityRepository;
+	@Autowired
+	private ShippingAddressRepo shippingAddressRepo;
 
 	@PostMapping("/newUser")
 	public Response createUser(@RequestBody User user) {
-		User yoink = userRepository.save(user);
+		User thisuser = userRepository.save(user);
 		List <User> list = new ArrayList<>();
-		list.add(yoink);
-		Response res = new Response(true, "Meakjfelkaw", list);
+		list.add(thisuser);
+		Response res = new Response(true, "Successfully added user", list);
 
 		return res;
 	}
+
+	@GetMapping("/shipping/{id}")
+	public Response shipping(@PathVariable Long id){
+
+		Optional<User> u = userRepository.findById(id);
+
+		if(u.isPresent()) {
+			User user = u.get();
+//			List<User> list = new ArrayList<>();
+//			list.add(user);
+			Response res = new Response(true, "You did it?", user.getShippingAddresses());
+			return res;
+		} else {
+			Response res = new Response(false, "Could not find user by ID");
+
+			return res;
+		}
+
+
+	}
+
 
 //	@PostMapping("/newUser")
 //	public BindingResult createUser(@RequestBody User user) {
