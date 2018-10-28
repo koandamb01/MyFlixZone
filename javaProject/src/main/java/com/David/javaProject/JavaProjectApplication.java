@@ -1,18 +1,17 @@
 package com.David.javaProject;
 
+import com.David.javaProject.models.paypal.City;
+import com.David.javaProject.models.paypal.CityRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.David.javaProject.models.User;
-import com.David.javaProject.repositories.UserRepository;
-
 @SpringBootApplication
 //CommandLineRunner runs whenever server starts
 public class JavaProjectApplication implements CommandLineRunner{
 	@Autowired
-	private UserRepository userRepository;
+	private CityRepo cityRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JavaProjectApplication.class, args);
@@ -22,8 +21,10 @@ public class JavaProjectApplication implements CommandLineRunner{
 	//This runs whenever server starts
 	@Override
 	public void run(String... args) throws Exception {
-//		userRepository.save(new User("Bob","Bobbers"));
-//		userRepository.save(new User("Bamboozled","ByMichael"));
-//		userRepository.save(new User("French","Fries"));
+//		cityRepository.save(new City("Seattle"));
+//		cityRepository.save(new City("Chicago"));
+//		cityRepository.save(new City("Paris"));
+//		cityRepository.save(new City("London"));
+
 	}
 }

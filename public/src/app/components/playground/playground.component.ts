@@ -10,13 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PlaygroundComponent implements OnInit {
   private users: User[];
-
+  private cities: [];
   constructor(private _userService: UsersService) { }
 
   ngOnInit() {
-    this._userService.getUsers().subscribe((users) => {
-      console.log(users);
-      this.users = users;
+    this._userService.getCities().subscribe((cities) => {
+      console.log(cities);
+      this.cities = cities;
     }, (error) => {
       console.log(error);
     })

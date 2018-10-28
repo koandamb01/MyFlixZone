@@ -7,6 +7,8 @@ import com.David.javaProject.models.shopping.Order;
 import com.David.javaProject.models.shopping.Product;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -16,9 +18,14 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Size(min=1, message="First name can not be empty")
 	private String firstName;
+	@Size(min=1, message="Last name can not be empty")
 	private String lastName;
+	@Size(min=1, message="Please enter a valid Email")
+	@Email(message="Email must be valid")
 	private String email;
+	@Size(min=4, message="Password must be greater than 3 characters")
 	private String password;
     @Transient
     private String passwordConfirmation;

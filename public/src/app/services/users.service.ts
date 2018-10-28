@@ -9,7 +9,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UsersService {
-  private baseUrl: string = 'http://localhost:8080/api';
+  private baseUrl: string = 'http://localhost:8080/user';
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
   private user = new User();
@@ -24,6 +24,16 @@ export class UsersService {
       catchError(this.errorHandler)
       )
   }
+
+  getCities() {
+    return this._http.get(this.baseUrl + '/cities', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
   getUser(id: Number) {
     return this._http.get(this.baseUrl + '/users', this.options)
       .pipe
