@@ -1,5 +1,27 @@
 package com.David.javaProject.models.general;
 
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import com.David.javaProject.models.music.Favorite;
 import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.paypal.ShippingAddress;
@@ -7,33 +29,46 @@ import com.David.javaProject.models.shopping.Order;
 import com.David.javaProject.models.shopping.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
-
 @Entity
 @Table(name="users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Size(min=1, message="First name can not be empty")
+	
+	
+	@NotBlank(message="First Name is required.")
+	@Size(min=2, message="Must be at least 2 characters.")
 	private String firstName;
-	@Size(min=1, message="Last name can not be empty")
+	
+	@NotBlank(message="First Name is required.")
+	@Size(min=2, message="Must be at least 2 characters.")
 	private String lastName;
-	@Size(min=1, message="Please enter a valid Email")
-	@Email(message="Email must be valid")
+	
+	@NotBlank(message="Email is required.")
+	@Email(message="Email is Invalid.")
 	private String email;
-	@Size(min=4, message="Password must be greater than 3 characters")
+	
+	@NotBlank(message="Password is required.")
+	@Size(min=6, message="Must be at least 6 characters.")
 	private String password;
-    @Transient
+    
+	@Transient
     private String passwordConfirmation;
+	
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-
+	
+	@PrePersist
+	public void onCreate() {
+		this.createdAt = new Date();
+	}
+	@PreUpdate
+	public void onUpdate() {
+		this.updatedAt = new Date();
+	}
+	
 	@JsonIgnore
     @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private PaymentInfo paymentInfo;
@@ -64,33 +99,27 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Product> product;
 	
-	public User() {
-	}
+	public User() {}
 
-	public User(String fn, String ln, String email, String pw) {
-		this.firstName = fn;
-		this.lastName = ln;
-		this.email = email;
-		this.password = pw;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
+	public User(String firstName, String lastName, String email, String password) {
 		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
 		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
 	}
+	
+	public Long getId() { return id; }
+	
+	public void setId(Long id) { this.id = id; }
+	
+	public String getFirstName() { return firstName; }
+	
+	public void setFirstName(String firstName) { this.firstName = firstName; }
+	
+	public String getLastName() { return lastName; }
+	
+	public void setLastName(String lastName) { this.lastName = lastName; }
+	
 	public String getEmail() {
 		return email;
 	}
@@ -156,13 +185,5 @@ public class User {
 	}
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
-	}
-	@PrePersist
-	public void onCreate() {
-		this.createdAt = new Date();
-	}
-	@PreUpdate
-	public void onUpdate() {
-		this.updatedAt = new Date();
 	}
 }

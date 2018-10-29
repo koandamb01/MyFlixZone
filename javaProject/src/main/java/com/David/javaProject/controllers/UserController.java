@@ -1,16 +1,12 @@
 package com.David.javaProject.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.David.javaProject.models.Response;
-import com.David.javaProject.models.general.UserRepo;
-import com.David.javaProject.models.paypal.City;
-import com.David.javaProject.models.paypal.CityRepo;
-import com.David.javaProject.models.paypal.ShippingAddressRepo;
-import org.hibernate.annotations.Parameter;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
-
-import javax.validation.Valid;
+import com.David.javaProject.models.general.UserRepo;
+import com.David.javaProject.models.paypal.CityRepo;
+import com.David.javaProject.models.paypal.ShippingAddressRepo;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 //this lets Angular access this server
 @CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class UserController {
@@ -37,56 +35,31 @@ public class UserController {
 	private CityRepo cityRepository;
 	@Autowired
 	private ShippingAddressRepo shippingAddressRepo;
+	
+	// Register a new user
+	@PostMapping("/new")
+	public Response createUser(@Valid @RequestBody User user, Errors errors) {
+		Response response = new Response();
 
-	@PostMapping("/newUser")
-	public Response createUser(@RequestBody User user) {
-		User thisuser = userRepository.save(user);
-		List <User> list = new ArrayList<>();
-		list.add(thisuser);
-		Response res = new Response(true, "Successfully added user", list);
-
-		return res;
-	}
-
-	@GetMapping("/shipping/{id}")
-	public Response shipping(@PathVariable Long id){
-
-		Optional<User> u = userRepository.findById(id);
-
-		if(u.isPresent()) {
-			User user = u.get();
-//			List<User> list = new ArrayList<>();
-//			list.add(user);
-			Response res = new Response(true, "You did it?", user.getShippingAddresses());
-			return res;
-		} else {
-			Response res = new Response(false, "Could not find user by ID");
-
-			return res;
+		if (errors.hasErrors()) {
+			response.setStatus(false);
+			response.setMessage("Validation errors");
+			response.setData(errors.getAllErrors());
+			return response;
 		}
-
-
+		
+		return response;
 	}
 
-
-//	@PostMapping("/newUser")
-//	public BindingResult createUser(@RequestBody User user) {
-//		userRepository.save(user);
-//		return result;
-//	}
-
-
-	@GetMapping("/users")
+	
+	// get all the users
+	@GetMapping("")
 	public List<User> getUsers(){
 		return userRepository.findAll();
 	}
-
-	@GetMapping("/cities")
-	public List<City> getCities(){
-		return cityRepository.findAll();
-	}
 	
-	@GetMapping("/users/{id}")
+	// get a user by Id
+	@GetMapping("{id}")
 	public User getUser(@PathVariable Long id){
 		Optional<User> u = userRepository.findById(id);
 
@@ -112,4 +85,37 @@ public class UserController {
 	public User creUser(@RequestBody User user) {
 		return userRepository.save(user);
 	}
+	
+//	@GetMapping("/cities")
+//	public List<City> getCities(){
+//		return cityRepository.findAll();
+//	}
+	
+//	@GetMapping("/shipping/{id}")
+//	public Response shipping(@PathVariable Long id){
+//
+//		Optional<User> u = userRepository.findById(id);
+//
+//		if(u.isPresent()) {
+//			User user = u.get();
+////			List<User> list = new ArrayList<>();
+////			list.add(user);
+//			Response res = new Response(true, "You did it?", user.getShippingAddresses());
+//			return res;
+//		} else {
+//			Response res = new Response(false, "Could not find user by ID");
+//
+//			return res;
+//		}
+//
+//
+//	}
+
+
+//	@PostMapping("/newUser")
+//	public BindingResult createUser(@RequestBody User user) {
+//		userRepository.save(user);
+//		return result;
+//	}
+
 }
