@@ -9,7 +9,7 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UsersService {
-  private baseUrl: string = 'http://localhost:8080/user';
+  private baseUrl: string = 'http://localhost:8080';
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
   private user = new User();
@@ -51,8 +51,8 @@ export class UsersService {
       )
   }
 
-  createUser(user: User) {
-    return this._http.post(this.baseUrl + '/user', JSON.stringify(user), this.options)
+  createUser(newUser: User) {
+    return this._http.post(this.baseUrl + '/users/new', JSON.stringify(newUser), this.options)
       .pipe
       (
       map((response: Response) => response.json()),
@@ -60,14 +60,14 @@ export class UsersService {
       )
   }
 
-  updateUser(user: User) {
-    return this._http.put(this.baseUrl + '/user', JSON.stringify(user), this.options)
-      .pipe
-      (
-      map((response: Response) => response.json()),
-      catchError(this.errorHandler)
-      )
-  }
+  // updateUser(user: User) {
+  //   return this._http.put(this.baseUrl + '/user', JSON.stringify(user), this.options)
+  //     .pipe
+  //     (
+  //     map((response: Response) => response.json()),
+  //     catchError(this.errorHandler)
+  //     )
+  // }
 
   errorHandler(error: Response) {
     return Observable.throw(error || "Server Error Service Side")
