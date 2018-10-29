@@ -24,7 +24,7 @@ public class Response {
     }
 
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -37,7 +37,7 @@ public class Response {
     }
 
     public void setMessage(String message) {
-        message = message;
+        this.message = message;
     }
 
     public List<?> getData() {

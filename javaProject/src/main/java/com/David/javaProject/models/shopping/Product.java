@@ -42,6 +42,16 @@ public class Product {
 
 	public Product() {
 	}
+
+	public Product(String name, Float price, int stock, String description, User user, List<Category> categories) {
+		this.name = name;
+		this.price = price;
+		this.stock = stock;
+		this.description = description;
+		this.user = user;
+		this.categories = categories;
+	}
+
 	public Long getId() {
 		return id;
 	}

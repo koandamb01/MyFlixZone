@@ -1,7 +1,8 @@
 package com.David.javaProject.models.shopping;
 
 import com.David.javaProject.models.general.User;
-import com.David.javaProject.models.paypal.ShippingAddress;
+import com.David.javaProject.models.paypal.Address;
+import com.David.javaProject.models.paypal.PaymentInfo;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,10 +26,14 @@ public class Order {
 	
     @OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="shipping_address_id")
-    private ShippingAddress shippingAddress;
+    private Address address;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="payment_info_id")
+	private PaymentInfo paymentInfo;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="subscription_id")
+    @JoinColumn(name="user_id")
     private User user;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -95,11 +100,11 @@ public class Order {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public ShippingAddress getShippingAddress() {
-		return shippingAddress;
+	public Address getAddress() {
+		return address;
 	}
-	public void setShippingAddress(ShippingAddress shippingAddress) {
-		this.shippingAddress = shippingAddress;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	public User getUser() {
 		return user;
@@ -120,5 +125,13 @@ public class Order {
 	@PreUpdate
 	public void onUpdate() {
 		this.updatedAt = new Date();
+	}
+
+	public PaymentInfo getPaymentInfo() {
+		return paymentInfo;
+	}
+
+	public void setPaymentInfo(PaymentInfo paymentInfo) {
+		this.paymentInfo = paymentInfo;
 	}
 }

@@ -47,6 +47,7 @@ import { ShoppingHomeComponent } from './components/shopping-components/shopping
 // authentification
 import { RegisterComponent } from './components/authentification/register/register.component';
 import { LoginComponent } from './components/authentification/login/login.component';
+import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
 
 
 
@@ -80,7 +81,8 @@ import { LoginComponent } from './components/authentification/login/login.compon
     MusicsComponent,
     ShoppingHomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AuthHomeComponent
 
   ],
   imports: [

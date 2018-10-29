@@ -23,15 +23,20 @@ import { MusicsComponent } from './components/music-components/musics/musics.com
 import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
 
 // authentification
-import { RegisterComponent } from './components/authentification/register/register.component';
+import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
 import { LoginComponent } from './components/authentification/login/login.component';
+import { RegisterComponent } from './components/authentification/register/register.component';
 
 
 export const appRoutes: Routes = [
   { path: '', pathMatch: 'full', component: PlaygroundComponent },
 
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'auth', component: AuthHomeComponent, children: [
+      { path: 'signin', component: LoginComponent },
+      { path: 'signup', component: RegisterComponent },
+    ]
+  },
   {
     path: 'movies', component: MoviesComponent, children: [
       { path: '', pathMatch: 'full', component: HomeComponent },

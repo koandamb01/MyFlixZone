@@ -1,0 +1,13 @@
+.container{
+    width: 350px;
+    margin-top: 5vh;
+}
+
+.form-group span{
+    font-size: 0.7rem;
+}
+
+.form-group label{
+    font-size: 0.9rem;
+    font-weight: bold;
+}
