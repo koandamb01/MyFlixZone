@@ -2,8 +2,10 @@ package com.David.javaProject.models.paypal;
 
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.shopping.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,14 +21,17 @@ public class PaymentInfo {
 	private Date createdAt;
 	private Date updatedAt;
 
+	@JsonIgnore
 	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
 	private User user;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="order_id")
-	private List<Order> order;
+	private List<Order> order =new ArrayList<>();
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="billing_address_id")
 	private Address address;

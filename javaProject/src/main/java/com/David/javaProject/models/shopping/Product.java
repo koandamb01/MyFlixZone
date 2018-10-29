@@ -1,8 +1,10 @@
 package com.David.javaProject.models.shopping;
 
 import com.David.javaProject.models.general.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,43 +15,45 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Float price;
+	private double price;
 	private int stock;
 	private String description;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="seller_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "products_categories", 
         joinColumns = @JoinColumn(name = "product_id"), 
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories;
+    private List<Category> categories = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "orders_products", 
         joinColumns = @JoinColumn(name = "product_id"), 
         inverseJoinColumns = @JoinColumn(name = "order_id")
     )
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
 	public Product() {
 	}
 
-	public Product(String name, Float price, int stock, String description, User user, List<Category> categories) {
+	public Product(String name, double price, int stock, String description, User user) {
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
 		this.description = description;
 		this.user = user;
-		this.categories = categories;
 	}
 
 	public Long getId() {
@@ -64,10 +68,10 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Float getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(Float price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 	public int getStock() {

@@ -1,6 +1,7 @@
 package com.David.javaProject.models.music;
 
 import com.David.javaProject.models.general.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,8 +15,9 @@ public class Favorite {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 

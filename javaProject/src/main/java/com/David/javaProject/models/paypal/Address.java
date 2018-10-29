@@ -5,6 +5,7 @@ import com.David.javaProject.models.shopping.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,13 +19,15 @@ public class Address {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
-    @OneToOne(mappedBy="address", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+
+	@JsonIgnore
+	@OneToOne(mappedBy="address", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
     private Order order;
 
+	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="address_id")
-	private List<PaymentInfo> paymentInfos;
+	private List<PaymentInfo> paymentInfos = new ArrayList<>();
 
 	private String city;
 	private String state;

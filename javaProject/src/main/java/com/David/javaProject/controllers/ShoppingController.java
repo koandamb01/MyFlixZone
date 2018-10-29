@@ -3,6 +3,7 @@ package com.David.javaProject.controllers;
 
 import com.David.javaProject.models.general.UserRepo;
 import com.David.javaProject.models.shopping.CategoryRepo;
+import com.David.javaProject.models.shopping.OrderProductRepo;
 import com.David.javaProject.models.shopping.OrderRepo;
 import com.David.javaProject.models.shopping.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,8 @@ public class ShoppingController {
 	private OrderRepo orderRepo;
 	@Autowired
 	private ProductRepo productRepo;
+	@Autowired
+	private OrderProductRepo orderProductRepo;
+
+
 }

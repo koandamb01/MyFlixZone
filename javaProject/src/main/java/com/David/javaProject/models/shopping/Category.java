@@ -1,6 +1,9 @@
 package com.David.javaProject.models.shopping;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,13 +18,14 @@ public class Category {
 	private Date createdAt;
 	private Date updatedAt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "products_categories", 
         joinColumns = @JoinColumn(name = "category_id"), 
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
 	public Category() {
 	}

@@ -1,10 +1,15 @@
 package com.David.javaProject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.David.javaProject.models.shopping.Order;
+import com.David.javaProject.models.shopping.OrderProduct;
+import com.David.javaProject.models.shopping.OrderProductRepo;
+import com.David.javaProject.models.shopping.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,8 +37,40 @@ public class UserController {
 	private UserRepo userRepository;
 	@Autowired
 	private AddressRepo addressRepo;
-	
+	@Autowired
+	private OrderRepo orderRepo;
+	@Autowired
+	private OrderProductRepo orderProductRepo;
 	// Register a new user
+
+	@GetMapping("/checking")
+	public Response checking() {
+		long is = 1;
+		Optional<Order> option = orderRepo.findById(is);
+		Order order = option.get();
+
+
+		double total1 = 0;
+		List<OrderProduct> list1 = orderProductRepo.findByOrder_Id(is);
+		for (OrderProduct item : list1){
+			double price = item.getProduct().getPrice();
+			int quantity = item.getQuantity();
+			total1 += price * quantity;
+		}
+		order.setTotal(total1); orderRepo.save(order);
+
+		Optional<Order> option1 = orderRepo.findById(is);
+		Order order1 = option1.get();
+		List list = new ArrayList();
+		list.add(order1);
+
+		Response response = new Response();
+		response.setStatus(true);
+		response.setMessage("Testing");
+		response.setData(list);
+		return response;
+	}
+
 	@PostMapping("/new")
 	public Response createUser(@Valid @RequestBody User user, Errors errors) {
 		Response response = new Response();

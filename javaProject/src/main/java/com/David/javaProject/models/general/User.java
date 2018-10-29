@@ -1,5 +1,6 @@
 package com.David.javaProject.models.general;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -52,8 +53,7 @@ public class User {
 	@Size(min=6, message="Must be at least 6 characters.")
 	private String password;
 
-	@Value("user")
-	private String role;
+	private String role = "user";
 
 	@Transient
     private String passwordConfirmation;
@@ -77,19 +77,19 @@ public class User {
 
 	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-    private List<Favorite> favorites;
+    private List<Favorite> favorites = new ArrayList<>();;
 
 	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-    private List<Address> shippingAddresses;
+    private List<Address> shippingAddresses = new ArrayList<>();;
 
 	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();;
 
 	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
-    private List<Product> product;
+    private List<Product> product = new ArrayList<>();;
 	
 	public User() {}
 

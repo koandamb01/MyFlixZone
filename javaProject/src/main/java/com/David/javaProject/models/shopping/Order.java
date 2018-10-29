@@ -3,8 +3,10 @@ package com.David.javaProject.models.shopping;
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.paypal.Address;
 import com.David.javaProject.models.paypal.PaymentInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,37 +17,58 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String status;
-	private Float total;
+	private double total;
 	private Date datePaid;
 	private Date expectedDate;
 	private String carrier;
 	private int tracking_id;
 	@Column(updatable=false)
-	private Date orderDate;
+	private Date createdAt;
 	private Date updatedAt;
-	
-    @OneToOne(fetch=FetchType.LAZY)
+
+	@PrePersist
+	public void onCreate() {
+		this.createdAt = new Date();
+	}
+	@PreUpdate
+	public void onUpdate() {
+		this.updatedAt = new Date();
+	}
+
+	@JsonIgnore
+	@OneToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="shipping_address_id")
     private Address address;
 
+	@JsonIgnore
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="payment_info_id")
 	private PaymentInfo paymentInfo;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "orders_products", 
         joinColumns = @JoinColumn(name = "order_id"), 
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Product> products;
+    private List<Product> products =new ArrayList<>();
 
 	public Order() {
 	}
+
+	public Order(String status, Address address, PaymentInfo paymentInfo, User user) {
+		this.status = status;
+		this.address = address;
+		this.paymentInfo = paymentInfo;
+		this.user = user;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -58,10 +81,10 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Float getTotal() {
+	public double getTotal() {
 		return total;
 	}
-	public void setTotal(Float total) {
+	public void setTotal(double total) {
 		this.total = total;
 	}
 	public Date getDatePaid() {
@@ -88,11 +111,11 @@ public class Order {
 	public void setTracking_id(int tracking_id) {
 		this.tracking_id = tracking_id;
 	}
-	public Date getOrderDate() {
-		return orderDate;
+	public Date getCreatedAt() {
+		return createdAt;
 	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 	public Date getUpdatedAt() {
 		return updatedAt;
@@ -118,14 +141,6 @@ public class Order {
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
-	@PrePersist
-	public void onCreate() {
-		this.orderDate = new Date();
-	}
-	@PreUpdate
-	public void onUpdate() {
-		this.updatedAt = new Date();
-	}
 
 	public PaymentInfo getPaymentInfo() {
 		return paymentInfo;
@@ -134,4 +149,7 @@ public class Order {
 	public void setPaymentInfo(PaymentInfo paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
+
+
+
 }

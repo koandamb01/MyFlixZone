@@ -1,5 +1,7 @@
 package com.David.javaProject.models.shopping;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,17 +15,27 @@ public class OrderProduct {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
     private Order order;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="product_id")
     private Product product;
     
 	public OrderProduct() {
+
 	}
+
+	public OrderProduct(Order order, Product product, int quantity) {
+		this.order = order;
+		this.product = product;
+		this.quantity = quantity;
+	}
+
 	public Long getId() {
 		return id;
 	}
