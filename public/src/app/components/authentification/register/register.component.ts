@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { UsersService } from '../../../services/users.service';
 
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
   newUser = new User();
 
   constructor(
-    private _userService: UsersService) { }
+    private _userService: UsersService,
+    private _router: Router) { }
 
   ngOnInit() {
     // initiall variables
@@ -26,7 +28,11 @@ export class RegisterComponent implements OnInit {
     this._userService.createUser(this.newUser).subscribe(res => {
       if (res['status'] == false) {
         this.formatErrorMessage(res['data']);
-        console.log("errors: ", this.messages);
+      }
+      else if (res['status'] == true) {
+        this.messages.success = res['message'];
+        localStorage.setItem('access_token', res['data'][0]['id']);
+        setTimeout(() => { this.goShopping(); }, 2000)
       }
     });
   }
@@ -36,6 +42,10 @@ export class RegisterComponent implements OnInit {
     errors.forEach(data => {
       this.messages[data.field] = data.defaultMessage;
     });
+  }
+
+  goShopping() {
+    this._router.navigate(['/shopping']);
   }
 
 }

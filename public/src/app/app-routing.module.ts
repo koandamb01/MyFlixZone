@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 // Root component
 import { AppComponent } from './app.component';
@@ -45,7 +46,7 @@ export const appRoutes: Routes = [
   },
 
   {
-    path: 'music', component: MusicsComponent, children: [
+    path: 'music', component: MusicsComponent, canActivate: [AuthGuard], children: [
       { path: '', pathMatch: 'full', component: DiscoverComponent },
       { path: 'search', component: SearchComponent },
       { path: 'likes', component: LikesComponent },

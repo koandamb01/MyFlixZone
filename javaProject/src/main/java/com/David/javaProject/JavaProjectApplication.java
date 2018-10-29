@@ -1,18 +1,18 @@
 package com.David.javaProject;
 
-import com.David.javaProject.models.general.User;
-import com.David.javaProject.models.general.*;
-import com.David.javaProject.models.music.FavoriteRepo;
-import com.David.javaProject.models.paypal.*;
-import com.David.javaProject.models.shopping.*;
-import com.David.javaProject.models.shopping.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.List;
-import java.util.Optional;
+import com.David.javaProject.models.general.User;
+import com.David.javaProject.models.music.FavoriteRepo;
+import com.David.javaProject.models.paypal.AddressRepo;
+import com.David.javaProject.models.paypal.PaymentInfoRepo;
+import com.David.javaProject.models.shopping.CategoryRepo;
+import com.David.javaProject.models.shopping.OrderRepo;
+import com.David.javaProject.models.shopping.ProductRepo;
+import com.David.javaProject.repositories.UserRepository;
 
 @SpringBootApplication
 //CommandLineRunner runs whenever server starts
@@ -21,7 +21,7 @@ public class JavaProjectApplication implements CommandLineRunner{
 	@Autowired
 	private CategoryRepo categoryRepository;
 	@Autowired
-	private UserRepo userRepo;
+	private UserRepository userRepo;
 	@Autowired
 	private AddressRepo shippingRepo;
 	@Autowired

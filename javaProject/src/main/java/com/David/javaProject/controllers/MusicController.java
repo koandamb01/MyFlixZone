@@ -1,11 +1,12 @@
 package com.David.javaProject.controllers;
 
-import com.David.javaProject.models.general.UserRepo;
-import com.David.javaProject.models.music.FavoriteRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.David.javaProject.models.music.FavoriteRepo;
+import com.David.javaProject.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/music")
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class MusicController {
     @Autowired
-	private UserRepo userRepo;
+	private UserRepository userRepo;
     @Autowired
 	private FavoriteRepo faveriteRepo;
 

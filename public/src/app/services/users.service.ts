@@ -16,6 +16,12 @@ export class UsersService {
 
   constructor(private _http: Http) { }
 
+  // check if user is Authenticated
+  isAuthenticated() {
+    let token = localStorage.getItem('access_token');
+    if (token) { return true; } else { return false; }
+  }
+
   getUsers() {
     return this._http.get(this.baseUrl + '/users', this.options)
       .pipe
@@ -59,6 +65,8 @@ export class UsersService {
       catchError(this.errorHandler)
       )
   }
+
+
 
   // updateUser(user: User) {
   //   return this._http.put(this.baseUrl + '/user', JSON.stringify(user), this.options)

@@ -53,6 +53,7 @@ public class User {
 	@Size(min=6, message="Must be at least 6 characters.")
 	private String password;
 
+	
 	private String role = "user";
 
 	@Transient
