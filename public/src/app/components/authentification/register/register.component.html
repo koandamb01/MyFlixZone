@@ -1,3 +1,40 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <h3 class="text-center font-weight-bold"><span class="text-danger">FLIX</span>ZONE</h3>
+  <form class="form-signin border shadow-lg rounded p-3">
+    <h1 class="h3 mb-3 font-weight-normal">Create Account</h1>
+
+    <div class="form-group">
+      <label>First Name</label>
+      <input type="text" class="form-control form-control-sm" required autofocus>
+      <!-- <span class="text-danger">*Required</span> -->
+    </div>
+
+    <div class="form-group">
+      <label>Last Name</label>
+      <input type="text" class="form-control form-control-sm" required autofocus>
+      <!-- <span class="text-danger">*Required</span> -->
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" class="form-control form-control-sm" required autofocus>
+      <!-- <span class="text-danger">*Required</span> -->
+    </div>
+
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control form-control-sm" placeholder="Password" required>
+      <small class="form-text text-muted">Passwords must be at least 6 characters.</small>
+      <!-- <span class="text-danger">*Required</span> -->
+    </div>
+    <div class="form-group">
+      <label>Re-enter password</label>
+      <input type="password" class="form-control form-control-sm" placeholder="Password" required>
+      <!-- <span class="text-danger">*Required</span> -->
+    </div>
+
+    <button class="btn btn-sm btn-danger btn-block" type="submit">Sign Up</button>
+    <hr>
+    <a class="btn btn-sm btn-dark btn-block" routerLink="/auth/signin">Sign In</a>
+  </form>
+</div>
