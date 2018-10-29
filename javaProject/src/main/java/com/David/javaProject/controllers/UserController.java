@@ -1,7 +1,7 @@
 package com.David.javaProject.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
-import com.David.javaProject.models.general.UserRepo;
-import com.David.javaProject.models.paypal.AddressRepo;
+import com.David.javaProject.services.UserService;
 
 
 @RestController
@@ -29,9 +28,7 @@ import com.David.javaProject.models.paypal.AddressRepo;
 @CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
 public class UserController {
 	@Autowired
-	private UserRepo userRepository;
-	@Autowired
-	private AddressRepo addressRepo;
+	private UserService userService;
 	
 	// Register a new user
 	@PostMapping("/new")
@@ -44,44 +41,55 @@ public class UserController {
 			response.setData(errors.getAllErrors());
 			return response;
 		}
-		
-		return response;
+		else {
+			User newUser = this.userService.registerUser(user);
+			List<User> list = new ArrayList<>();
+			list.add(newUser);
+			
+			response.setStatus(true);
+			response.setMessage("You have successfully Register!");
+			response.setData(list);
+			return response;
+		}
 	}
 
 	
 	// get all the users
 	@GetMapping("")
-	public List<User> getUsers(){
-		return userRepository.findAll();
+	public Response getUsers(){
+		Response res = new Response(true, "Request Completed");
+		List<User> users = this.userService.findAllUsers();
+		res.setData(users);
+		return res;
 	}
 	
 	// get a user by Id
 	@GetMapping("{id}")
-	public User getUser(@PathVariable Long id){
-		Optional<User> u = userRepository.findById(id);
-
-        if(u.isPresent()) {
-            return u.get();
-        } else {
-            return null;
-        }
+	public Response getUser(@PathVariable Long id){
+		Response res = new Response(true, "Request Completed");
+		
+		List<User> list = new ArrayList<>();
+		list.add(this.userService.findUserById(id));
+		res.setData(list);
+		
+		return res;
 	}
 	
-	@DeleteMapping("/user/{id}")
-	public boolean deleUser(@PathVariable Long id) {
-		userRepository.deleteById(id);
-		return true;
-	}
+//	@DeleteMapping("/user/{id}")
+//	public boolean deleUser(@PathVariable Long id) {
+//		userRepository.deleteById(id);
+//		return true;
+//	}
 	
-	@PutMapping("/user")
-	public User updUser(@RequestBody User user) {
-		return userRepository.save(user);
-	}
+//	@PutMapping("/user")
+//	public User updUser(@RequestBody User user) {
+//		return userRepository.save(user);
+//	}
 	
-	@PostMapping("/user")
-	public User creUser(@RequestBody User user) {
-		return userRepository.save(user);
-	}
+//	@PostMapping("/user")
+//	public User creUser(@RequestBody User user) {
+//		return userRepository.save(user);
+//	}
 	
 //	@GetMapping("/cities")
 //	public List<City> getCities(){
