@@ -2,6 +2,7 @@ package com.David.javaProject.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -35,34 +36,6 @@ public class UserController {
 	private UserService userService;
 	
 	// Register a new user
-
-	@GetMapping("/checking")
-	public Response checking() {
-		long is = 1;
-		Optional<Order> option = orderRepo.findById(is);
-		Order order = option.get();
-
-
-		double total1 = 0;
-		List<OrderProduct> list1 = orderProductRepo.findByOrder_Id(is);
-		for (OrderProduct item : list1){
-			double price = item.getProduct().getPrice();
-			int quantity = item.getQuantity();
-			total1 += price * quantity;
-		}
-		order.setTotal(total1); orderRepo.save(order);
-
-		Optional<Order> option1 = orderRepo.findById(is);
-		Order order1 = option1.get();
-		List list = new ArrayList();
-		list.add(order1);
-
-		Response response = new Response();
-		response.setStatus(true);
-		response.setMessage("Testing");
-		response.setData(list);
-		return response;
-	}
 
 	@PostMapping("/new")
 	public Response createUser(@Valid @RequestBody User user, Errors errors) {
