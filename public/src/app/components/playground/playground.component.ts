@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PlaygroundComponent implements OnInit {
   private users: User[];
-  private cities: [];
+  cities= [];
   constructor(private _userService: UsersService) { }
 
   ngOnInit() {
