@@ -2,7 +2,6 @@ package com.David.javaProject.controllers;
 
 
 import com.David.javaProject.models.Response;
-import com.David.javaProject.models.general.UserRepo;
 import com.David.javaProject.models.shopping.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
