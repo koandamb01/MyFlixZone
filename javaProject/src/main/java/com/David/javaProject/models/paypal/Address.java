@@ -19,6 +19,7 @@ public class Address {
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
+	private boolean defaultShippingAddress = true;
 
 	@JsonIgnore
 	@OneToOne(mappedBy="address", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
@@ -40,6 +41,15 @@ public class Address {
 	private User user;
     
 	public Address() {
+	}
+
+	public Address(String street, String city, String state, String zipcode, User user, boolean defaultShippingAddress) {
+		this.street = street;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+		this.user = user;
+		this.defaultShippingAddress = defaultShippingAddress;
 	}
 
 	public Address(String street, String city, String state, String zipcode, User user) {
@@ -136,5 +146,13 @@ public class Address {
 
 	public void setPaymentInfos(List<PaymentInfo> paymentInfos) {
 		this.paymentInfos = paymentInfos;
+	}
+
+	public boolean isDefaultShippingAddress() {
+		return defaultShippingAddress;
+	}
+
+	public void setDefaultShippingAddress(boolean defaultShippingAddress) {
+		this.defaultShippingAddress = defaultShippingAddress;
 	}
 }
