@@ -2346,7 +2346,7 @@
   <commands xmi:id="_MJ6NO9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.jsdt.ui.JavaPerspective" commandName="JavaScript" description="Show the JavaScript perspective" category="_MJtZBdoxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MJ6NPNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.edit.text.showRulerAnnotationInformation" commandName="Show Ruler Annotation Tooltip" description="Displays annotation information for the caret line in a focused hover" category="_MJsx09oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MJ6NPdoxEeikOeWM3ZrCjQ" elementId="org.eclipse.jst.jsp.ui.add.imports" commandName="Add Im&amp;port" description="Create import declaration for selection" category="_MJsx0NoxEeikOeWM3ZrCjQ"/>
-  <commands xmi:id="_MJ6NPtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.modify.method.parameters" commandName="Change Function Signature" description="Change function signature includes parameter names and parameter order" category="_MJtY7toxEeikOeWM3ZrCjQ"/>
+  <commands xmi:id="_MJ6NPtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.modify.method.parameters" commandName="Change Function Signature" description="Change function signature includes parameter names and parameter orders" category="_MJtY7toxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MJ6NP9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.browser.openBrowser" commandName="Open Browser" description="Opens the default web browser." category="_MJtY4toxEeikOeWM3ZrCjQ">
     <parameters xmi:id="_MJ6NQNoxEeikOeWM3ZrCjQ" elementId="url" name="URL"/>
     <parameters xmi:id="_MJ6NQdoxEeikOeWM3ZrCjQ" elementId="browserId" name="Browser Id"/>
@@ -2460,7 +2460,7 @@
   </commands>
   <commands xmi:id="_MKElU9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.mylyn.tasks.ui.command.new.local.task" commandName="New Local Task" category="_MJsx19oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKElVNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.edit.text.select.lineDown" commandName="Select Line Down" description="Extend the selection to the next line of text" category="_MJsx09oxEeikOeWM3ZrCjQ"/>
-  <commands xmi:id="_MKElVdoxEeikOeWM3ZrCjQ" elementId="org.eclipse.jdt.ui.edit.text.java.sort.members" commandName="Sort Members" description="Sort all members using the member order preference" category="_MJtZCNoxEeikOeWM3ZrCjQ"/>
+  <commands xmi:id="_MKElVdoxEeikOeWM3ZrCjQ" elementId="org.eclipse.jdt.ui.edit.text.java.sort.members" commandName="Sort Members" description="Sort all members using the member orders preference" category="_MJtZCNoxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKElVtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.edit.text.lowerCase" commandName="To Lower Case" description="Changes the selection to lower case" category="_MJsx09oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKElV9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.egit.ui.team.CompareWithIndex" commandName="Compare with Index" category="_MJtZBNoxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKElWNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.m2e.discovery.ui" commandName="m2e Marketplace" category="_MJtY7doxEeikOeWM3ZrCjQ"/>
@@ -2819,7 +2819,7 @@
   <commands xmi:id="_MKMhONoxEeikOeWM3ZrCjQ" elementId="org.eclipse.mylyn.tasks.ui.command.markTaskUnread" commandName="Mark Task Unread" category="_MJsx19oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKMhOdoxEeikOeWM3ZrCjQ" elementId="org.eclipse.search.ui.performTextSearchFile" commandName="Find Text in File" description="Searches the files in the file for specific text." category="_MJtZA9oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKMhOtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.sse.ui.structure.select.last" commandName="Restore Last Selection" description="Restore last selection" category="_MJsx0NoxEeikOeWM3ZrCjQ"/>
-  <commands xmi:id="_MKMhO9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.sort.members" commandName="Sort Members" description="Sort all members using the member order preference" category="_MJsx1toxEeikOeWM3ZrCjQ"/>
+  <commands xmi:id="_MKMhO9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.wst.jsdt.ui.edit.text.java.sort.members" commandName="Sort Members" description="Sort all members using the member orders preference" category="_MJsx1toxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKMhPNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.edit.text.cut.line" commandName="Cut Line" description="Cut a line of text, or multiple lines when invoked again without interruption" category="_MJsx09oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKMhPdoxEeikOeWM3ZrCjQ" elementId="org.eclipse.tm.terminal.view.ui.command.launch" commandName="Open Terminal on Selection" category="_MJtY-toxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKMhPtoxEeikOeWM3ZrCjQ" elementId="org.springsource.ide.eclipse.commons.ui.stop" commandName="Stop Application" description="Stop last launched application" category="_MJtZAdoxEeikOeWM3ZrCjQ"/>
@@ -2895,7 +2895,7 @@
   <commands xmi:id="_MKNIYtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.window.activateEditor" commandName="Activate Editor" description="Activate the editor" category="_MJtY4toxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKNvMNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.m2e.core.ui.command.addPlugin" commandName="Add Maven Plugin" description="Add Maven Plugin" category="_MJsx0NoxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKNvMdoxEeikOeWM3ZrCjQ" elementId="sed.tabletree.expandAll" commandName="Expand All" category="_MJtY7doxEeikOeWM3ZrCjQ"/>
-  <commands xmi:id="_MKNvMtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.jdt.ui.edit.text.java.modify.method.parameters" commandName="Change Method Signature" description="Change method signature includes parameter names and parameter order" category="_MJtY_doxEeikOeWM3ZrCjQ"/>
+  <commands xmi:id="_MKNvMtoxEeikOeWM3ZrCjQ" elementId="org.eclipse.jdt.ui.edit.text.java.modify.method.parameters" commandName="Change Method Signature" description="Change method signature includes parameter names and parameter orders" category="_MJtY_doxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKNvM9oxEeikOeWM3ZrCjQ" elementId="org.eclipse.ui.edit.text.delete.line.to.end" commandName="Delete to End of Line" description="Delete to the end of a line of text" category="_MJsx09oxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKNvNNoxEeikOeWM3ZrCjQ" elementId="org.eclipse.egit.ui.commit.CreateBranch" commandName="Create Branch..." category="_MJtY7doxEeikOeWM3ZrCjQ"/>
   <commands xmi:id="_MKNvNdoxEeikOeWM3ZrCjQ" elementId="org.springframework.ide.eclipse.beans.ui.inplace.show" commandName="Beans Quick Outline" description="Shows the Beans for the editor input" category="_MJtY9toxEeikOeWM3ZrCjQ"/>

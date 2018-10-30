@@ -18,6 +18,7 @@ public class Product {
 	private double price;
 	private int stock;
 	private String description;
+	private String img;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -48,12 +49,13 @@ public class Product {
 	public Product() {
 	}
 
-	public Product(String name, double price, int stock, String description, User user) {
+	public Product(String name, double price, int stock, String description, User user, String img) {
 		this.name = name;
 		this.price = price;
 		this.stock = stock;
 		this.description = description;
 		this.user = user;
+		this.img = img;
 	}
 
 	public Long getId() {
@@ -123,5 +125,13 @@ public class Product {
 	@PreUpdate
 	public void onUpdate() {
 		this.updatedAt = new Date();
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 }

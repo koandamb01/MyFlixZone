@@ -30,8 +30,9 @@ public class Address {
 	private boolean defaultShippingAddress = true;
 
 	@JsonIgnore
-	@OneToOne(mappedBy="address", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private Order order;
+	@OneToMany(fetch=FetchType.LAZY)
+	@JoinColumn(name="order_id")
+	private List<Order> orders =new ArrayList<>();
 
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY)
@@ -105,14 +106,6 @@ public class Address {
 		this.updatedAt = updatedAt;
 	}
 
-	public Order getOrder() {
-		return order;
-	}
-
-	public void setOrder(Order order) {
-		this.order = order;
-	}
-
 	public String getCity() {
 		return city;
 	}
@@ -159,5 +152,13 @@ public class Address {
 
 	public void setDefaultShippingAddress(boolean defaultShippingAddress) {
 		this.defaultShippingAddress = defaultShippingAddress;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 }

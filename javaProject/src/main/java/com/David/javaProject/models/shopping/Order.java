@@ -36,7 +36,7 @@ public class Order {
 	}
 
 	@JsonIgnore
-	@OneToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="shipping_address_id")
     private Address address;
 

@@ -7,6 +7,7 @@ public class Response {
     public boolean status;
     public String message;
     public List<?> data;
+    public OrderDetail orderDetail;
 
     public Response(){
 
@@ -23,6 +24,11 @@ public class Response {
         this.message = message;
     }
 
+    public Response(boolean status, String message, OrderDetail orderDetail) {
+        this.status = status;
+        this.message = message;
+        this.orderDetail = orderDetail;
+    }
 
     public boolean getStatus() {
         return status;

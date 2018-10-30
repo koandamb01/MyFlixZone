@@ -1,6 +1,8 @@
 package com.David.javaProject.controllers;
 
 
+import com.David.javaProject.models.OrderDetail;
+import com.David.javaProject.models.ProductInfo;
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.paypal.Address;
@@ -9,6 +11,7 @@ import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.paypal.PaymentInfoRepo;
 import com.David.javaProject.models.shopping.*;
 import com.David.javaProject.services.ShoppingService;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -190,7 +193,6 @@ public class ShoppingController {
 				Address shipping = shoppingService.findDefaultAddress(user);
 				//making an order model through constructor
 				order = orderRepo.save(new Order("cart", shipping, user.getPaymentInfo(), user));
-				orderRepo.save(order);
 			} else {
 				//If cart exists, keep using the previous cart
 				order = shoppingService.hasCart(user);
@@ -246,6 +248,53 @@ public class ShoppingController {
 		}
 	}
 
+	@GetMapping("/getOneOrder/{orderId}")
+	public Response getOneOrder(@PathVariable("orderId") Long orderId, HttpSession session){
+		//finding user
+		Long userId = (Long) session.getAttribute("userId");
+		User user = shoppingService.findUserById(userId);
+		if (user == null) {
+			Response res = new Response(false, "Could not find user");
+			return res;
+		} else {
+			//find the order by Id
+			Optional<Order> optional = orderRepo.findById(orderId);{
+				if(!optional.isPresent()){
+					Response res = new Response(false, "Could not find order");
+					return res;
+				}
+				else{
+					Order order = optional.get();
+					OrderDetail orderDetail = new OrderDetail();
+					//set the order for the orderDetail
+					// 					OrderDetail orderDetail = new OrderDetail(order, order.getPaymentInfo(), order.getAddress());
+
+					orderDetail.setOrder(order);
+					orderDetail.setPaymentInfo(order.getPaymentInfo());
+
+					System.out.println(order.getAddress().getCity());
+					Address address = new Address(order.getAddress().getStreet(), order.getAddress().getCity(), order.getAddress().getState(), order.getAddress().getZipcode(), order.getAddress().getUser());
+
+					orderDetail.setShippingAddress(address);
+					//make a list of array for productInfo
+					List<ProductInfo> productInfoList = new ArrayList();
+
+					//find all the products in the order
+					List<OrderProduct> orderProductList = shoppingService.findAllOrderProductByOrderId(order.getId());
+
+					for(OrderProduct orderProduct: orderProductList){
+						Product product = orderProduct.getProduct();
+						ProductInfo productInfo = new ProductInfo(product.getName(), product.getPrice(), orderProduct.getQuantity(), product.getImg());
+						productInfoList.add(productInfo);
+					}
+					orderDetail.setDetails(productInfoList);
+					Response res = new Response(true, "All the orders of the user in session", orderDetail);
+					return res;
+				}
+			}
+		}
+	}
+
 	@GetMapping("/getAllOrders")
 	public Response getAllOrders(HttpSession session){
 		//demo setting session userId as 1
@@ -259,18 +308,31 @@ public class ShoppingController {
 			Response res = new Response(false, "Could not find user");
 			return res;
 		} else {
+			//create a list to return as response
 			List list = new ArrayList();
+			//find all orders of the user
 			List<Order> orderList = shoppingService.findAllOrderOfUser(user);
+			//loop the the list
 			for(Order order: orderList){
-				List<OrderProduct> orderProductList = shoppingService.findAllOrderProductByOrderId(order.getId());
-				List list1 = new ArrayList();
-				list1.add(order);
-				for(OrderProduct orderProduct: orderProductList){
+				OrderDetail orderDetail = new OrderDetail();
+				//set the order for the orderDetail
+				orderDetail.setOrder(order);
 
-					list1.add(orderProduct);
+				//for each order, find all the orderProducts
+				List<OrderProduct> orderProductList = shoppingService.findAllOrderProductByOrderId(order.getId());
+
+				//make a list of array for productInfo
+				List<ProductInfo> productInfoList = new ArrayList();
+
+				for(OrderProduct orderProduct: orderProductList){
+					Product product = orderProduct.getProduct();
+					ProductInfo productInfo = new ProductInfo(product.getName(), product.getPrice(), orderProduct.getQuantity(), product.getImg());
+					productInfoList.add(productInfo);
 				}
-				list.add(list1);
+				orderDetail.setDetails(productInfoList);
+				list.add(orderDetail);
 			}
+
 
 			Response res = new Response(true, "All the orders of the user in session", list);
 			return res;

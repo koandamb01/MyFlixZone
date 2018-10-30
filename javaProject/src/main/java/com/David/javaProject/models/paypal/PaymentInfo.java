@@ -29,7 +29,7 @@ public class PaymentInfo {
 	@JsonIgnore
 	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="order_id")
-	private List<Order> order =new ArrayList<>();
+	private List<Order> orders =new ArrayList<>();
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -104,12 +104,12 @@ public class PaymentInfo {
 	}
 
 
-	public List<Order> getOrder() {
-		return order;
+	public List<Order> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(List<Order> order) {
-		this.order = order;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
 	public Address getAddress() {
