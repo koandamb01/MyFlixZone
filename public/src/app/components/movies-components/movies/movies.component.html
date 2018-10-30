@@ -50,7 +50,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="Title, people, genres"
+                                <input type="text" class="form-control form-control-sm" placeholder="Title, people, genres"
                                     [(ngModel)]="searchStr" name="searchStr" (keyup.enter)="searchMovies()">
                             </div>
                         </form>
@@ -61,7 +61,7 @@
                     <a class="nav-link" style="cursor:pointer;" (click)="show=!show"><i class="fas fa-search"></i></a>
                 </li>
 
-                <li class="nav-item mr-2" ngbDropdown placement="bottom-right">
+                <!-- <li class="nav-item mr-2" ngbDropdown placement="bottom-right">
                     <a class="nav-link" id="notificationsDropdown" ngbDropdownToggle><i class="fas fa-bell"></i></a>
                     <div ngbDropdownMenu aria-labelledby="notificationsDropdown" class="notificationsDropdown">
                         <div class="list-group">
@@ -88,31 +88,33 @@
                 </li>
                 <li class="nav-item mr-2">
                     <a class="nav-link" style="cursor:pointer;"><i class="fas fa-user-alt"></i></a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- Carousel for video -->
-<header>
-    <div class="overlay"></div>
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
-    </video>
-    <div class="container h-100">
-        <div class="d-flex text-center h-100">
-            <div class="my-auto w-100 text-white">
-                <h1 class="display-1 text-danger font-weight-bold">MYFLIX</h1>
-                <h2>The new online <span class="text-danger">movies</span> streaming in the <span class="text-danger">block</span></h2>
+
+
+<div class="bg-color">
+    <!-- Carousel for video -->
+    <header>
+        <div class="overlay"></div>
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+            <source src="https://storage.googleapis.com/coverr-main/mp4/Mt_Baker.mp4" type="video/mp4">
+        </video>
+        <div class="container h-100">
+            <div class="d-flex text-center h-100">
+                <div class="my-auto w-100 text-white">
+                    <h1 class="display-1 text-danger font-weight-bold">MYFLIX</h1>
+                    <h2>The new online <span class="text-danger">movies</span> streaming in the <span class="text-danger">block</span></h2>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
+    <!-- End HEADER -->
+    <router-outlet></router-outlet>
 
-<!-- End HEADER -->
-
-<router-outlet></router-outlet>
-
-<!-- Footer contents -->
-<app-footer></app-footer>
+    <!-- Footer contents -->
+    <app-footer></app-footer>
+</div>

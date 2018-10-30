@@ -13,14 +13,39 @@ export class UsersService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private options = new RequestOptions({ headers: this.headers });
   private user = new User();
+  private loggedInStatus = false;
 
   constructor(private _http: Http) { }
 
+  setLoggedIn(value: boolean) {
+    this.loggedInStatus = value;
+  }
+
+  get isLoggedIn() {
+    return this.loggedInStatus;
+  }
   // check if user is Authenticated
   isAuthenticated() {
     let token = localStorage.getItem('access_token');
     if (token) { return true; } else { return false; }
   }
+
+  // register a user
+  createUser(newUser: User) {
+    return this._http.post(this.baseUrl + '/users/new', JSON.stringify(newUser), this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  // logged a user
+  login(user) {
+    return this._http.post(this.baseUrl + '/users/login', JSON.stringify(user), this.options)
+      .pipe(map((response: Response) => response.json()), catchError(this.errorHandler))
+  }
+
 
   getUsers() {
     return this._http.get(this.baseUrl + '/users', this.options)
@@ -57,14 +82,7 @@ export class UsersService {
       )
   }
 
-  createUser(newUser: User) {
-    return this._http.post(this.baseUrl + '/users/new', JSON.stringify(newUser), this.options)
-      .pipe
-      (
-      map((response: Response) => response.json()),
-      catchError(this.errorHandler)
-      )
-  }
+
 
 
 

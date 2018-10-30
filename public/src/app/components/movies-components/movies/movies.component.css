@@ -1,5 +1,10 @@
 @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
 @import url('../../../../movies-global-css/style.css');
+
+.bg-color{
+    background-color: #0e0f11 !important;
+    color: aliceblue !important;
+}
 /* Navbar CSS */
 .nav-item .nav-link {
     font-size: 0.8rem;

@@ -46,7 +46,7 @@ export const appRoutes: Routes = [
   },
 
   {
-    path: 'music', component: MusicsComponent, canActivate: [AuthGuard], children: [
+    path: 'music', component: MusicsComponent, children: [
       { path: '', pathMatch: 'full', component: DiscoverComponent },
       { path: 'search', component: SearchComponent },
       { path: 'likes', component: LikesComponent },
@@ -64,6 +64,7 @@ export const appRoutes: Routes = [
   imports: [
     CommonModule
   ],
+  providers: [AuthGuard],
   declarations: []
 })
 export class AppRoutingModule { }
