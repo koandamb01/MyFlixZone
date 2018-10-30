@@ -1,106 +1,107 @@
 <!-- Slider Star -->
-<div class="slider">
-  <h3>Top Rated Movies</h3>
-  <span (click)="scrollEsquerda()" class="handle handlePrev active">
-    <i class="fa fa-caret-left" aria-hidden="true"></i>
-  </span>
+<div class="home">
+  <div class="slider">
+    <h3>Top Rated Movies</h3>
+    <span (click)="scrollEsquerda()" class="handle handlePrev active">
+      <i class="fa fa-caret-left" aria-hidden="true"></i>
+    </span>
 
-  <div id="scroller" class="row">
-    <div class="row__inner">
-      <div class="gui-card" *ngFor="let movieUrl of moviesUrl; let i = index;" (mouseenter)="playVideo($event)"
-        (mouseout)="stopVideo()">
-        <!-- this App component movies display each movie on the row -->
-        <app-movie-card [movieUrl]="movieUrl"></app-movie-card>
+    <div id="scroller" class="row">
+      <div class="row__inner">
+        <div class="gui-card" *ngFor="let movieUrl of moviesUrl; let i = index;" (mouseenter)="playVideo($event)"
+          (mouseout)="stopVideo()">
+          <!-- this App component movies display each movie on the row -->
+          <app-movie-card [movieUrl]="movieUrl"></app-movie-card>
+        </div>
+      </div>
+
+    </div>
+    <span (click)="scrollDireita()" class="handle handleNext active">
+      <i class="fa fa-caret-right" aria-hidden="true"></i>
+    </span>
+  </div>
+
+  <h3 class="text mt-5 ml-5">Most Popular</h3>
+  <div class="row text-center pl-5 pr-5">
+
+    <div class="col mb-5" *ngFor="let movie of theatersList; let i = index;">
+      <div class="card bg-dark">
+        <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" />
+        <div class="card-body">
+          <div style="height: 80px;" class="card-text">{{movie.title}}</div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" (click)="openLg(content, movie)">Movie Details</a>
+            </div>
+            <small class="badge badge-success pull-right" *ngIf="movie.vote_average">
+              {{movie.vote_average}}
+              <i class="fas fa-star"></i>
+            </small>
+          </div>
+        </div>
       </div>
     </div>
 
+    <div class="col mb-5" *ngFor="let movie of popularList; let i = index;">
+      <div class="card bg-dark">
+        <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" />
+        <div class="card-body">
+          <div style="height: 80px;" class="card-text">{{movie.title}}</div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" (click)="openLg(content, movie)">Movie Details</a>
+            </div>
+            <small class="badge badge-success pull-right" *ngIf="movie.vote_average">
+              {{movie.vote_average}}
+              <i class="fas fa-star"></i>
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <span (click)="scrollDireita()" class="handle handleNext active">
-    <i class="fa fa-caret-right" aria-hidden="true"></i>
-  </span>
+
+
+  <ng-template #content let-modal>
+    <div class="modal-header bg-dark" *ngIf="modelMovie">
+      <h2 class="text-secondary">{{modelMovie.title}}
+        <small class="badge badge-success pull-right">
+          {{modelMovie.vote_average}}
+          <i class="fas fa-star"></i>
+        </small>
+      </h2>
+
+      <div>
+        <button class="btn btn-danger" (click)="modal.dismiss('Cross click')">X</button>
+      </div>
+
+    </div>
+
+    <div class="modal-body bg-dark" *ngIf="modelMovie">
+      <div class="row">
+        <div class="col-5">
+          <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{modelMovie.poster_path}}" />
+        </div>
+
+        <div class="col" style="text-align:left;">
+          <p>
+            <a routerLink="/genres/{{genre.id}}/{{genre.name}}" *ngFor="let genre of modelMovie.genres" class="label label-info m-r-md">
+              {{genre.name}}
+            </a>
+          </p>
+
+          <h3 class="mt-4 text-secondary">Overview</h3>
+          <p class="text">{{modelMovie.overview}}</p>
+        </div>
+      </div>
+
+      <div class="text-center mt-4" *ngIf="video">
+        <h3 class="text text-secondary mb-2"></h3>
+        <iframe class="rounded" width="750" height="400" [src]="video.url" frameborder="0" allow="autoplay; encrypted-media"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </ng-template>
 </div>
-<app-movie *ngIf="show" [targetMovie]="targetMovie" (closeMovieDetailsEmitter)="closeMovieDetails()"></app-movie>
+<!-- <app-movie *ngIf="show" [targetMovie]="targetMovie" (closeMovieDetailsEmitter)="closeMovieDetails()"></app-movie> -->
 <!-- Slider End -->
-
-
-<h3 class="text mt-5 ml-5">Most Popular</h3>
-<div class="row text-center pl-5 pr-5">
-
-  <div class="col mb-5" *ngFor="let movie of theatersList; let i = index;">
-    <div class="card bg-dark">
-      <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" />
-      <div class="card-body">
-        <div style="height: 80px;" class="card-text">{{movie.title}}</div>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <a class="btn btn-sm btn-outline-secondary" (click)="openLg(content, movie)">Movie Details</a>
-          </div>
-          <small class="badge badge-success pull-right" *ngIf="movie.vote_average">
-            {{movie.vote_average}}
-            <i class="fas fa-star"></i>
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col mb-5" *ngFor="let movie of popularList; let i = index;">
-    <div class="card bg-dark">
-      <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{movie.poster_path}}" />
-      <div class="card-body">
-        <div style="height: 80px;" class="card-text">{{movie.title}}</div>
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="btn-group">
-            <a class="btn btn-sm btn-outline-secondary" (click)="openLg(content, movie)">Movie Details</a>
-          </div>
-          <small class="badge badge-success pull-right" *ngIf="movie.vote_average">
-            {{movie.vote_average}}
-            <i class="fas fa-star"></i>
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<ng-template #content let-modal>
-  <div class="modal-header bg-dark" *ngIf="modelMovie">
-    <h2 class="text-secondary">{{modelMovie.title}}
-      <small class="badge badge-success pull-right">
-        {{modelMovie.vote_average}}
-        <i class="fas fa-star"></i>
-      </small>
-    </h2>
-
-    <div>
-      <button class="btn btn-danger" (click)="modal.dismiss('Cross click')">X</button>
-    </div>
-
-  </div>
-
-  <div class="modal-body bg-dark" *ngIf="modelMovie">
-    <div class="row">
-      <div class="col-5">
-        <img class="border rounded border-dark" src="https://image.tmdb.org/t/p/w300/{{modelMovie.poster_path}}" />
-      </div>
-
-      <div class="col" style="text-align:left;">
-        <p>
-          <a routerLink="/genres/{{genre.id}}/{{genre.name}}" *ngFor="let genre of modelMovie.genres" class="label label-info m-r-md">
-            {{genre.name}}
-          </a>
-        </p>
-
-        <h3 class="mt-4 text-secondary">Overview</h3>
-        <p class="text">{{modelMovie.overview}}</p>
-      </div>
-    </div>
-
-    <div class="text-center mt-4" *ngIf="video">
-      <h3 class="text text-secondary mb-2"></h3>
-      <iframe class="rounded" width="750" height="400" [src]="video.url" frameborder="0" allow="autoplay; encrypted-media"
-        allowfullscreen></iframe>
-    </div>
-  </div>
-</ng-template>

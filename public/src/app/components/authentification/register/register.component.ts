@@ -33,6 +33,7 @@ export class RegisterComponent implements OnInit {
         this.messages.success = res['message'];
         localStorage.setItem('access_token', res['data'][0]['id']);
         setTimeout(() => { this.goShopping(); }, 2000)
+        this._userService.setLoggedIn(true);
       }
     });
   }
@@ -47,5 +48,4 @@ export class RegisterComponent implements OnInit {
   goShopping() {
     this._router.navigate(['/shopping']);
   }
-
 }

@@ -2,22 +2,16 @@ package com.David.javaProject.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import com.David.javaProject.models.shopping.Order;
-import com.David.javaProject.models.shopping.OrderProduct;
-import com.David.javaProject.models.shopping.OrderProductRepo;
-import com.David.javaProject.models.shopping.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,8 +31,8 @@ public class UserController {
 	
 	// Register a new user
 
-	@PostMapping("/new")
-	public Response createUser(@Valid @RequestBody User user, Errors errors) {
+	@PostMapping("new")
+	public Response createUser(@Valid @RequestBody User user, Errors errors, HttpSession session) {
 		Response response = new Response();
 
 		if (errors.hasErrors()) {
@@ -49,6 +43,13 @@ public class UserController {
 		}
 		else {
 			User newUser = this.userService.registerUser(user);
+			session.setAttribute("userId", newUser.getId());
+			
+			newUser.getAddresses().clear();
+			newUser.setCreatedAt(null);
+			newUser.setUpdatedAt(null);
+			newUser.setPassword(null);
+			
 			List<User> list = new ArrayList<>();
 			list.add(newUser);
 			
@@ -58,7 +59,43 @@ public class UserController {
 			return response;
 		}
 	}
-
+	
+	@PostMapping("login")
+	public Response login(@RequestBody User logUser, HttpSession session) {
+		Response res = new Response();
+		
+		if(!this.userService.authenticateUser(logUser.getEmail(), logUser.getPassword())) {
+			res.setStatus(false);
+			res.setMessage("Invalid email or password!");
+		}
+		else {
+			User u = this.userService.findByEmail(logUser.getEmail());
+			session.setAttribute("userId", u.getId());
+			
+			u.getAddresses().clear();
+			u.setCreatedAt(null);
+			u.setUpdatedAt(null);
+			u.setPassword(null);
+			
+			List<User> list = new ArrayList<>();
+			list.add(u);
+			
+			res.setStatus(true);
+			res.setMessage("You have successfully Login!");
+			res.setData(list);
+		}
+		
+		return res;
+	}
+	
+	// logout
+	@GetMapping("logout")
+	public Response logout(HttpSession session) {
+		session.invalidate();
+		Response res = new Response(true, "You have successfully logout!");
+		return res;
+	}
+	
 	
 	// get all the users
 	@GetMapping("")
