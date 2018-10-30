@@ -10,4 +10,5 @@ import java.util.List;
 public interface OrderRepo extends CrudRepository<Order, Long>{
 	List<Order> findAll();
 	Order findByStatusAndUser(String status, User user);
+	List<Order> findAllByUser(User user);
 }
