@@ -5,6 +5,7 @@ import com.David.javaProject.models.shopping.Order;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,14 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message="Street is required.")
 	private String street;
+	@NotBlank(message="City is required.")
+	private String city;
+	@NotBlank(message="State is required.")
+	private String state;
+	@NotBlank(message="Zip code is required.")
+	private String zipcode;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -30,9 +38,6 @@ public class Address {
 	@JoinColumn(name="address_id")
 	private List<PaymentInfo> paymentInfos = new ArrayList<>();
 
-	private String city;
-	private String state;
-	private String zipcode;
 
 
 	@JsonIgnore

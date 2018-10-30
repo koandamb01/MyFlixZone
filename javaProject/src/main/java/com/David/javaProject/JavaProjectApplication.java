@@ -1,5 +1,6 @@
 package com.David.javaProject;
 
+import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.paypal.*;
 import com.David.javaProject.models.shopping.*;
 import org.springframework.beans.factory.annotation.Autowired;
