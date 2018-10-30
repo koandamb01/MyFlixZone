@@ -5,7 +5,6 @@ import { AuthGuard } from './guards/auth.guard';
 
 // Root component
 import { AppComponent } from './app.component';
-import { PlaygroundComponent } from './components/playground/playground.component';
 
 // movie components
 import { MoviesComponent } from './components/movies-components/movies/movies.component';
@@ -30,7 +29,9 @@ import { RegisterComponent } from './components/authentification/register/regist
 
 
 export const appRoutes: Routes = [
-  { path: '', pathMatch: 'full', component: PlaygroundComponent },
+  {
+    path: 'shopping', component: ShoppingHomeComponent
+  },
 
   {
     path: 'auth', component: AuthHomeComponent, children: [
@@ -53,10 +54,6 @@ export const appRoutes: Routes = [
       { path: '404', component: SoonComponent }
     ]
   },
-
-  {
-    path: 'shopping', component: ShoppingHomeComponent
-  }
 ]
 
 

@@ -22,7 +22,6 @@ import { GenresComponent } from './components/movies-components/genres/genres.co
 import { MoviesComponent } from './components/movies-components/movies/movies.component';
 import { HomeComponent } from './components/movies-components/home/home.component';
 import { MovieComponent } from './components/movies-components/movie/movie.component';
-import { PlaygroundComponent } from './components/playground/playground.component';
 
 
 // music components
@@ -68,7 +67,7 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     MoviesComponent,
     HomeComponent,
     MovieComponent,
-    PlaygroundComponent,
+
     // music
     DiscoverComponent,
     SoonComponent,
@@ -81,9 +80,11 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     FeedComponent,
     MusicsComponent,
     ShoppingHomeComponent,
+
+    // auth
+    AuthHomeComponent,
     RegisterComponent,
-    LoginComponent,
-    AuthHomeComponent
+    LoginComponent
 
   ],
   imports: [

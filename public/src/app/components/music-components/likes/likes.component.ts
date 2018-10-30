@@ -17,6 +17,10 @@ export class LikesComponent {
   constructor(public love: LikesService, public ebus: EbusService) {
   }
 
+  ngOnInit() {
+    console.log("love: ", this.love);
+  }
+
 
 
   shorten(a, b) {
