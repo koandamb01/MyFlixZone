@@ -11,6 +11,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
@@ -27,7 +30,6 @@ import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.shopping.Order;
 import com.David.javaProject.models.shopping.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table(name="users")
@@ -77,9 +79,16 @@ public class User {
     private PaymentInfo paymentInfo;
 
 	@JsonIgnore
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(
+		name="users_favorites",
+		joinColumns = @JoinColumn(name="user_id"),
+		inverseJoinColumns = @JoinColumn(name = "favorite_id")
+	)
     private List<Favorite> favorites = new ArrayList<>();;
 
+    
+    
 	@JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Address> shippingAddresses = new ArrayList<>();;
