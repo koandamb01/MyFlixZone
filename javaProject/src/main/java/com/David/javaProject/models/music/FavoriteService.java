@@ -18,8 +18,11 @@ public class FavoriteService {
 	public void favoriteAmusic(User user, Long musicId) {
 		if(this.isMusicBeenFavorited(musicId)) {
 			Favorite fav = this.findFavoriteByMusicId(musicId);
-			user.getFavorites().add(fav);
-			this.userRepo.save(user);
+			
+			if(user.getFavorites().indexOf(fav) == -1 ){
+				user.getFavorites().add(fav);
+				this.userRepo.save(user);
+			}
 			
 		}else {
 			Favorite newFav = new Favorite(musicId);
@@ -30,8 +33,15 @@ public class FavoriteService {
 		
 	}
 	
+	// public unfavorite a music
+	public void unfavoriteAmusic(User user, Long musicId) {
+		Favorite fav = this.findFavoriteByMusicId(musicId);
+		user.getFavorites().remove(fav);
+		this.userRepo.save(user);
+	}
 	
-	// check this music all been favorited
+	
+	// check this music all been favorite
 	public boolean isMusicBeenFavorited(Long musicId) {
 		if(this.favRepo.findByMusicId(musicId) == null) {
 			return false;

@@ -29,7 +29,34 @@ export class LikesService {
         this.feed.push(data);
       })
     });
+
+    // // get all the song that the user liked
+    // this._http.get(this.baseUrl + '/music/alllikes/', this.options)
+    //   .pipe(map((response: Response) => response.json()), catchError(this.errorHandler))
+    //   .subscribe(res => {
+    //     console.log("all likes response: ", res);
+    //     res['data'].forEach(fav => {
+    //       console.log("fav: ", fav.music_id);
+    //       console.log("test song: ", this.getMusicById(fav.music_id));
+    //       this.likes.push(this.getMusicById(fav['music_id']));
+    //     });
+    //   })
   }
+
+  // // helper function
+  // getMusicById(id) {
+  //   this.feed.forEach(data => {
+  //     console.log("each data: ", data);
+  //     data.forEach(song => {
+  //       if (id == song.id) {
+  //         return song;
+  //       }
+  //     });
+  //   });
+  // }
+
+
+
 
   likeSong(song) {
     this.likes.push(song);
@@ -41,7 +68,11 @@ export class LikesService {
   }
   unlikeSong(song) {
     this.likes = this.likes.filter(s => s.id != song.id);
-    localStorage.setItem('likes', JSON.stringify(this.likes));
+    this._http.get(this.baseUrl + '/music/unlikes/' + song.id, this.options)
+      .pipe(map((response: Response) => response.json()), catchError(this.errorHandler))
+      .subscribe(res => {
+        console.log("Java response: ", res);
+      })
   }
 
 
