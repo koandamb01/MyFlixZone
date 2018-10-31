@@ -98,35 +98,35 @@ public class JavaProjectApplication implements CommandLineRunner {
 //		 product3.getCategories().add(cat3);product3.getCategories().add(cat1);
 //		 product4.getCategories().add(cat3);product4.getCategories().add(cat4);
 //		 productRepo.save(product1);productRepo.save(product2);productRepo.save(product3);productRepo.save(product4);
-
-		// Order order1 = orderRepo.save(new Order("cart", shipping1, pay1, user1));
-		// Order order2 = orderRepo.save(new Order("cart", shipping2, pay2, user2));
-		// Order order3 = orderRepo.save(new Order("cart", shipping3, pay3, user3));
-		// Order order4 = orderRepo.save(new Order("cart", shipping4, pay4, user4));
-		//
-		// OrderProduct op1 = orderProductRepo.save(new OrderProduct(order1,
-		// product1,2));OrderProduct op2 = orderProductRepo.save(new
-		// OrderProduct(order1, product2,15));
-		// OrderProduct op3 = orderProductRepo.save(new OrderProduct(order1,
-		// product3,5));
-		//
-		// OrderProduct op4 = orderProductRepo.save(new OrderProduct(order2,
-		// product1,1));OrderProduct op5 = orderProductRepo.save(new
-		// OrderProduct(order2, product2,12));
-		// OrderProduct op6 = orderProductRepo.save(new OrderProduct(order2,
-		// product4,1));
-		//
-		// OrderProduct op7 = orderProductRepo.save(new OrderProduct(order3,
-		// product4,1));OrderProduct op8 = orderProductRepo.save(new
-		// OrderProduct(order3, product2,2));
-		// OrderProduct op9 = orderProductRepo.save(new OrderProduct(order3,
-		// product3,2));
-		//
-		// OrderProduct op10 = orderProductRepo.save(new OrderProduct(order4,
-		// product1,3));OrderProduct op11 = orderProductRepo.save(new
-		// OrderProduct(order4, product4,1));
-		// OrderProduct op12 = orderProductRepo.save(new OrderProduct(order4,
-		// product3,1));
+//
+//		 Order order1 = orderRepo.save(new Order("cart", shipping1, pay1, user1));
+//		 Order order2 = orderRepo.save(new Order("cart", shipping2, pay2, user2));
+//		 Order order3 = orderRepo.save(new Order("cart", shipping3, pay3, user3));
+//		 Order order4 = orderRepo.save(new Order("cart", shipping4, pay4, user4));
+//		
+//		 OrderProduct op1 = orderProductRepo.save(new OrderProduct(order1,
+//		 product1,2));OrderProduct op2 = orderProductRepo.save(new
+//		 OrderProduct(order1, product2,15));
+//		 OrderProduct op3 = orderProductRepo.save(new OrderProduct(order1,
+//		 product3,5));
+//		
+//		 OrderProduct op4 = orderProductRepo.save(new OrderProduct(order2,
+//		 product1,1));OrderProduct op5 = orderProductRepo.save(new
+//		 OrderProduct(order2, product2,12));
+//		 OrderProduct op6 = orderProductRepo.save(new OrderProduct(order2,
+//		 product4,1));
+//		
+//		 OrderProduct op7 = orderProductRepo.save(new OrderProduct(order3,
+//		 product4,1));OrderProduct op8 = orderProductRepo.save(new
+//		 OrderProduct(order3, product2,2)); 
+//		 OrderProduct op9 = orderProductRepo.save(new OrderProduct(order3,
+//		 product3,2));
+//		
+//		 OrderProduct op10 = orderProductRepo.save(new OrderProduct(order4,
+//		 product1,3));OrderProduct op11 = orderProductRepo.save(new
+//		 OrderProduct(order4, product4,1));
+//		 OrderProduct op12 = orderProductRepo.save(new OrderProduct(order4,
+//		 product3,1));
 
 	}
 }

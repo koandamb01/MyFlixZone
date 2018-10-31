@@ -17,11 +17,11 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String status;
-	private double total;
+	private Double total;
 	private Date datePaid;
 	private Date expectedDate;
 	private String carrier;
-	private int tracking_id;
+	private Integer tracking_id;
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -50,14 +50,14 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "orders_products", 
         joinColumns = @JoinColumn(name = "order_id"), 
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Product> products =new ArrayList<>();
+    private List<Product> products;
 
 	public Order() {
 	}
@@ -81,10 +81,10 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public double getTotal() {
+	public Double getTotal() {
 		return total;
 	}
-	public void setTotal(double total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 	public Date getDatePaid() {
@@ -105,10 +105,10 @@ public class Order {
 	public void setCarrier(String carrier) {
 		this.carrier = carrier;
 	}
-	public int getTracking_id() {
+	public Integer getTracking_id() {
 		return tracking_id;
 	}
-	public void setTracking_id(int tracking_id) {
+	public void setTracking_id(Integer tracking_id) {
 		this.tracking_id = tracking_id;
 	}
 	public Date getCreatedAt() {
