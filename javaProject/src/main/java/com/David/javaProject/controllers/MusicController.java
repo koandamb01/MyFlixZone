@@ -29,13 +29,16 @@ public class MusicController {
 	public Response likeMusic(@PathVariable("musicId") Long musicId, HttpSession session) {
 		Response res = new Response();
 		
+		Long userId = (Long) session.getAttribute("userId"); 
+		
 		// check if user is logged in
-		if(session.getAttribute("userId") == null) {
+		System.out.println("Testing session music: " + userId);
+		if(userId == null) {
 			res.setStatus(false);
 			res.setMessage("You must be logged in!");
 		}
 		else {
-			Long userId = (Long) session.getAttribute("userId"); 
+			
 			User user = this.userService.findUserById(userId);
 			
 			// like the song now

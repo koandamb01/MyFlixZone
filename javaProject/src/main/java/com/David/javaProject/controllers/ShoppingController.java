@@ -1,6 +1,22 @@
 package com.David.javaProject.controllers;
 
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.David.javaProject.models.OrderDetail;
 import com.David.javaProject.models.ProductInfo;
 import com.David.javaProject.models.Response;
@@ -9,25 +25,15 @@ import com.David.javaProject.models.paypal.Address;
 import com.David.javaProject.models.paypal.AddressRepo;
 import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.paypal.PaymentInfoRepo;
-import com.David.javaProject.models.shopping.*;
-import com.David.javaProject.services.ShoppingService;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
-
 import com.David.javaProject.models.shopping.CategoryRepo;
+import com.David.javaProject.models.shopping.Order;
+import com.David.javaProject.models.shopping.OrderProduct;
+import com.David.javaProject.models.shopping.OrderProductRepo;
 import com.David.javaProject.models.shopping.OrderRepo;
+import com.David.javaProject.models.shopping.Product;
 import com.David.javaProject.models.shopping.ProductRepo;
 import com.David.javaProject.repositories.UserRepository;
-
-import javax.servlet.http.HttpSession;
-import javax.swing.text.html.Option;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import com.David.javaProject.services.ShoppingService;
 
 @RestController
 @RequestMapping("/paypal")

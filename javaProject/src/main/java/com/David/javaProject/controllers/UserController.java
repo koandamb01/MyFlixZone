@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
+import com.David.javaProject.models.music.FavoriteService;
 import com.David.javaProject.services.UserService;
 
 
@@ -29,8 +30,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private FavoriteService favService;
+	
 	// Register a new user
-
 	@PostMapping("new")
 	public Response createUser(@Valid @RequestBody User user, Errors errors, HttpSession session) {
 		Response response = new Response();
@@ -44,7 +47,6 @@ public class UserController {
 		else {
 			User newUser = this.userService.registerUser(user);
 			session.setAttribute("userId", newUser.getId());
-			
 			newUser.getAddresses().clear();
 			newUser.setCreatedAt(null);
 			newUser.setUpdatedAt(null);
@@ -71,6 +73,10 @@ public class UserController {
 		else {
 			User u = this.userService.findByEmail(logUser.getEmail());
 			session.setAttribute("userId", u.getId());
+			
+			Long userId = (Long) session.getAttribute("userId"); 
+			
+			System.out.println("Testing session: " + userId);
 			
 			u.getAddresses().clear();
 			u.setCreatedAt(null);
