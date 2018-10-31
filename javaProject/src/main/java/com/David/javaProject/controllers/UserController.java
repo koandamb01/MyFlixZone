@@ -3,6 +3,7 @@ package com.David.javaProject.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
@@ -23,10 +26,10 @@ import com.David.javaProject.services.UserService;
 
 
 @RestController
+@SessionAttributes(value = "userBean", types = {User.class})
 @RequestMapping("/users")
-//this lets Angular access this server
-@CrossOrigin(origins="http://localhost:4200", allowedHeaders="*")
-public class UserController {
+@CrossOrigin(origins="http://localhost:4200", allowedHeaders="*") //this lets Angular access this server
+public class UserController extends HandlerInterceptorAdapter {
 	@Autowired
 	private UserService userService;
 	
@@ -35,9 +38,9 @@ public class UserController {
 	
 	// Register a new user
 	@PostMapping("new")
-	public Response createUser(@Valid @RequestBody User user, Errors errors, HttpSession session) {
+	public Response createUser(@Valid @RequestBody User user, Errors errors){
 		Response response = new Response();
-
+		
 		if (errors.hasErrors()) {
 			response.setStatus(false);
 			response.setMessage("Validation errors");
@@ -46,7 +49,10 @@ public class UserController {
 		}
 		else {
 			User newUser = this.userService.registerUser(user);
+			
+			HttpSession session = request.getSession(true);
 			session.setAttribute("userId", newUser.getId());
+			
 			newUser.getAddresses().clear();
 			newUser.setCreatedAt(null);
 			newUser.setUpdatedAt(null);

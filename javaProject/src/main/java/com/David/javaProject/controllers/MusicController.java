@@ -1,13 +1,12 @@
 package com.David.javaProject.controllers;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
@@ -26,13 +25,15 @@ public class MusicController {
 	private UserService userService;
     
 	@GetMapping("/likes/{musicId}")
-	public Response likeMusic(@PathVariable("musicId") Long musicId, HttpSession session) {
+	public Response likeMusic(@PathVariable("musicId") Long musicId) {
 		Response res = new Response();
 		
+	
 		Long userId = (Long) session.getAttribute("userId"); 
 		
 		// check if user is logged in
 		System.out.println("Testing session music: " + userId);
+		
 		if(userId == null) {
 			res.setStatus(false);
 			res.setMessage("You must be logged in!");
