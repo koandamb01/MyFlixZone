@@ -1,0 +1,67 @@
+.unordered-list {
+    list-style: none;
+    padding-left: 0px !important;
+}
+.unordered-list a{
+    text-decoration: none;
+    color: #0066c0;
+}
+.unordered-list span{
+    color: #c45500!important;
+}
+.horizontal li{
+    display: inline-block;
+    margin-right: 10px;
+}
+.orderDetails{
+    font-size: 28px;
+}
+.spacing{
+    margin-bottom: 14px;
+}
+.textDivider{
+    color: #ddd;
+}
+.box{
+    margin-bottom: 14px;
+    border-radius: 4px 4px 0 0;
+    box-sizing: border-box;
+    border: 1px #ddd solid;
+}
+.displayAddress{
+    list-style: none;
+    padding-left: 0px !important;
+}
+.box h5{
+    font-size: 15px;
+    font-weight: bold;
+}
+.orderSummary span{
+    font-size: 13px;
+}
+#eta{
+    font-size: 17px;
+    color: #e47911;
+}
+#secondaryStatus{
+    font-size: 13px;
+}
+.deliveryStatus img{
+    width: 90px;
+    height: 90px;
+}
+.productInfo span{
+    font-size: 12px;
+}
+.productInfo .price{
+    color: #B12704!important;
+}
+.option a{
+    text-decoration: none;
+}
+.option button{
+    cursor: pointer;
+}
+.addressChange{
+    font-weight: 400;
+}

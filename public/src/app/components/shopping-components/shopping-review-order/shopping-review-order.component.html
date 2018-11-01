@@ -1,0 +1,137 @@
+<div class="container">
+  <div class="trail">
+    <ul class="unordered-list horizontal">
+      <li>
+        <span>
+          <a (click)="goToCart()" style="cursor:pointer;">Cart</a>
+        </span>
+      </li>
+      <li class="divider">
+        <span>
+          &#8250;
+        </span>
+      </li>
+      <li>
+        <span>
+          <span>
+            Check Out
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <h1 class="orderDetails">Review Your Order</h1>
+
+  <div class="box">
+    <div class="p-3 row">
+      <div class="col">
+        <h5>Shipping Address <a href="" class="addressChange">Change</a></h5>
+        <ul class="displayAddress">
+          <li>Name</li>
+          <li>1920 Zanker Road</li>
+          <li>City, State, 94020</li>
+          <li>Country</li>
+        </ul>
+      </div>
+      <div class="col">
+        <div>
+          <h5>Payment Method <a href="" class="addressChange">Change</a></h5>
+          <img src="https://images-na.ssl-images-amazon.com/images/G/01/checkout/payselect/card-logos-small/amzn._CB520780190_.gif"
+            alt="cardImage">
+          <span>**** 1234</span>
+        </div>
+        <div class="mt-4">
+          <h5>Billing Address <a href="" class="addressChange">Change</a></h5>
+          <ul class="displayAddress">
+            <li>Name</li>
+            <li>4444 Dank Road</li>
+            <li>City, State, 33333</li>
+            <li>Country</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col orderSummary">
+        <h5>Order Summary</h5>
+        <div class="row">
+          <div class="col text-left">
+            <span>Items(s) Subtotal:</span>
+          </div>
+          <div class="col text-right">
+            <span>$4.99</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Shipping & Handling:</span>
+          </div>
+          <div class="col text-right">
+            <span>$0.00</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Total before tax:</span>
+          </div>
+          <div class="col text-right">
+            <span>$4.99</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Estimated tax:</span>
+          </div>
+          <div class="col text-right">
+            <span>$0.45</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span class="font-weight-bold">Grand Total:</span>
+          </div>
+          <div class="col text-right">
+            <span class="font-weight-bold">$5.44</span>
+          </div>
+        </div>
+        <button class="btn-lg btn-block btn-outline-primary mt-3" (click)="goToOrderDetails()">Submit Order</button>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <!-- for loop for each product -->
+    <div class="row p-3">
+      <div class="deliveryStatus col-8">
+        <span id="eta" class="font-weight-bold">
+          Estimated delivery: Oct 9, 2018
+        </span>
+        <div class="productInfo row pr-5 pb-5 mt-3">
+          <div class="col-2">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+          </div>
+          <div class="col-8 ml-2">
+            <div>Chocolate Box Yum</div>
+            <div><span>Sold by: Amazon.com Services, inc</span></div>
+            <div><span><span class="font-weight-bold">Quanty:</span> 1 <a href="" class="addressChange">Change</a></span></div>
+            <div><span class="price">$4.99</span></div>
+            <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="option col-4">
+        <div class="custom-control custom-radio mt-4">
+          <input type="radio" id="oneDay" name="shipping" class="custom-control-input">
+          <label class="custom-control-label" for="oneDay">One day shipping $2.99</label>
+        </div>
+        <div class="custom-control custom-radio mt-4">
+          <input checked="checked" type="radio" id="express" name="shipping" class="custom-control-input">
+          <label class="custom-control-label" for="express">FREE Express Shipping (2-3 days)</label>
+        </div>
+        <div class="custom-control custom-radio mt-4">
+          <input type="radio" id="standard" name="shipping" class="custom-control-input">
+          <label class="custom-control-label" for="standard">FREE Standard Shipping (3-5 days)</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- end for loop -->
+  </div>
+</div>

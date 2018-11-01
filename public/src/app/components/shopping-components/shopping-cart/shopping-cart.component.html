@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light rounded py-3">
+  <div class="container-fluid">
+    <img src="../../../../assets/shopping/img/logo.png" alt="logo" class="logo" />
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample10" aria-controls="navbarsExample10"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Shop</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sale</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="footer">Contact</a>
+        </li>
+      </ul>
+    </div>
+    <div class="nav-icons">
+      <a routerLink="/shopping/inventory" class="mr-4">
+        <i class="fas fa-toolbox fa-2x"></i>
+      </a>
+      <a routerLink="/shopping/profile" class="mr-4">
+        <i class="fas fa-user-circle fa-2x"></i>
+      </a>
+      <a routerLink="/shopping/cart">
+        <img src="../../../../assets/shopping/img/icon-header-02.png" alt="cart" />
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container mt-5" *ngIf="showCart">
+  <div class="row">
+    <div class="col-9 p-3">
+      <div class="product p-3">
+        <table class="table" style="width:100%;">
+          <thead>
+            <tr>
+              <td scope="col" class="">
+                <h1 class="cart">Shopping Cart</h1>
+              </td>
+              <td scope="col" class="">Price</td>
+              <td scope="col" class=" text-right">Quantity</td>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- for loop products -->
+            <tr>
+              <td scope="row" class="product">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+                  </div>
+                  <div class="col-8 ml-2">
+                    <div><a href="" class="font-weight-bold">Chocolate Box Yum</a></div>
+                    <div><span>Sold by: Amazon.com Services, inc</span></div>
+                    <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
+                    <p class="delete">Delete</p>
+                  </div>
+                </div>
+              </td>
+              <td class="price font-weight-bold">$293</td>
+              <td class=" text-right">1</td>
+            </tr>
+            <tr>
+              <td scope="row" class="product">
+                <div class="row">
+                  <div class="col-2">
+                    <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+                  </div>
+                  <div class="col-8 ml-2">
+                    <div><a href="" class="font-weight-bold">Chocolate Box Yum</a></div>
+                    <div><span>Sold by: Amazon.com Services, inc</span></div>
+                    <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
+                    <p class="delete">Delete</p>
+                  </div>
+                </div>
+              </td>
+              <td class="price font-weight-bold">$293</td>
+              <td class=" text-right">1</td>
+            </tr>
+            <!-- end for loop -->
+          </tbody>
+        </table>
+        <hr>
+      </div>
+    </div>
+    <div class="col-3 p-4 checkout">
+      <h2 class="cart">Subtotal (3} item(s)):</h2>
+      <h2 class="cart price">$4.75</h2>
+      <button class="btn-lg btn-block btn-outline-primary mt-3" (click)="showReviewOrder=true; showCart=false;">CHECKOUT</button>
+    </div>
+  </div>
+</div>
+
+<app-shopping-review-order *ngIf="showReviewOrder" (goToCartEmitter)="ShowCartOrDetails($event)"></app-shopping-review-order>
+
+<app-shopping-order-details *ngIf="showOrderDetail" (goToCartOrReviewEmitter)="ShowCartOrDetails($event)"></app-shopping-order-details>

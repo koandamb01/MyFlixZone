@@ -23,6 +23,7 @@ import { MusicsComponent } from './components/music-components/musics/musics.com
 import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
 import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
 import { ShoppingInventoryComponent } from './components/shopping-components/shopping-inventory/shopping-inventory.component';
+import { ShoppingCartComponent } from './components/shopping-components/shopping-cart/shopping-cart.component';
 
 
 // authentification
@@ -32,22 +33,22 @@ import { RegisterComponent } from './components/authentification/register/regist
 
 
 export const appRoutes: Routes = [
-  {
-    path: 'shopping', component: ShoppingHomeComponent,
-  },
-  {
-    path: 'shopping/profile', component: ShoppingProfileComponent,
-  },
-  {
-    path: 'shopping/inventory', component: ShoppingInventoryComponent,
-  },
 
+  // Shopping Routes
+  { path: 'shopping', component: ShoppingHomeComponent },
+  { path: 'shopping/profile', component: ShoppingProfileComponent },
+  { path: 'shopping/inventory', component: ShoppingInventoryComponent },
+  { path: 'shopping/cart', component: ShoppingCartComponent },
+
+  // Auth Routes
   {
     path: 'auth', component: AuthHomeComponent, children: [
       { path: 'signin', component: LoginComponent },
       { path: 'signup', component: RegisterComponent },
     ]
   },
+
+  // Movie Routes
   {
     path: 'movies', component: MoviesComponent, children: [
       { path: '', pathMatch: 'full', component: HomeComponent },
@@ -55,6 +56,7 @@ export const appRoutes: Routes = [
     ]
   },
 
+  // Music Routes
   {
     path: 'music', component: MusicsComponent, children: [
       { path: '', pathMatch: 'full', component: DiscoverComponent },

@@ -1,0 +1,19 @@
+.cart{
+    font-size: 21px;
+}
+.checkout{
+    border: #ddd 1px solid;
+    border-radius: 3px;
+    background-color: #f3f3f3;
+}
+.price{
+    color: #B12704!important;
+}
+.product img{
+    width: 100px;
+    height: 100px;
+}
+.delete{
+    color: #0066C0;
+    cursor: pointer;
+}

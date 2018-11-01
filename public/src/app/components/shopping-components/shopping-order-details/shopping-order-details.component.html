@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="trail">
+    <ul class="unordered-list horizontal">
+      <li>
+        <span>
+          <a href="">
+            Your Account
+          </a>
+        </span>
+      </li>
+      <li class="divider">
+        <span>
+          &#8250;
+        </span>
+      </li>
+      <li>
+        <span>
+          <a (click)="goToOrderReview()">Your Orders</a>
+        </span>
+      </li>
+      <li class="divider">
+        <span>
+          &#8250;
+        </span>
+      </li>
+      <li>
+        <span>
+          <span>
+            Order Details
+          </span>
+        </span>
+      </li>
+    </ul>
+  </div>
+  <h1 class="orderDetails">Order Details</h1>
+  <div class="spacing">
+    <span class="orderDate">
+      Ordered on Ordered Date
+    </span>
+    <span class="textDivider">
+      |
+    </span>
+    <span class="orderNumber">
+      Order# 112-232-323-2323232
+    </span>
+  </div>
+  <div class="box">
+    <div class="p-3 row">
+      <div class="col">
+        <h5>Shipping Address</h5>
+        <ul class="displayAddress">
+          <li>Name</li>
+          <li>1920 Zanker Road</li>
+          <li>City, State, 94020</li>
+          <li>Country</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h5>Payment Method</h5>
+        <img src="https://images-na.ssl-images-amazon.com/images/G/01/checkout/payselect/card-logos-small/amzn._CB520780190_.gif"
+          alt="cardImage">
+        <span>**** 1234</span>
+      </div>
+      <div class="col orderSummary">
+        <h5>Order Summary</h5>
+        <div class="row">
+          <div class="col text-left">
+            <span>Items(s) Subtotal:</span>
+          </div>
+          <div class="col text-right">
+            <span>$4.99</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Shipping & Handling:</span>
+          </div>
+          <div class="col text-right">
+            <span>$0.00</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Total before tax:</span>
+          </div>
+          <div class="col text-right">
+            <span>$4.99</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span>Estimated tax:</span>
+          </div>
+          <div class="col text-right">
+            <span>$0.45</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-left">
+            <span class="font-weight-bold">Grand Total:</span>
+          </div>
+          <div class="col text-right">
+            <span class="font-weight-bold">$5.44</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="row p-3">
+      <div class="deliveryStatus col-8">
+        <span id="primaryStatus" class="font-weight-bold">
+          Delievered Oct 9, 2018
+        </span>
+        <div id="secondaryStatus">
+          Your package was left near the front door or porch.
+        </div>
+        <div class="productInfo row pr-5 pb-5 mt-3">
+          <div class="col-2">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+          </div>
+          <div class="col-8 ml-2">
+            <div><a href="">Chocolate Box Yum</a></div>
+            <div><span>Sold by: Amazon.com Services, inc</span></div>
+            <div><span>Return eligible through Nov 22, 2018</span></div>
+            <div><span class="price">$4.99</span></div>
+            <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
+            <a href=""><button class="btn btn-primary">Buy it again</button></a>
+          </div>
+        </div>
+      </div>
+      <div class="option col-4">
+        <a href=""><button class="btn-lg btn-block btn-primary">Option1</button></a>
+        <a href=""><button class="mt-2 btn-lg btn-block btn-secondary">Option2</button></a>
+        <a href=""><button class="mt-2 btn-lg btn-block btn-success">Option3</button></a>
+        <a href=""><button class="mt-2 btn-lg btn-block btn-danger">Option4</button></a>
+        <a href=""><button class="mt-2 btn-lg btn-block btn-warning">Option5</button></a>
+      </div>
+    </div>
+  </div>
+</div>

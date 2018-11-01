@@ -45,11 +45,14 @@ import { MusicsComponent } from './components/music-components/musics/musics.com
 import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
 import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
 import { ShoppingInventoryComponent } from './components/shopping-components/shopping-inventory/shopping-inventory.component';
+import { ShoppingCartComponent } from './components/shopping-components/shopping-cart/shopping-cart.component';
 
 // authentification
 import { RegisterComponent } from './components/authentification/register/register.component';
 import { LoginComponent } from './components/authentification/login/login.component';
 import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
+import { ShoppingReviewOrderComponent } from './components/shopping-components/shopping-review-order/shopping-review-order.component';
+import { ShoppingOrderDetailsComponent } from './components/shopping-components/shopping-order-details/shopping-order-details.component';
 
 
 
@@ -88,7 +91,10 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     RegisterComponent,
     LoginComponent,
     ShoppingProfileComponent,
-    ShoppingInventoryComponent
+    ShoppingInventoryComponent,
+    ShoppingCartComponent,
+    ShoppingReviewOrderComponent,
+    ShoppingOrderDetailsComponent
 
   ],
   imports: [
