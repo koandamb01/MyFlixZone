@@ -21,6 +21,8 @@ import { MusicsComponent } from './components/music-components/musics/musics.com
 
 //shopping components
 import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
+import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
+
 
 // authentification
 import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
@@ -30,7 +32,10 @@ import { RegisterComponent } from './components/authentification/register/regist
 
 export const appRoutes: Routes = [
   {
-    path: 'shopping', component: ShoppingHomeComponent
+    path: 'shopping', component: ShoppingHomeComponent,
+  },
+  {
+    path: 'shopping/profile', component: ShoppingProfileComponent,
   },
 
   {

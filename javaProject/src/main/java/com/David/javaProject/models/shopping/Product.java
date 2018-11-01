@@ -19,6 +19,7 @@ public class Product {
 	private int stock;
 	private String description;
 	private String img;
+	
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;

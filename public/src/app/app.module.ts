@@ -43,6 +43,7 @@ import { MusicsComponent } from './components/music-components/musics/musics.com
 
 // shopping components
 import { ShoppingHomeComponent } from './components/shopping-components/shopping-home/shopping-home.component';
+import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
 
 // authentification
 import { RegisterComponent } from './components/authentification/register/register.component';
@@ -84,7 +85,8 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     // auth
     AuthHomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ShoppingProfileComponent
 
   ],
   imports: [

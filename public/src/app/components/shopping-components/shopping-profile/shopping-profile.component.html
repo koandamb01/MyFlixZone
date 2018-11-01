@@ -1,0 +1,220 @@
+<div class="container mt-5 mb-5">
+  <h3 class="text-center font-weight-bold"><span class="text-danger">FLIX</span>PROFILE</h3>
+  <div class="alert alert-success alert-sm" role="alert">
+    Success
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-8">
+      <!-- Personal Information -->
+      <div class="row p-3">
+        <div class="col">
+          <form class="form-signin border shadow-lg rounded p-3">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" class="form-control form-control-sm validate" />
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" class="form-control form-control-sm validate" name="lastName" />
+            </div>
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" class="form-control form-control-sm validate" name="email" />
+            </div>
+            <button class="btn btn-sm btn-danger btn-block" type="submit">Save
+              Changes
+            </button>
+          </form>
+        </div>
+
+        <div class="col">
+          <form class="form-signin border shadow-lg rounded p-3">
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" class="form-control form-control-sm validate" name="password" />
+            </div>
+            <div class="form-group">
+              <label>Re-enter password</label>
+              <input type="password" class="form-control form-control-sm validate" name="confirm_pass" />
+            </div>
+            <button class="btn btn-sm btn-danger btn-block" type="submit">Change
+              Password
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <button class="btn btn-sm btn-dark ml-3 right" (click)="showAddress=!showAddress; showPayment=false;">Add Adress</button>
+      <button class="btn btn-sm btn-dark ml-3 right" (click)="showPayment=!showPayment; showAddress=false;">Add Payment</button>
+      <!-- Shipping Forms -->
+      <div class="row p-3" *ngIf="showAddress">
+        <div class="col">
+          <form class="form-signin border shadow-lg rounded p-3">
+            <h1 class="h3 mb-3 font-weight-normal">Add a shipping address</h1>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>State</label>
+                  <select class="form-control form-control-sm validate">
+                    <option value="#"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Zip Code</label>
+                  <input type="text" class="form-control form-control-sm validate" name="firstName" />
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-danger btn-block" type="submit">Add
+              Address
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Payment Info -->
+      <div class="row p-3" *ngIf="showPayment">
+        <div class="col">
+          <form class="form-signin border shadow-lg rounded p-3">
+            <h1 class="h3 mb-3 font-weight-normal">Add a payment option</h1>
+
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label>Credit Card</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label>Address</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label>City</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label>State</label>
+                  <select class="form-control form-control-sm validate">
+                    <option value="#"></option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Zip Code</label>
+                  <input type="text" class="form-control form-control-sm validate" />
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-sm btn-danger btn-block" type="submit">Set
+              Billing Information
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <ul class="list-group shadow-lg rounded bg-secondary">
+        <li class="list-group-item d-flex justify-content-between align-items-center bg-danger text-white">
+          Address 1
+          <a class="btn btn-sm btn-primary">Set Default Shipping</a>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Street Address:
+          <span class="font-weight-bold">1222 Street 9th</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          City:
+          <span class="font-weight-bold">San Jose</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          State:
+          <span class="font-weight-bold">CA</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          Zipcode:
+          <span class="font-weight-bold">991521</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <button class="btn btn-sm btn-warning mr-2">Edit</button>
+            <button class="btn btn-sm btn-danger">Remove</button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Payment Info -->
+      <mat-accordion>
+        <mat-expansion-panel class="mt-5 shadow-lg rounded">
+          <mat-expansion-panel-header class="bg-danger">
+            <mat-panel-title class="text-white">
+              Visa ending 8080
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <ul class="list-group shadow-lg rounded bg-secondary mt-2">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Card Number:
+                <span class="font-weight-bold">#### #### #### 8080</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Street Address:
+                <span class="font-weight-bold">1222 Street 9th</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                City:
+                <span class="font-weight-bold">San Jose</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                State:
+                <span class="font-weight-bold">CA</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Zipcode:
+                <span class="font-weight-bold">991521</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                  <button class="btn btn-sm btn-warning mr-2">Edit</button>
+                  <button class="btn btn-sm btn-danger">Remove</button>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
