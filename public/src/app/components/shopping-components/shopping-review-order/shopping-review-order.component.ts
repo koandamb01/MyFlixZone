@@ -20,8 +20,7 @@ export class ShoppingReviewOrderComponent implements OnInit {
   paymentInfo: any;
   shippingInfo: any;
   listOfItems: any[];
-  
-
+  dateNow = new Date();
   constructor(
     private shopService: ShoppingService,
     private _router: Router
@@ -29,6 +28,8 @@ export class ShoppingReviewOrderComponent implements OnInit {
 
   ngOnInit() {
     this.getOrderTotal();
+    this.dateNow.setDate( this.dateNow.getDate() + 3 );
+
   }
 
   goToCart() {

@@ -14,7 +14,7 @@ export class ShoppingService {
 
   constructor(private _http: Http) { }
 
-
+//inventory related
   getCart() {
     return this._http.get(this.baseUrl + '/paypal/getCart', this.options)
       .pipe
@@ -69,6 +69,47 @@ export class ShoppingService {
       )
   }
 
+  deleteItem(itemId){
+    return this._http.delete(this.baseUrl + '/admin/product/'+itemId+'/delete', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  editProduct(newProduct){
+    return this._http.put(this.baseUrl + '/admin/product', JSON.stringify(newProduct), this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+//end of inventory related
+
+
+/// start of orders//
+
+getOrders() {
+  return this._http.get(this.baseUrl + '/admin/orders', this.options)
+    .pipe
+    (
+    map((response: Response) => response.json()),
+    catchError(this.errorHandler)
+    )
+}
+
+updateStatus(orderId, status) {
+  return this._http.get(this.baseUrl + '/admin//orders/'+ orderId +'/status/' + status, this.options)
+    .pipe
+    (
+    map((response: Response) => response.json()),
+    catchError(this.errorHandler)
+    )
+}
+
+//end of orders//
   errorHandler(error: Response) {
     return Observable.throw(error || "Server Error Service Side")
   }

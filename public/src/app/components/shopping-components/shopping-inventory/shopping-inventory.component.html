@@ -1,8 +1,8 @@
 <div id="sellerNavbar" class="container-fluid">
   <div class="container">
     <ul>
-      <li (click)="showOrder=!showOrder;">Orders</li>
-      <li (click)="showInventory=!showInventory;">Inventory</li>
+      <li (click)="showOrders()">Orders</li>
+      <li (click)="showInventories()">Inventory</li>
     </ul>
   </div>
 </div>
@@ -31,20 +31,20 @@
             <td>${{item.price}}</td>
             <td>{{item.stock}}</td>
             <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
+              <a (click)="showingEdit(item.id, item.name, item.price, item.stock, item.img, item.description)" class="btn-sm btn-primary ml-2">Edit</a>
+              <a (click)="deleteItem(item.id)" class="btn-sm btn-warning ml-2">Remove</a>
             </td>
           </tr>
         </tbody>
       </table>
-      <button class="btn-sm btn-primary" (click)="showInventoryForn=!showInventoryForn">Add Inventory</button>
+      <button class="btn-sm btn-primary" (click)="showingAddItem()">Add Inventory</button>
 
       <div class="alert alert-success alert-sm" role="alert" *ngIf="messages.success">
         {{ messages.success }}
       </div>
 
       <!-- form for new inventory -->
-      <form (submit)="addProduct()" class="form-signin border shadow-lg rounded p-3 mt-5" *ngIf="showInventoryForn">
+      <form (submit)="addProduct()" class="form-signin border shadow-lg rounded p-3 mt-5" *ngIf="showAddItem">
         <h1 class="h3 mb-3 font-weight-normal">Add a product</h1>
 
         <div class="row">
@@ -71,18 +71,18 @@
 
           <div class="col">
             <div class="form-group">
-              <label>Quanitty:</label>
+              <label>Stock:</label>
               <input type="text" class="form-control form-control-sm validate" name="quantity" #quantity="ngModel"
-              [(ngModel)]="newPro.quantity" required/>
+              [(ngModel)]="newPro.stock" required/>
               <div *ngIf="!quantity.valid && (quantity.dirty || quantity.touched)">
-                <span class="text-danger" *ngIf="quantity.errors.required">*Quanitty is required.</span>
+                <span class="text-danger" *ngIf="quantity.errors.required">*Quantity is required.</span>
               </div>
             </div>
 
             <div class="form-group">
               <label>ImageLink:</label>
               <input type="text" class="form-control form-control-sm validate" name="imageLink" #imageLink="ngModel"
-              [(ngModel)]="newPro.imageLink" required/>
+              [(ngModel)]="newPro.img" required/>
               <div *ngIf="!imageLink.valid && (imageLink.dirty || imageLink.touched)">
                 <span class="text-danger" *ngIf="imageLink.errors.required">*ImageLink is required.</span>
               </div>
@@ -105,10 +105,71 @@
       </form>
     </div>
 
+    <!-- form for edit item -->
+    <form (submit)="editProduct()" class="form-signin border shadow-lg rounded p-3 mt-5" *ngIf="showEdit">
+      <h1 class="h3 mb-3 font-weight-normal">Edit a product</h1>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control form-control-sm validate" name="name" #name="ngModel" minlength="2"
+            [(ngModel)]="newPro.name" required/>
+            <div *ngIf="!name.valid && (name.dirty || name.touched)">
+              <span class="text-danger" *ngIf="name.errors.required">*Name is required.</span>
+              <span class="text-danger" *ngIf="name.errors.minlength">*Must be at least 2 characters.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Price:</label>
+            <input type="text" class="form-control form-control-sm validate" name="price" #price="ngModel"
+            [(ngModel)]="newPro.price" required/>
+            <div *ngIf="!price.valid && (price.dirty || price.touched)">
+              <span class="text-danger" *ngIf="price.errors.required">*Price is required.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-group">
+            <label>Stock:</label>
+            <input type="text" class="form-control form-control-sm validate" name="quantity" #quantity="ngModel"
+            [(ngModel)]="newPro.stock" required/>
+            <div *ngIf="!quantity.valid && (quantity.dirty || quantity.touched)">
+              <span class="text-danger" *ngIf="quantity.errors.required">*Quantity is required.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>ImageLink:</label>
+            <input type="text" class="form-control form-control-sm validate" name="imageLink" #imageLink="ngModel"
+            [(ngModel)]="newPro.img" required/>
+            <div *ngIf="!imageLink.valid && (imageLink.dirty || imageLink.touched)">
+              <span class="text-danger" *ngIf="imageLink.errors.required">*ImageLink is required.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea type="text" class="form-control form-control-sm validate" name="description" #description="ngModel"
+        [(ngModel)]="newPro.description" required></textarea>
+        <div *ngIf="!description.valid && (description.dirty || description.touched)">
+        <span class="text-danger" *ngIf="description.errors.required">*Description is required.</span>
+        </div>
+      </div>
+
+      <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="addProduct">Edit
+        Product
+      </button>
+    </form>
+
     <!-- Product image box -->
     <div class="col-md-4">
       <div class="img-box shadow-lg rounded">
-        <img *ngIf="newPro.imageLink" [src]="newPro.imageLink"  alt="">
+        <img *ngIf="newPro.img" [src]="newPro.img"  alt="">
       </div>
     </div>
   </div>
@@ -120,7 +181,7 @@
         <div class="card mt-1 mb-4 shadow-lg bg-warning text-white">
           <div class="card-body">
             <h1 class="text-center display-4 sml">Unshipped</h1>
-            <h2 class="text-center display-4 med">102</h2>
+            <h2 class="text-center display-4 med">{{unshipped}}</h2>
           </div>
         </div>
       </div>
@@ -128,7 +189,7 @@
         <div class="card mt-1 mb-4 shadow-lg bg-primary text-white">
           <div class="card-body">
             <h1 class="text-center display-4 sml">Shipped</h1>
-            <h2 class="text-center display-4 med">204</h2>
+            <h2 class="text-center display-4 med">{{shipped}}</h2>
           </div>
         </div>
       </div>
@@ -136,7 +197,7 @@
         <div class="card mt-1 mb-4 shadow-lg bg-success text-white">
           <div class="card-body">
             <h1 class="text-center display-4 sml">Completed</h1>
-            <h2 class="text-center display-4 med">30130</h2>
+            <h2 class="text-center display-4 med">{{completed}}</h2>
           </div>
         </div>
       </div>
@@ -150,20 +211,19 @@
           <tr>
             <th scope="col">Order #</th>
             <th scope="col">Order Date</th>
-            <th scope="col">Customer</th>
+            <!-- <th scope="col">Customer</th> -->
             <th scope="col">Total Amount</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><a href="#">1</a></th>
-            <td>12/13/2018</td>
-            <td>Mark</td>
-            <td>$99.99</td>
+          <tr *ngFor="let order of unshippedList">
+            <th scope="row"><a href="#">{{order.id}}</a></th>
+            <td>{{order.datePaid | date:'short' }}</td>
+            <td>${{order.total}}</td>
             <td>
-              <button type="button" class="btn-sm btn-primary ml-2">For Shipping</button>
-              <button type="button" class="btn-sm btn-success ml-2">Completed</button>
+              <button (click)='updateStatus(order.id, "shipped")' type="button" class="btn-sm btn-primary ml-2">For Shipping</button>
+              <button (click)='updateStatus(order.id, "completed")' type="button" class="btn-sm btn-success ml-2">Completed</button>
             </td>
           </tr>
         </tbody>
@@ -178,20 +238,19 @@
           <tr>
             <th scope="col">Order #</th>
             <th scope="col">Order Date</th>
-            <th scope="col">Customer</th>
+            <!-- <th scope="col">Customer</th> -->
             <th scope="col">Total Amount</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><a href="#">1</a></th>
-            <td>12/13/2018</td>
-            <td>Mark</td>
-            <td>$99.99</td>
+          <tr *ngFor="let order of shippedList">
+            <th scope="row"><a href="#">{{order.id}}</a></th>
+            <td>{{order.datePaid | date:'short' }}</td>
+            <td>${{order.total}}</td>
             <td>
-              <button type="button" class="btn-sm btn-danger ml-2">Unshipped</button>
-              <button type="button" class="btn-sm btn-success ml-2">Completed</button>
+              <button (click)='updateStatus(order.id, "unshipped")' type="button" class="btn-sm btn-danger ml-2" >Unshipped</button>
+              <button (click)='updateStatus(order.id, "completed")' type="button" class="btn-sm btn-success ml-2">Completed</button>
             </td>
           </tr>
         </tbody>
@@ -208,20 +267,19 @@
           <tr>
             <th scope="col">Order #</th>
             <th scope="col">Order Date</th>
-            <th scope="col">Customer</th>
+            <!-- <th scope="col">Customer</th> -->
             <th scope="col">Total Amount</th>
             <th scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><a href="#">1</a></th>
-            <td>12/13/2018</td>
-            <td>Mark</td>
-            <td>$99.99</td>
+          <tr *ngFor="let order of completedList">
+            <th scope="row"><a href="#">{{order.id}}</a></th>
+            <td>{{order.datePaid | date:'short' }}</td>
+            <td>${{order.total}}</td>
             <td>
-              <button type="button" class="btn-sm btn-danger ml-2">Unshipped</button>
-              <button type="button" class="btn-sm btn-warning ml-2">Shipped</button>
+              <button (click)='updateStatus(order.id, "unshipped")' type="button" class="btn-sm btn-danger ml-2">Unshipped</button>
+              <button (click)='updateStatus(order.id, "shipped")' type="button" class="btn-sm btn-warning ml-2">Shipped</button>
             </td>
           </tr>
         </tbody>
