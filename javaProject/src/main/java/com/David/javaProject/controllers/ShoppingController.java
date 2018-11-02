@@ -1,6 +1,7 @@
 package com.David.javaProject.controllers;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +56,20 @@ public class ShoppingController {
 	private AddressRepo addressRepo;
 	@Autowired
 	private PaymentInfoRepo paymentInfoRepo;
+	@Autowired
+	private SessionService sessionService;
+
+//	public ShoppingController(UserRepository userRepo, CategoryRepo categoryRepo, OrderRepo orderRepo, ProductRepo productRepo, OrderProductRepo orderProductRepo, ShoppingService shoppingService, AddressRepo addressRepo, PaymentInfoRepo paymentInfoRepo, SessionService sessionService){
+//		this.userRepo =userRepo;
+//		this.categoryRepo = categoryRepo;
+//		this.orderRepo = orderRepo;
+//		this.productRepo = productRepo;
+//		this.orderProductRepo = orderProductRepo;
+//		this.shoppingService = shoppingService;
+//		this.addressRepo = addressRepo;
+//		this.paymentInfoRepo = paymentInfoRepo;
+//		this.sessionService = sessionService;
+//	}
 
 	@GetMapping("/testing")
 	public Response testing(HttpSession session) {
@@ -78,7 +93,7 @@ public class ShoppingController {
 			return res;
 		} else {
 			//getting the user from session
-			Long userId = (Long) session.getAttribute("userId");
+			Long userId = this.sessionService.getUserId();
 			User user = shoppingService.findUserById(userId);
 			//setting user as the address owner
 			address.setUser(user);
@@ -102,7 +117,7 @@ public class ShoppingController {
 
 	@GetMapping("/changeAddress/{addressId}")
 	public Response changeDefaultAddress(@PathVariable("addressId") Long addressId, HttpSession session) {
-		Long userId = (Long) session.getAttribute("userId");
+		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
 		//find user
 		if (user == null) {
@@ -147,7 +162,7 @@ public class ShoppingController {
 		//passed validation
 		else {
 			//getting the user from session
-			Long userId = (Long) session.getAttribute("userId");
+			Long userId = this.sessionService.getUserId();
 			User user = shoppingService.findUserById(userId);
 			//setting user as the address owner
 			paymentInfo.setUser(user);
@@ -182,11 +197,8 @@ public class ShoppingController {
 
 	@GetMapping("/addToOrder/{pathProductId}/{quantity}")
 	public Response addToOrder(@PathVariable("pathProductId") Long productId, @PathVariable("quantity") int quantity, HttpSession session) {
-		//demo setting session userId as 1
-		Long one = new Long(1);
-		session.setAttribute("userId", one);
 		//finding user
-		Long userId = (Long) session.getAttribute("userId");
+		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
 		if (user == null) {
 			Response res = new Response(false, "Could not find user");
@@ -229,11 +241,11 @@ public class ShoppingController {
 
 	@GetMapping("/submitOrder")
 	public Response submitOrder(HttpSession session) {
-		//demo setting session userId as 1
-		Long one = new Long(1);
-		session.setAttribute("userId", one);
+//		//demo setting session userId as 1
+//		Long one = new Long(1);
+//		session.setAttribute("userId", one);
 		//finding user
-		Long userId = (Long) session.getAttribute("userId");
+		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
 		if (user == null) {
 			Response res = new Response(false, "Could not find user");
@@ -254,32 +266,63 @@ public class ShoppingController {
 		}
 	}
 
-	@GetMapping("/getOneOrder/{orderId}")
-	public Response getOneOrder(@PathVariable("orderId") Long orderId, HttpSession session){
-		//finding user
-		Long userId = (Long) session.getAttribute("userId");
+	@GetMapping("/getCart")
+	public Response getCart(){
+		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
 		if (user == null) {
 			Response res = new Response(false, "Could not find user");
 			return res;
 		} else {
+			Order order = shoppingService.hasCart(user);
+			//checking if cart is empty
+			if (order == null){
+				Response res = new Response (true, "Cart is empty");
+				return res;
+			}
+			else{
+				OrderDetail orderDetail = new OrderDetail();
+				orderDetail.setOrder(order);
+				//make a list of array for productInfo
+				List<ProductInfo> productInfoList = new ArrayList();
+//				find all the products in the order
+				List<OrderProduct> orderProductList = shoppingService.findAllOrderProductByOrderId(order.getId());
+				for(OrderProduct orderProduct: orderProductList){
+					Product product = orderProduct.getProduct();
+					ProductInfo productInfo = new ProductInfo(product.getName(), product.getPrice(), orderProduct.getQuantity(), product.getImg());
+					productInfoList.add(productInfo);
+				}
+				orderDetail.setDetails(productInfoList);
+				Response res = new Response(true, "Cart information", orderDetail);
+//				Response res = new Response(true, "hey");
+				return res;
+			}
+		}
+	}
+
+	@GetMapping("/getCheckOut")
+	public Response checkOutInformation(HttpSession session){
+		//finding user
+		Long userId = this.sessionService.getUserId();
+		User user = shoppingService.findUserById(userId);
+		if (user == null) {
+			Response res = new Response(false, "Could not find user");
+			return res;
+		} else {
+			Order order = shoppingService.hasCart(user);
 			//find the order by Id
-			Optional<Order> optional = orderRepo.findById(orderId);{
-				if(!optional.isPresent()){
+				if(order == null){
 					Response res = new Response(false, "Could not find order");
 					return res;
 				}
 				else{
-					Order order = optional.get();
 					OrderDetail orderDetail = new OrderDetail();
-					//set the order for the orderDetail
-					// 					OrderDetail orderDetail = new OrderDetail(order, order.getPaymentInfo(), order.getAddress());
 
 					orderDetail.setOrder(order);
 					orderDetail.setPaymentInfo(order.getPaymentInfo());
 
 					System.out.println(order.getAddress().getCity());
-					Address address = new Address(order.getAddress().getStreet(), order.getAddress().getCity(), order.getAddress().getState(), order.getAddress().getZipcode(), order.getAddress().getUser());
+					Address address = new Address(order.getAddress().getName(), order.getAddress().getStreet(), order.getAddress().getCity(), order.getAddress().getState(), order.getAddress().getZipcode(), order.getAddress().getUser());
 
 					orderDetail.setShippingAddress(address);
 					//make a list of array for productInfo
@@ -294,7 +337,55 @@ public class ShoppingController {
 						productInfoList.add(productInfo);
 					}
 					orderDetail.setDetails(productInfoList);
-					Response res = new Response(true, "All the orders of the user in session", orderDetail);
+					Response res = new Response(true, "Order of the user in session", orderDetail);
+					return res;
+				}
+			}
+		}
+
+	@GetMapping("/getOneOrder/{orderId}")
+	public Response getOneOrder(@PathVariable("orderId") Long orderId, HttpSession session){
+		//finding user
+		Long userId = this.sessionService.getUserId();
+		User user = shoppingService.findUserById(userId);
+		if (user == null) {
+			Response res = new Response(false, "Could not find user");
+			return res;
+		} else {
+			//find the order by Id
+			Optional<Order> optional = orderRepo.findById(orderId);{
+				if(!optional.isPresent()){
+					Response res = new Response(false, "Could not find order");
+					return res;
+				}
+				else{
+					Order order = optional.get();
+					if(order.getStatus()=="cart"){
+						Response res = new Response(false, "The order is in cart");
+						return res;
+					}
+					OrderDetail orderDetail = new OrderDetail();
+
+					orderDetail.setOrder(order);
+					orderDetail.setPaymentInfo(order.getPaymentInfo());
+
+					System.out.println(order.getAddress().getCity());
+					Address address = new Address(order.getAddress().getName(), order.getAddress().getStreet(), order.getAddress().getCity(), order.getAddress().getState(), order.getAddress().getZipcode(), order.getAddress().getUser());
+
+					orderDetail.setShippingAddress(address);
+					//make a list of array for productInfo
+					List<ProductInfo> productInfoList = new ArrayList();
+
+					//find all the products in the order
+					List<OrderProduct> orderProductList = shoppingService.findAllOrderProductByOrderId(order.getId());
+
+					for(OrderProduct orderProduct: orderProductList){
+						Product product = orderProduct.getProduct();
+						ProductInfo productInfo = new ProductInfo(product.getName(), product.getPrice(), orderProduct.getQuantity(), product.getImg());
+						productInfoList.add(productInfo);
+					}
+					orderDetail.setDetails(productInfoList);
+					Response res = new Response(true, "Order of the user in session", orderDetail);
 					return res;
 				}
 			}
@@ -303,12 +394,12 @@ public class ShoppingController {
 
 	@GetMapping("/getAllOrders")
 	public Response getAllOrders(HttpSession session){
-		//demo setting session userId as 1
-		Long one = new Long(1);
-		session.setAttribute("userId", one);
+//		//demo setting session userId as 1
+//		Long one = new Long(1);
+//		session.setAttribute("userId", one);
 
 		//finding user
-		Long userId = (Long) session.getAttribute("userId");
+		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
 		if (user == null) {
 			Response res = new Response(false, "Could not find user");

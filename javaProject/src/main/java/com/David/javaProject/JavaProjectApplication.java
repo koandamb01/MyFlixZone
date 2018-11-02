@@ -1,5 +1,6 @@
 package com.David.javaProject;
 
+import com.David.javaProject.controllers.SessionService;
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.paypal.*;
 import com.David.javaProject.models.shopping.*;
@@ -42,6 +43,8 @@ public class JavaProjectApplication implements CommandLineRunner {
 	private FavoriteRepo favoriteRepo;
 	@Autowired
 	private OrderProductRepo orderProductRepo;
+	@Autowired
+	private SessionService sessionService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JavaProjectApplication.class, args);
@@ -63,16 +66,16 @@ public class JavaProjectApplication implements CommandLineRunner {
 //		 User user6 = userRepo.save(new User("Admin2", "Admin2", "admin2@admin.com",
 //		 "saltyhomie", "admin"));
 //
-//		 Address shipping1 = shippingRepo.save(new Address("1234 bullet street", "San Francisco", "California", "11111", user1));
-//		 Address shipping2 = shippingRepo.save(new Address("4314 boom street", "New York" ,"New York", "22222", user4));
-//		 Address shipping3 = shippingRepo.save(new Address("3251 choo street",
+//		 Address shipping1 = shippingRepo.save(new Address("Haroro","1234 bullet street", "San Francisco", "California", "11111", user1));
+//		 Address shipping2 = shippingRepo.save(new Address("Mr.Capable","4314 boom street", "New York" ,"New York", "22222", user4));
+//		 Address shipping3 = shippingRepo.save(new Address("Derp", "3251 choo street",
 //		 "Seattle" ,"Washington", "33333", user3));
-//		 Address shipping4 = shippingRepo.save(new Address("7777 bang street",
+//		 Address shipping4 = shippingRepo.save(new Address("Lynna","7777 bang street",
 //		 "Austin" ,"Texas", "44444", user2));
-//		 Address shipping5 = shippingRepo.save(new Address("8834 b street", "Miami"
-//		 ,"Florida", "55555", user1, false));
-//		 Address shipping6 = shippingRepo.save(new Address("5151 c street", "San Jose"
-//		 ,"Califronia", "11111", user1, false));
+//		 Address shipping5 = shippingRepo.save(new Address("Big Nose","8834 b street", "Miami"
+//		 ,"Florida", "55555", user2, false));
+//		 Address shipping6 = shippingRepo.save(new Address("Giraffe","5151 c street", "San Jose"
+//		 ,"Califronia", "11111", user2, false));
 //
 //		 PaymentInfo pay1 = paymentRepo.save(new PaymentInfo("4124-4214-2424-2424",
 //		 user1, shipping1));
@@ -98,35 +101,38 @@ public class JavaProjectApplication implements CommandLineRunner {
 //		 product3.getCategories().add(cat3);product3.getCategories().add(cat1);
 //		 product4.getCategories().add(cat3);product4.getCategories().add(cat4);
 //		 productRepo.save(product1);productRepo.save(product2);productRepo.save(product3);productRepo.save(product4);
-//
+
 //		 Order order1 = orderRepo.save(new Order("cart", shipping1, pay1, user1));
 //		 Order order2 = orderRepo.save(new Order("cart", shipping2, pay2, user2));
 //		 Order order3 = orderRepo.save(new Order("cart", shipping3, pay3, user3));
 //		 Order order4 = orderRepo.save(new Order("cart", shipping4, pay4, user4));
-//		
+//
 //		 OrderProduct op1 = orderProductRepo.save(new OrderProduct(order1,
 //		 product1,2));OrderProduct op2 = orderProductRepo.save(new
 //		 OrderProduct(order1, product2,15));
 //		 OrderProduct op3 = orderProductRepo.save(new OrderProduct(order1,
 //		 product3,5));
-//		
+//
 //		 OrderProduct op4 = orderProductRepo.save(new OrderProduct(order2,
 //		 product1,1));OrderProduct op5 = orderProductRepo.save(new
 //		 OrderProduct(order2, product2,12));
 //		 OrderProduct op6 = orderProductRepo.save(new OrderProduct(order2,
 //		 product4,1));
-//		
+//
 //		 OrderProduct op7 = orderProductRepo.save(new OrderProduct(order3,
 //		 product4,1));OrderProduct op8 = orderProductRepo.save(new
-//		 OrderProduct(order3, product2,2)); 
+//		 OrderProduct(order3, product2,2));
 //		 OrderProduct op9 = orderProductRepo.save(new OrderProduct(order3,
 //		 product3,2));
-//		
+//
 //		 OrderProduct op10 = orderProductRepo.save(new OrderProduct(order4,
 //		 product1,3));OrderProduct op11 = orderProductRepo.save(new
 //		 OrderProduct(order4, product4,1));
 //		 OrderProduct op12 = orderProductRepo.save(new OrderProduct(order4,
 //		 product3,1));
+
+		Long one = new Long(2);
+		this.sessionService.setUserId(one);
 
 	}
 }

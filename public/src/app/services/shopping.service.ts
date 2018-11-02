@@ -42,6 +42,33 @@ export class ShoppingService {
       )
   }
 
+  getOrderDetail(orderId){
+    return this._http.get(this.baseUrl + '/paypal/getOneOrder/'+orderId, this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  getInventory(){
+    return this._http.get(this.baseUrl + '/admin/product', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  addProduct(newProduct){
+    return this._http.post(this.baseUrl + '/admin/product', JSON.stringify(newProduct), this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
   errorHandler(error: Response) {
     return Observable.throw(error || "Server Error Service Side")
   }

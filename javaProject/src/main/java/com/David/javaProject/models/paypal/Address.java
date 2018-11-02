@@ -16,7 +16,12 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+<<<<<<< HEAD
 	
+=======
+	@NotBlank(message="Name is required.")
+	private String name;
+>>>>>>> 5bae4d7dfc040191a192fb77c370b26bdf8f104a
 	@NotBlank(message="Street is required.")
 	private String street;
 	
@@ -54,7 +59,8 @@ public class Address {
 	public Address() {
 	}
 
-	public Address(String street, String city, String state, String zipcode, User user, boolean defaultShippingAddress) {
+	public Address(String name, String street, String city, String state, String zipcode, User user, boolean defaultShippingAddress) {
+		this.name = name;
 		this.street = street;
 		this.city = city;
 		this.state = state;
@@ -63,7 +69,8 @@ public class Address {
 		this.defaultShippingAddress = defaultShippingAddress;
 	}
 
-	public Address(String street, String city, String state, String zipcode, User user) {
+	public Address(String name, String street, String city, String state, String zipcode, User user) {
+		this.name = name;
 		this.street = street;
 		this.city = city;
 		this.state = state;
@@ -81,6 +88,14 @@ public class Address {
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setId(Long id) {

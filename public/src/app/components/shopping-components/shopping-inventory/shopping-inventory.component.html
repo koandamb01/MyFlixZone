@@ -1,8 +1,8 @@
 <div id="sellerNavbar" class="container-fluid">
   <div class="container">
     <ul>
-      <li (click)="showOrder=!showOrder; showInventory=false;">Orders</li>
-      <li (click)="showInventory=!showInventory; showOrder=false;">Inventory</li>
+      <li (click)="showOrder=!showOrder;">Orders</li>
+      <li (click)="showInventory=!showInventory;">Inventory</li>
     </ul>
   </div>
 </div>
@@ -23,89 +23,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
-            <td>
-              <a class="btn-sm btn-primary ml-2">Edit</a>
-              <a class="btn-sm btn-warning ml-2">Remove</a>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#">Chocolate</a></th>
-            <td>12/13/2018</td>
-            <td>12/13/2018</td>
-            <td>$99.99</td>
-            <td>10</td>
+          <tr *ngFor="let item of listOfInventory">
+            <th scope="row"><a href="#">{{item.name}}</a></th>
+            <td>{{item.createdAt | date:'short'}}</td>
+            <td *ngIf="item.updatedAt">{{item.updatedAt | date:'short'}}</td>
+            <td *ngIf="!item.updatedAt">{{item.createdAt | date:'short'}}</td>
+            <td>${{item.price}}</td>
+            <td>{{item.stock}}</td>
             <td>
               <a class="btn-sm btn-primary ml-2">Edit</a>
               <a class="btn-sm btn-warning ml-2">Remove</a>
@@ -115,42 +39,67 @@
       </table>
       <button class="btn-sm btn-primary" (click)="showInventoryForn=!showInventoryForn">Add Inventory</button>
 
+      <div class="alert alert-success alert-sm" role="alert" *ngIf="messages.success">
+        {{ messages.success }}
+      </div>
+
       <!-- form for new inventory -->
-      <form class="form-signin border shadow-lg rounded p-3 mt-5" *ngIf="showInventoryForn">
+      <form (submit)="addProduct()" class="form-signin border shadow-lg rounded p-3 mt-5" *ngIf="showInventoryForn">
         <h1 class="h3 mb-3 font-weight-normal">Add a product</h1>
 
         <div class="row">
           <div class="col">
             <div class="form-group">
               <label>Name:</label>
-              <input type="text" class="form-control form-control-sm validate" name="firstName" />
+              <input type="text" class="form-control form-control-sm validate" name="name" #name="ngModel" minlength="2"
+              [(ngModel)]="newPro.name" required/>
+              <div *ngIf="!name.valid && (name.dirty || name.touched)">
+                <span class="text-danger" *ngIf="name.errors.required">*Name is required.</span>
+                <span class="text-danger" *ngIf="name.errors.minlength">*Must be at least 2 characters.</span>
+              </div>
             </div>
 
             <div class="form-group">
               <label>Price:</label>
-              <input type="text" class="form-control form-control-sm validate" />
+              <input type="text" class="form-control form-control-sm validate" name="price" #price="ngModel"
+              [(ngModel)]="newPro.price" required/>
+              <div *ngIf="!price.valid && (price.dirty || price.touched)">
+                <span class="text-danger" *ngIf="price.errors.required">*Price is required.</span>
+              </div>
             </div>
           </div>
 
           <div class="col">
             <div class="form-group">
-              <label>Quantity:</label>
-              <input type="email" class="form-control form-control-sm validate" />
+              <label>Quanitty:</label>
+              <input type="text" class="form-control form-control-sm validate" name="quantity" #quantity="ngModel"
+              [(ngModel)]="newPro.quantity" required/>
+              <div *ngIf="!quantity.valid && (quantity.dirty || quantity.touched)">
+                <span class="text-danger" *ngIf="quantity.errors.required">*Quanitty is required.</span>
+              </div>
             </div>
 
             <div class="form-group">
-              <label>Image Link:</label>
-              <input type="text" class="form-control form-control-sm validate" />
+              <label>ImageLink:</label>
+              <input type="text" class="form-control form-control-sm validate" name="imageLink" #imageLink="ngModel"
+              [(ngModel)]="newPro.imageLink" required/>
+              <div *ngIf="!imageLink.valid && (imageLink.dirty || imageLink.touched)">
+                <span class="text-danger" *ngIf="imageLink.errors.required">*ImageLink is required.</span>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="form-group">
           <label>Description</label>
-          <textarea type="text" class="form-control form-control-sm validate"></textarea>
+          <textarea type="text" class="form-control form-control-sm validate" name="description" #description="ngModel"
+          [(ngModel)]="newPro.description" required></textarea>
+          <div *ngIf="!description.valid && (description.dirty || description.touched)">
+          <span class="text-danger" *ngIf="description.errors.required">*Description is required.</span>
+          </div>
         </div>
 
-        <button class="btn btn-sm btn-primary btn-block" type="submit">Add
+        <button class="btn btn-sm btn-primary btn-block" type="submit" (click)="addProduct">Add
           Product
         </button>
       </form>
@@ -159,7 +108,7 @@
     <!-- Product image box -->
     <div class="col-md-4">
       <div class="img-box shadow-lg rounded">
-        <img src="https://colorlib.com/etc/fashe/images/banner-04.jpg" alt="">
+        <img *ngIf="newPro.imageLink" [src]="newPro.imageLink"  alt="">
       </div>
     </div>
   </div>
