@@ -1,0 +1,65 @@
+.unordered-list {
+    list-style: none;
+    padding-left: 0px !important;
+}
+.unordered-list a{
+    text-decoration: none;
+    color: #0066c0;
+}
+.unordered-list span{
+    color: #c45500!important;
+}
+.horizontal li{
+    display: inline-block;
+    margin-right: 10px;
+}
+h1{
+    font-size: 28px;
+}
+
+.input-search{
+    padding-left: 29px !important;
+    border-radius: 3px;
+    border-width: 1px;
+    width: 100%;
+}
+.search img{
+    position: relative;
+    bottom: 53%;
+    width: 23px;
+    height: 23px;
+    left: 5px;
+}
+.box{
+    border-radius: 4px;
+    border: 1px #ddd solid;
+}
+.info{
+    display: block;
+    font-size: 12px;
+}
+.orderSummary span{
+    font-size: 13px;
+}
+#primaryStatus{
+    font-size: 17px;
+}
+#secondaryStatus{
+    font-size: 13px;
+}
+.deliveryStatus img{
+    width: 90px;
+    height: 90px;
+}
+.productInfo span{
+    font-size: 12px;
+}
+.productInfo .price{
+    color: #B12704!important;
+}
+.option a{
+    text-decoration: none;
+}
+.option button{
+    cursor: pointer;
+}

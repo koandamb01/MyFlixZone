@@ -24,7 +24,7 @@ import { ShoppingHomeComponent } from './components/shopping-components/shopping
 import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
 import { ShoppingInventoryComponent } from './components/shopping-components/shopping-inventory/shopping-inventory.component';
 import { ShoppingCartComponent } from './components/shopping-components/shopping-cart/shopping-cart.component';
-
+import { ShoppingOrderListComponent } from './components/shopping-components/shopping-order-list/shopping-order-list.component';
 
 // authentification
 import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
@@ -39,6 +39,7 @@ export const appRoutes: Routes = [
   { path: 'shopping/profile', component: ShoppingProfileComponent },
   { path: 'shopping/inventory', component: ShoppingInventoryComponent },
   { path: 'shopping/cart', component: ShoppingCartComponent },
+  { path: 'shopping/orders', component: ShoppingOrderListComponent },
 
   // Auth Routes
   {

@@ -14,13 +14,29 @@ export class ShoppingProfileComponent implements OnInit {
   panelOpenState = false;
   confirm_password: string;
   messages: any;
-  newUser = new User();
+  user = new User();
 
-  constructor() { }
+  constructor(private userService: UsersService) { }
 
   ngOnInit() {
     // initiall variables
-    this.messages = { success: "", firstName: "", lastName: "", email: "", password: "", confirm_password: "" };
+    this.messages = { success: "", error: "", firstName: "", lastName: "", email: "", password: "", confirm_password: "" };
+    this.getUserData();
   }
+
+  // get the user data
+  getUserData() {
+    this.userService.getUserProfileData().subscribe(res => {
+      if (res['status'] == false) {
+        this.messages.error = res['message'];
+      }
+      else {
+        this.user = res['data'][0];
+        console.log("Data: ", this.user);
+      }
+    });
+  }
+
+
 
 }

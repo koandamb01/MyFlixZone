@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SessionService {
-	private Long userId;
+	private Long userId = null;
 
 	public SessionService() {}
 	
@@ -14,5 +14,9 @@ public class SessionService {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	
+	public void clearSession() {
+		this.userId = null;
 	}
 }

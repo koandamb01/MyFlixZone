@@ -1,8 +1,7 @@
 <div class="container mt-5 mb-5">
   <h3 class="text-center font-weight-bold"><span class="text-danger">FLIX</span>PROFILE</h3>
-  <div class="alert alert-success alert-sm" role="alert">
-    Success
-  </div>
+  <div class="alert alert-success alert-sm" role="alert" *ngIf="messages.success">{{messages.success}}</div>
+  <div class="alert alert-danger alert-sm center" role="alert" *ngIf="messages.error">{{messages.error}}</div>
 
   <div class="row">
 
@@ -13,17 +12,31 @@
           <form class="form-signin border shadow-lg rounded p-3">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control form-control-sm validate" />
+              <input type="text" class="form-control form-control-sm validate" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" minlength="2" required/>
+              <span class="text-danger" *ngIf="messages.firstName">{{ messages.firstName }}</span>
+              <div *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)">
+                <span class="text-danger" *ngIf="firstName.errors.required">*First Name is required.</span>
+                <span class="text-danger" *ngIf="firstName.errors.minlength">*Must be at least 2 characters.</span>
+              </div>
             </div>
 
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control form-control-sm validate" name="lastName" />
+              <input type="text" class="form-control form-control-sm validate" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName"/>
+              <span class="text-danger" *ngIf="messages.lastName">{{ messages.lastName }}</span>
+              <div *ngIf="!lastName.valid && (lastName.dirty || lastName.touched)">
+                <span class="text-danger" *ngIf="lastName.errors.required">*Last Name is required.</span>
+                <span class="text-danger" *ngIf="lastName.errors.minlength">*Must be at least 2 characters.</span>
+              </div>
             </div>
 
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control form-control-sm validate" name="email" />
+              <input type="email" class="form-control form-control-sm validate" name="email" #email="ngModel" [(ngModel)]="user.email"/>
+              <span class="text-danger" *ngIf="messages.email">{{ messages.email }}</span>
+              <div *ngIf="!email.valid && (email.dirty || email.touched)">
+                <span class="text-danger" *ngIf="email.errors.required">*Email is required.</span>
+              </div>
             </div>
             <button class="btn btn-sm btn-danger btn-block" type="submit">Save
               Changes

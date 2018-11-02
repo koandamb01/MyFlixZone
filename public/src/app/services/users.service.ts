@@ -24,6 +24,12 @@ export class UsersService {
   get isLoggedIn() {
     return this.loggedInStatus;
   }
+
+  // get user profile data
+  getUserProfileData() {
+    return this._http.get(this.baseUrl + '/users/profile', this.options)
+      .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
+  }
   // check if user is Authenticated
   isAuthenticated() {
     let token = localStorage.getItem('access_token');
