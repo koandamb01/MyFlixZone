@@ -3,14 +3,20 @@ package com.David.javaProject.models;
 import com.David.javaProject.models.paypal.Address;
 import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.models.shopping.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDetail {
+    @JsonProperty
     public Order order;
+    @JsonProperty
     public List<?> details = new ArrayList<>();
+    @JsonProperty
     public PaymentInfo paymentInfo;
+    @JsonProperty
     public Address shippingAddress;
 
     public OrderDetail() {

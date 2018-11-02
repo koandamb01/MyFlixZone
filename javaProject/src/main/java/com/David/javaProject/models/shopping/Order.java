@@ -50,7 +50,7 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
-	//@JsonIgnore
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "orders_products", 

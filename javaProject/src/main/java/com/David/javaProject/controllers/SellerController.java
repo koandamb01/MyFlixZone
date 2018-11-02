@@ -185,9 +185,25 @@ public class SellerController {
 		}
 		return  res;
 	}
-	
+
+	// get all products
+	@GetMapping("/product")
+	public Response getAllProducts() {
+		Response res = new Response();
+		List<Product> products = productRepo.findAll();
+		if (products.size() == 0) {
+			res.setMessage("No products were found!");
+			res.setStatus(false);
+		} else {
+			res.setData(products);
+			res.setMessage("Products found");
+			res.setStatus(true);
+		}
+		return res;
+	}
+
 	// add Product
-	@PostMapping("/orders")
+	@PostMapping("/product")
 	public Response addProduct(@RequestBody Product product, Errors errors) {
 		Response res = new Response();
 		if (errors.hasErrors()) {
