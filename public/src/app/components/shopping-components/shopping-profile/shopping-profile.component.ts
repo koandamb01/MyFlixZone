@@ -37,6 +37,31 @@ export class ShoppingProfileComponent implements OnInit {
     });
   }
 
+  // update personal information
+  updatePersonal() {
+    this.userService.updatePersonal(this.user).subscribe(res => {
+      this.messages.success = res['message'];
+      this.user = res['data'][0];
+      setTimeout(() => { this.ngOnInit() }, 2000);
+    });
+  }
+
+
+  // update user password
+  updatedPassword() {
+    this.userService.updatePassword(this.user).subscribe(res => {
+      if (res['status'] == false) {
+        this.messages.error = res['message'];
+        setTimeout(() => { this.ngOnInit() }, 2000);
+      }
+      else {
+        this.messages.success = res['message'];
+        this.user = res['data'][0];
+        setTimeout(() => { this.ngOnInit() }, 2000);
+      }
+    })
+  }
+
 
 
 }

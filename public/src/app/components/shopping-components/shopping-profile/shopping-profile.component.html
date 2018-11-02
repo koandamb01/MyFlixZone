@@ -9,10 +9,11 @@
       <!-- Personal Information -->
       <div class="row p-3">
         <div class="col">
-          <form class="form-signin border shadow-lg rounded p-3">
+          <form class="form-signin border shadow-lg rounded p-3" (submit)="updatePersonal()">
             <div class="form-group">
               <label>First Name</label>
-              <input type="text" class="form-control form-control-sm validate" name="firstName" #firstName="ngModel" [(ngModel)]="user.firstName" minlength="2" required/>
+              <input type="text" class="form-control form-control-sm validate" name="firstName" #firstName="ngModel"
+                [(ngModel)]="user.firstName" minlength="2" required />
               <span class="text-danger" *ngIf="messages.firstName">{{ messages.firstName }}</span>
               <div *ngIf="!firstName.valid && (firstName.dirty || firstName.touched)">
                 <span class="text-danger" *ngIf="firstName.errors.required">*First Name is required.</span>
@@ -22,7 +23,8 @@
 
             <div class="form-group">
               <label>Last Name</label>
-              <input type="text" class="form-control form-control-sm validate" name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName"/>
+              <input type="text" class="form-control form-control-sm validate" name="lastName" #lastName="ngModel"
+                [(ngModel)]="user.lastName" minlength="2" required />
               <span class="text-danger" *ngIf="messages.lastName">{{ messages.lastName }}</span>
               <div *ngIf="!lastName.valid && (lastName.dirty || lastName.touched)">
                 <span class="text-danger" *ngIf="lastName.errors.required">*Last Name is required.</span>
@@ -32,29 +34,29 @@
 
             <div class="form-group">
               <label>Email</label>
-              <input type="email" class="form-control form-control-sm validate" name="email" #email="ngModel" [(ngModel)]="user.email"/>
+              <input type="email" class="form-control form-control-sm validate" name="email" #email="ngModel"
+                [(ngModel)]="user.email" required />
               <span class="text-danger" *ngIf="messages.email">{{ messages.email }}</span>
               <div *ngIf="!email.valid && (email.dirty || email.touched)">
                 <span class="text-danger" *ngIf="email.errors.required">*Email is required.</span>
               </div>
             </div>
-            <button class="btn btn-sm btn-danger btn-block" type="submit">Save
-              Changes
-            </button>
+            <button class="btn btn-sm btn-danger btn-block" type="submit" [disabled]="!firstName.valid || !lastName.valid || !email.valid">Save
+              Changes</button>
           </form>
         </div>
 
         <div class="col">
-          <form class="form-signin border shadow-lg rounded p-3">
+          <form class="form-signin border shadow-lg rounded p-3" (submit)="updatedPassword()">
             <div class="form-group">
-              <label>Password</label>
-              <input type="password" class="form-control form-control-sm validate" name="password" />
+              <label>Old Password</label>
+              <input type="password" class="form-control form-control-sm validate" name="oldPassword" #oldPassword="ngModel" [(ngModel)]="user.oldPassword" required/>
             </div>
             <div class="form-group">
-              <label>Re-enter password</label>
-              <input type="password" class="form-control form-control-sm validate" name="confirm_pass" />
+              <label>New password</label>
+              <input type="password" class="form-control form-control-sm validate" name="newPassword" #newPassword="ngModel" [(ngModel)]="user.password" required/>
             </div>
-            <button class="btn btn-sm btn-danger btn-block" type="submit">Change
+            <button class="btn btn-sm btn-danger btn-block" type="submit" [disabled]="!newPassword.valid || !oldPassword.valid">Change
               Password
             </button>
           </form>

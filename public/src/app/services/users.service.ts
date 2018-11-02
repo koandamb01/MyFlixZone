@@ -88,7 +88,14 @@ export class UsersService {
       )
   }
 
-
+  updatePersonal(user){
+    return this._http.put(this.baseUrl + '/users/updatePersonal',JSON.stringify(user), this.options)
+      .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
+  }
+  updatePassword(user){
+    return this._http.put(this.baseUrl + '/users/updatePassword',JSON.stringify(user), this.options)
+      .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
+  }
 
 
 
