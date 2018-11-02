@@ -46,13 +46,14 @@ import { ShoppingHomeComponent } from './components/shopping-components/shopping
 import { ShoppingProfileComponent } from './components/shopping-components/shopping-profile/shopping-profile.component';
 import { ShoppingInventoryComponent } from './components/shopping-components/shopping-inventory/shopping-inventory.component';
 import { ShoppingCartComponent } from './components/shopping-components/shopping-cart/shopping-cart.component';
+import { ShoppingReviewOrderComponent } from './components/shopping-components/shopping-review-order/shopping-review-order.component';
+import { ShoppingOrderDetailsComponent } from './components/shopping-components/shopping-order-details/shopping-order-details.component';
+import { ShoppingOrderListComponent } from './components/shopping-components/shopping-order-list/shopping-order-list.component';
 
 // authentification
 import { RegisterComponent } from './components/authentification/register/register.component';
 import { LoginComponent } from './components/authentification/login/login.component';
 import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
-import { ShoppingReviewOrderComponent } from './components/shopping-components/shopping-review-order/shopping-review-order.component';
-import { ShoppingOrderDetailsComponent } from './components/shopping-components/shopping-order-details/shopping-order-details.component';
 
 
 
@@ -94,7 +95,8 @@ import { ShoppingOrderDetailsComponent } from './components/shopping-components/
     ShoppingInventoryComponent,
     ShoppingCartComponent,
     ShoppingReviewOrderComponent,
-    ShoppingOrderDetailsComponent
+    ShoppingOrderDetailsComponent,
+    ShoppingOrderListComponent
 
   ],
   imports: [

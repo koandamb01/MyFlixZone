@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
         }
         else {
           // set token
+          console.log("login: ", response);
           this.messages.success = response['message'];
           localStorage.setItem('access_token', response['userId']);
           setTimeout(() => { this.goShopping(); }, 1000);

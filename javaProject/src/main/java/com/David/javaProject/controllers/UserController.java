@@ -38,7 +38,7 @@ public class UserController extends HandlerInterceptorAdapter {
 	
 	// Register a new user
 	@PostMapping("new")
-	public Response createUser(@Valid @RequestBody User user, Errors errors){
+	public Response createUser(@Valid @RequestBody User user, Errors errors, HttpSession session){
 		Response response = new Response();
 		
 		if (errors.hasErrors()) {
@@ -49,7 +49,7 @@ public class UserController extends HandlerInterceptorAdapter {
 		}
 		else {
 			User newUser = this.userService.registerUser(user);
-//			session.setAttribute("userId", newUser.getId());
+			session.setAttribute("userId", newUser.getId());
 			this.sessionService.setUserId(newUser.getId());
 			
 			newUser.getAddresses().clear();
@@ -77,9 +77,7 @@ public class UserController extends HandlerInterceptorAdapter {
 		}
 		else {
 			User u = this.userService.findByEmail(logUser.getEmail());
-//			session.setAttribute("userId", u.getId());
-			
-//			Long userId = (Long) session.getAttribute("userId"); 
+			session.setAttribute("userId", u.getId());
 			
 			this.sessionService.setUserId(u.getId());
 			
@@ -103,8 +101,8 @@ public class UserController extends HandlerInterceptorAdapter {
 	
 	// logout
 	@GetMapping("logout")
-	public Response logout(HttpSession session) {
-		session.invalidate();
+	public Response logout() {
+		this.sessionService.clearSession();
 		Response res = new Response(true, "You have successfully logout!");
 		return res;
 	}
@@ -130,6 +128,45 @@ public class UserController extends HandlerInterceptorAdapter {
 		
 		return res;
 	}
+	
+	
+	// get user profile
+	@GetMapping("profile")
+	public Response userProfile(HttpSession session) {
+		Response res = new Response();
+		
+//		Long userId = (Long) session.getAttribute("userId"); 
+		
+		Long userId = this.sessionService.getUserId();
+		
+		System.out.println("user Id: "+ userId);
+		// check if the user is in session
+		if(userId == null) {
+			res.setStatus(false);
+			res.setMessage("You must be logged In!");
+		}
+		else {
+			// get the user object by using the session id
+			User user = this.userService.findUserById(userId);
+	
+			user.getAddresses().clear();
+			user.setCreatedAt(null);
+			user.setUpdatedAt(null);
+			user.setPassword(null);
+			
+			res.setStatus(true);
+			res.setMessage("Request Completed!");
+			
+			List<User> list = new ArrayList<>();
+			
+			list.add(user);
+			res.setData(list);
+		}
+		return res;
+	}
+	
+	
+	
 	
 //	@DeleteMapping("/user/{id}")
 //	public boolean deleUser(@PathVariable Long id) {
