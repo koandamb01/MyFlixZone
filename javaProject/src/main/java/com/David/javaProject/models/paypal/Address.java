@@ -16,14 +16,19 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@NotBlank(message="Street is required.")
 	private String street;
+	
 	@NotBlank(message="City is required.")
 	private String city;
+	
 	@NotBlank(message="State is required.")
 	private String state;
+	
 	@NotBlank(message="Zip code is required.")
 	private String zipcode;
+	
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;

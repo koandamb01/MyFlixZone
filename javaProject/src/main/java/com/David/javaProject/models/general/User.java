@@ -61,6 +61,9 @@ public class User {
 	@Transient
     private String passwordConfirmation;
 	
+	@Transient
+    private String oldPassword;
+	
 	@Column(updatable=false)
 	private Date createdAt;
 	private Date updatedAt;
@@ -202,4 +205,18 @@ public class User {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+	public String getOldPassword() {
+		return oldPassword;
+	}
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+	public List<Address> getShippingAddresses() {
+		return shippingAddresses;
+	}
+	public void setShippingAddresses(List<Address> shippingAddresses) {
+		this.shippingAddresses = shippingAddresses;
+	}
+	
+	
 }

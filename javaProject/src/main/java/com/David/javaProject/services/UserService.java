@@ -27,6 +27,27 @@ public class UserService {
     	return this.userRepo.findAll();
     }
     
+    
+    // updated a user
+    public User updatedPersonal(User user) {
+    	return this.userRepo.save(user);
+    }
+    
+    // updated a user password
+    public User updatedPassword(User user) {
+    	// get the user object
+        User u = this.findUserById(user.getId());
+    
+        // if the passwords match
+        if(BCrypt.checkpw(user.getOldPassword(), u.getPassword())) {
+            String hashed = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+            u.setPassword(hashed);
+        	return this.userRepo.save(u);
+        } else {
+            return null;
+        }
+    }
+    
     // find user by email
     public User findByEmail(String email) {
         return userRepo.findByEmail(email);

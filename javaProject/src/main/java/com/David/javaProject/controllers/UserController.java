@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,8 +21,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.music.FavoriteService;
+import com.David.javaProject.models.paypal.Address;
+import com.David.javaProject.services.AddressService;
 import com.David.javaProject.services.UserService;
-import com.David.javaProject.controllers.SessionService;
 
 @RestController
 @RequestMapping("/users")
@@ -35,6 +37,9 @@ public class UserController extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private SessionService sessionService;
+	
+	@Autowired
+	private AddressService addressService;
 	
 	// Register a new user
 	@PostMapping("new")
@@ -138,8 +143,7 @@ public class UserController extends HandlerInterceptorAdapter {
 //		Long userId = (Long) session.getAttribute("userId"); 
 		
 		Long userId = this.sessionService.getUserId();
-		
-		System.out.println("user Id: "+ userId);
+	
 		// check if the user is in session
 		if(userId == null) {
 			res.setStatus(false);
@@ -166,7 +170,80 @@ public class UserController extends HandlerInterceptorAdapter {
 	}
 	
 	
+	// update personal information
+	@PutMapping("updatePersonal")
+	public Response updatePersonal(@RequestBody User user) {
+		Response res = new Response();
+		
+		Long userId = this.sessionService.getUserId();
+
+		// get the user object by using the session id
+		User oldUser = this.userService.findUserById(userId);
+		
+		// updated the user info
+		oldUser.setFirstName(user.getFirstName());
+		oldUser.setLastName(user.getLastName());
+		oldUser.setEmail(user.getEmail());
+		
+		oldUser = (User) this.userService.updatedPersonal(oldUser);
+		
+		oldUser.getAddresses();
+		oldUser.setCreatedAt(null);
+		oldUser.setUpdatedAt(null);
+		oldUser.setPassword(null);
+		
+		res.setStatus(true);
+		res.setMessage("Your Personal Information has been successfully Updated!");
+		
+		List<User> list = new ArrayList<>();
+		
+		list.add(oldUser);
+		res.setData(list);
+		
+		return res;
+	}
 	
+	
+	// update password information
+	@PutMapping("updatePassword")
+	public Response updatePassword(@RequestBody User user) {
+		Response res = new Response();
+		
+		User oldUser = this.userService.updatedPassword(user);
+		
+		if(oldUser == null) {
+			res.setStatus(false);
+			res.setMessage("Old Password did not match!");
+		}
+		else {
+			oldUser.setCreatedAt(null);
+			oldUser.setUpdatedAt(null);
+			oldUser.setPassword(null);
+			
+			List<User> list = new ArrayList<>();
+			list.add(oldUser);
+			
+			res.setStatus(true);
+			res.setMessage("Your Password Information has been successfully Updated!");
+			res.setData(list);
+		}
+		return res;
+	}
+	
+	// created a new address
+	@PostMapping("newAddress")
+	public Response createAddress(@RequestBody Address address, Errors errors) {
+		Response res = new Response();
+		
+		if(errors.hasErrors()) {
+			res.setStatus(false);
+			res.setMessage("Validation errors");
+			res.setData(errors.getAllErrors());
+			return res;
+		}
+		
+		return res;
+	}
 	
 //	@DeleteMapping("/user/{id}")
 //	public boolean deleUser(@PathVariable Long id) {
