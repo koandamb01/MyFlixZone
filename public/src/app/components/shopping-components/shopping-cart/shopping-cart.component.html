@@ -61,49 +61,33 @@
           </thead>
           <tbody>
             <!-- for loop products -->
-            <tr>
+            <tr *ngFor="let item of listOfItems">
               <td scope="row" class="product">
                 <div class="row">
                   <div class="col-2">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+                    <img src={{item.imgLink}} alt="image">
                   </div>
                   <div class="col-8 ml-2">
-                    <div><a href="" class="font-weight-bold">Chocolate Box Yum</a></div>
+                    <div><a href="" class="font-weight-bold">{{item.name}}</a></div>
                     <div><span>Sold by: Amazon.com Services, inc</span></div>
                     <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
                     <p class="delete">Delete</p>
                   </div>
                 </div>
               </td>
-              <td class="price font-weight-bold">$293</td>
-              <td class=" text-right">1</td>
-            </tr>
-            <tr>
-              <td scope="row" class="product">
-                <div class="row">
-                  <div class="col-2">
-                    <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
-                  </div>
-                  <div class="col-8 ml-2">
-                    <div><a href="" class="font-weight-bold">Chocolate Box Yum</a></div>
-                    <div><span>Sold by: Amazon.com Services, inc</span></div>
-                    <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
-                    <p class="delete">Delete</p>
-                  </div>
-                </div>
-              </td>
-              <td class="price font-weight-bold">$293</td>
-              <td class=" text-right">1</td>
+              <td class="price font-weight-bold">${{item.price}}</td>
+              <td class=" text-right">{{item.quantity}}</td>
             </tr>
             <!-- end for loop -->
           </tbody>
         </table>
+        <h1 *ngIf="cartEmpty" class="text-center">Cart is empty !</h1>
         <hr>
       </div>
     </div>
     <div class="col-3 p-4 checkout">
-      <h2 class="cart">Subtotal (3} item(s)):</h2>
-      <h2 class="cart price">$4.75</h2>
+      <h2 class="cart">Subtotal {{itemCount}} item(s)):</h2>
+      <h2 class="cart price">${{total | number:'.2-2'}}</h2>
       <button class="btn-lg btn-block btn-outline-primary mt-3" (click)="showReviewOrder=true; showCart=false;">CHECKOUT</button>
     </div>
   </div>

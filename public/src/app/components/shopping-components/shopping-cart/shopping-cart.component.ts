@@ -20,6 +20,9 @@ export class ShoppingCartComponent implements OnInit {
 
   total: any;
   listOfItems: any[];
+  cartEmpty:boolean = false;
+  numberOfItems: any;
+  itemCount:any =0;
 
   ngOnInit() {
     this.showCart = true;
@@ -69,9 +72,16 @@ export class ShoppingCartComponent implements OnInit {
       }
       else if (res['status'] == true) {
         console.log(res);
-        this.total = res.orderDetail.order.total;
-        console.log(this.total);
-        this.listOfItems = res.orderDetail.details;
+        if(res.orderDetail == null){
+          this.cartEmpty = true;
+        }
+        else{
+          this.total = res.orderDetail.order.total;
+          this.listOfItems = res.orderDetail.details;
+          for(var i=0; this.listOfItems.length>i; i++){
+            this.itemCount += this.listOfItems[i].quantity;
+          }
+        }
       }
     });
   }

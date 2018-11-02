@@ -24,6 +24,24 @@ export class ShoppingService {
       )
   }
 
+  getOrderTotal() {
+    return this._http.get(this.baseUrl + '/paypal/getCheckOut', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  submitOrder(){
+    return this._http.get(this.baseUrl + '/paypal/submitOrder', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
   errorHandler(error: Response) {
     return Observable.throw(error || "Server Error Service Side")
   }
