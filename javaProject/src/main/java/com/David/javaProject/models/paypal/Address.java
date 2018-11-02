@@ -11,55 +11,50 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="addresses")
+@Table(name = "addresses")
 public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-<<<<<<< HEAD
-	
-=======
-	@NotBlank(message="Name is required.")
+	@NotBlank(message = "Name is required.")
 	private String name;
->>>>>>> 5bae4d7dfc040191a192fb77c370b26bdf8f104a
-	@NotBlank(message="Street is required.")
+	@NotBlank(message = "Street is required.")
 	private String street;
-	
-	@NotBlank(message="City is required.")
+
+	@NotBlank(message = "City is required.")
 	private String city;
-	
-	@NotBlank(message="State is required.")
+
+	@NotBlank(message = "State is required.")
 	private String state;
-	
-	@NotBlank(message="Zip code is required.")
+
+	@NotBlank(message = "Zip code is required.")
 	private String zipcode;
-	
-	@Column(updatable=false)
+
+	@Column(updatable = false)
 	private Date createdAt;
 	private Date updatedAt;
 	private boolean defaultShippingAddress = true;
 
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="order_id")
-	private List<Order> orders =new ArrayList<>();
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "order_id")
+	private List<Order> orders = new ArrayList<>();
 
 	@JsonIgnore
-	@OneToMany(fetch=FetchType.LAZY)
-	@JoinColumn(name="address_id")
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "address_id")
 	private List<PaymentInfo> paymentInfos = new ArrayList<>();
-
-
 
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-    
+
 	public Address() {
 	}
 
-	public Address(String name, String street, String city, String state, String zipcode, User user, boolean defaultShippingAddress) {
+	public Address(String name, String street, String city, String state, String zipcode, User user,
+			boolean defaultShippingAddress) {
 		this.name = name;
 		this.street = street;
 		this.city = city;
@@ -77,10 +72,12 @@ public class Address {
 		this.zipcode = zipcode;
 		this.user = user;
 	}
+
 	@PrePersist
 	public void onCreate() {
 		this.createdAt = new Date();
 	}
+
 	@PreUpdate
 	public void onUpdate() {
 		this.updatedAt = new Date();
