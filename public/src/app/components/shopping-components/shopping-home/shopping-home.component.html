@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" routerLink="/shopping">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Shop</a>
@@ -48,6 +48,8 @@
   </div>
 </nav>
 
+
+
 <!-- CAROUSEL -->
 <div id="homeCarousel" class="carousel slide carousel-fade" data-ride="carousel">
   <div class="carousel-inner">
@@ -67,10 +69,26 @@
 <div class="container">
 
   <div id="homeSearchBox" class="row">
-    <form action="" class="col-md-8 offset-md-2">
-      <input class="form-control form-control-lg" type="text" placeholder="Search">
-    </form>
+    <div class="col-md-8 offset-md-2">
+      <input [(ngModel)]="filter.name" class="form-control form-control-lg" type="text" placeholder="Search">
+    </div>
   </div>
+
+  <!-- All Items -->
+  <div *ngIf="filter.name.length != 0" class="container">
+    <h1 class="text-center">Search List</h1>
+    <div *ngIf="gotIt" class="row">
+      <div *ngFor="let item of productList | filterBy: filter" class="col-md-3 p-3">
+        <a routerLink="/shopping/product/{{item.id}}"><img style="width:100%; height:70%" src={{item.img}} alt="product Image"></a>
+        <a routerLink="/shopping/product/{{item.id}}"><h4 class="text-center">{{item.name}}</h4></a>
+      </div>
+      <div class="container text-center" *ngIf="(productList | filterBy: filter).length == 0">
+        <h3 style="color:rgb(157, 4, 4)">No Item</h3>
+        <p>Maybe try the real Amazon website?</p>
+      </div>
+    </div>
+  </div>
+
 
   <!-- FEATURED CATEGORIES -->
   <div id="featuredCategories">
@@ -113,6 +131,9 @@
       </div>
     </div>
   </div>
+
+  <!-- all Items -->
+
 
   <h2 class="text-uppercase text-center mb-5">Featured Products</h2>
 

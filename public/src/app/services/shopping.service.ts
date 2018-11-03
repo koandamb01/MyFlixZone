@@ -60,6 +60,24 @@ export class ShoppingService {
       )
   }
 
+  getOneProduct(productId){
+    return this._http.get(this.baseUrl + '/paypal/getOneProduct/'+productId, this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  addToCart(productId, quantity){
+    return this._http.get(this.baseUrl + '/paypal/addToOrder/'+productId+'/'+quantity, this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
 //end of shopping
 
 
