@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../../../models/user';
+import { Address } from '../../../models/address';
+import StateList from '../../../models/state';
 import { UsersService } from '../../../services/users.service';
 
 @Component({
@@ -15,6 +17,8 @@ export class ShoppingProfileComponent implements OnInit {
   confirm_password: string;
   messages: any;
   user = new User();
+  address = new Address();
+  // States: any;
 
   constructor(private userService: UsersService) { }
 
@@ -32,7 +36,6 @@ export class ShoppingProfileComponent implements OnInit {
       }
       else {
         this.user = res['data'][0];
-        console.log("Data: ", this.user);
       }
     });
   }
@@ -62,6 +65,27 @@ export class ShoppingProfileComponent implements OnInit {
     })
   }
 
+  // create a new address
+  newAddress() {
+    console.log("address Form: ", this.address);
+    this.userService.createAddress(this.address).subscribe(res => {
+      console.log("addres res: ", res);
+      if (res['status'] == false) {
+        this.formatErrorMessage(res['data']);
+        this.messages.error = res['messages'];
+      }
+      else {
+        this.messages.success = res['message'];
+        setTimeout(() => { this.ngOnInit() }, 2000);
+      }
+    })
+  }
 
+
+  formatErrorMessage(errors: any[]) {
+    errors.forEach(data => {
+      this.messages[data.field] = data.defaultMessage;
+    });
+  }
 
 }

@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fromEvent } from 'rxjs';
 import { map, filter, scan, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
+import { Address } from '../models/address';
 
 
 @Injectable({
@@ -39,6 +40,15 @@ export class UsersService {
   // register a user
   createUser(newUser: User) {
     return this._http.post(this.baseUrl + '/users/new', JSON.stringify(newUser), this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+  // add a new address
+  createAddress(newAddress: Address) {
+    return this._http.post(this.baseUrl + '/users/newAddress', JSON.stringify(newAddress), this.options)
       .pipe
       (
       map((response: Response) => response.json()),
@@ -88,12 +98,12 @@ export class UsersService {
       )
   }
 
-  updatePersonal(user){
-    return this._http.put(this.baseUrl + '/users/updatePersonal',JSON.stringify(user), this.options)
+  updatePersonal(user) {
+    return this._http.put(this.baseUrl + '/users/updatePersonal', JSON.stringify(user), this.options)
       .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
   }
-  updatePassword(user){
-    return this._http.put(this.baseUrl + '/users/updatePassword',JSON.stringify(user), this.options)
+  updatePassword(user) {
+    return this._http.put(this.baseUrl + '/users/updatePassword', JSON.stringify(user), this.options)
       .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
   }
 

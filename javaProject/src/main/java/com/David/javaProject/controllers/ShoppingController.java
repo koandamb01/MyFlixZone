@@ -1,7 +1,6 @@
 package com.David.javaProject.controllers;
 
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +33,7 @@ import com.David.javaProject.models.shopping.OrderRepo;
 import com.David.javaProject.models.shopping.Product;
 import com.David.javaProject.models.shopping.ProductRepo;
 import com.David.javaProject.repositories.UserRepository;
+import com.David.javaProject.services.AddressService;
 import com.David.javaProject.services.ShoppingService;
 
 @RestController
@@ -58,7 +58,9 @@ public class ShoppingController {
 	private PaymentInfoRepo paymentInfoRepo;
 	@Autowired
 	private SessionService sessionService;
-
+	@Autowired
+	private AddressService addressService;
+	
 //	public ShoppingController(UserRepository userRepo, CategoryRepo categoryRepo, OrderRepo orderRepo, ProductRepo productRepo, OrderProductRepo orderProductRepo, ShoppingService shoppingService, AddressRepo addressRepo, PaymentInfoRepo paymentInfoRepo, SessionService sessionService){
 //		this.userRepo =userRepo;
 //		this.categoryRepo = categoryRepo;
@@ -117,34 +119,30 @@ public class ShoppingController {
 
 	@GetMapping("/changeAddress/{addressId}")
 	public Response changeDefaultAddress(@PathVariable("addressId") Long addressId, HttpSession session) {
+		Response res = new Response();
+		// find the user
 		Long userId = this.sessionService.getUserId();
 		User user = shoppingService.findUserById(userId);
-		//find user
-		if (user == null) {
-			Response res = new Response(false, "Could not find user");
-			return res;
-		} else {
-			//find the address by id from parameter
-			Optional<Address> optional = addressRepo.findById(addressId);
-			if(optional.isPresent()){
-				Address address = optional.get();
-				//find default address and set it to false
-				shoppingService.findDefaultAddress(user).setDefaultShippingAddress(false);
-				//set the new address to true
-				address.setDefaultShippingAddress(true);
-				addressRepo.save(address);
-
+		
+		// get the Address
+		Address address = this.addressService.findAddressById(addressId);
+		
+		// check if Address or User exist
+		if (user == null || address == null) {
+			res.setStatus(false);
+			res.setMessage("Could not find User Or Address");
+		} 
+		else {
+				address = this.addressService.setDefaultAddress(user, address);
 				//return JSON
-				List list = new ArrayList();
+				List<Address> list = new ArrayList<>();
 				list.add(address);
-				Response res = new Response(true, "Could not find user", list);
-				return res;
+				res.setStatus(true);
+				res.setMessage("You have successfully updated the address");
+				res.setData(list);
 			}
-			else{
-				Response res = new Response(false, "Could not find address");
-				return res;
-			}
-		}
+		
+		return res;	
 	}
 
 	@PostMapping("/addPaymentInfo")

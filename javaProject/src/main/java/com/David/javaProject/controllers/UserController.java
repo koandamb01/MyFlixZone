@@ -100,7 +100,6 @@ public class UserController extends HandlerInterceptorAdapter {
 			res.setMessage("You have successfully Login!");
 			res.setData(list);
 		}
-		
 		return res;
 	}
 	
@@ -232,9 +231,21 @@ public class UserController extends HandlerInterceptorAdapter {
 	
 	// created a new address
 	@PostMapping("newAddress")
-	public Response createAddress(@RequestBody Address address, Errors errors) {
+	public Response createAddress(@Valid @RequestBody Address address, Errors errors) {
 		Response res = new Response();
 		
+		// find the user
+		Long userId = this.sessionService.getUserId();
+		User user = this.userService.findUserById(userId);
+		
+		// check if user if login
+		if(user == null) {
+			res.setStatus(false);
+			res.setMessage("You must logged In first!");
+			return res;
+		}
+		
+		// check if the form has errors
 		if(errors.hasErrors()) {
 			res.setStatus(false);
 			res.setMessage("Validation errors");
@@ -242,6 +253,10 @@ public class UserController extends HandlerInterceptorAdapter {
 			return res;
 		}
 		
+		// create a new address and add it to the user
+		this.addressService.createAddress(user, address);
+		res.setStatus(true);
+		res.setMessage("You have successfully add a new Address!");
 		return res;
 	}
 	
