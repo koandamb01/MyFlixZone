@@ -12,9 +12,11 @@ export class ShoppingOrderDetailsComponent implements OnInit {
   @Output() goToCartOrReviewEmitter = new EventEmitter();
   constructor(
     private shopService: ShoppingService,
-    private _router: ActivatedRoute
+    private _router: ActivatedRoute,
+    private _route: ActivatedRoute,
   ) { }
 
+  gotIt=false;
   orderId: any;
   total: any;
   tax: any;
@@ -22,12 +24,13 @@ export class ShoppingOrderDetailsComponent implements OnInit {
   paymentInfo: any;
   shippingInfo: any;
   listOfItems: any[];
+  order:any;
 
   ngOnInit() {
     this._router.params.subscribe((params: Params) => {
       this.orderId = params['orderId'];
-      console.log("id: ", this.orderId);
     });
+    this.getOrderDetail();
   }
 
 
@@ -40,14 +43,15 @@ export class ShoppingOrderDetailsComponent implements OnInit {
       }
       else if (res['status'] == true) {
         console.log(res);
+        this.order = res.orderDetail.order;
         this.total = res.orderDetail.order.total;
         this.listOfItems = res.orderDetail.details;
         this.shippingInfo = res.orderDetail.shippingAddress;
-        console.log(this.shippingInfo);
         this.paymentInfo = res.orderDetail.paymentInfo;
         this.tax = (this.total) * (0.1);
         this.grandTotal = this.tax + this.total;
         this.orderId = res.orderDetail.order.id;
+        this.gotIt=true;
       }
     });
   }
