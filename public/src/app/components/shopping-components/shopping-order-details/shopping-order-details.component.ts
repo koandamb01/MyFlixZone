@@ -27,7 +27,7 @@ export class ShoppingOrderDetailsComponent implements OnInit {
 
   }
   getOrderDetail(){
-    this.shopService.getOrderTotal().subscribe(res => {
+    this.shopService.getOrderDetail(this.orderId).subscribe(res => {
       if (res['status'] == false) {
         console.log("Could not get orderTotal");
       }
