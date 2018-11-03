@@ -69,7 +69,7 @@ export class ShoppingReviewOrderComponent implements OnInit {
       }
       else if (res['status'] == true) {
         console.log(res);
-        setTimeout(() => { this.goToOrderDetails(); }, 2000)
+        this._router.navigate(['/shopping','order', this.orderId]);
       }
     })
   }
