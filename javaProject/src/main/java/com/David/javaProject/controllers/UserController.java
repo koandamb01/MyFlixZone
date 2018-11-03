@@ -57,7 +57,6 @@ public class UserController extends HandlerInterceptorAdapter {
 			session.setAttribute("userId", newUser.getId());
 			this.sessionService.setUserId(newUser.getId());
 			
-			newUser.getAddresses().clear();
 			newUser.setCreatedAt(null);
 			newUser.setUpdatedAt(null);
 			newUser.setPassword(null);
@@ -88,7 +87,6 @@ public class UserController extends HandlerInterceptorAdapter {
 			
 			System.out.println("Testing session: " + u.getId());
 			
-			u.getAddresses().clear();
 			u.setCreatedAt(null);
 			u.setUpdatedAt(null);
 			u.setPassword(null);
@@ -152,7 +150,6 @@ public class UserController extends HandlerInterceptorAdapter {
 			// get the user object by using the session id
 			User user = this.userService.findUserById(userId);
 	
-			user.getAddresses().clear();
 			user.setCreatedAt(null);
 			user.setUpdatedAt(null);
 			user.setPassword(null);
@@ -260,6 +257,7 @@ public class UserController extends HandlerInterceptorAdapter {
 		return res;
 	}
 	
+
 //	@DeleteMapping("/user/{id}")
 //	public boolean deleUser(@PathVariable Long id) {
 //		userRepository.deleteById(id);

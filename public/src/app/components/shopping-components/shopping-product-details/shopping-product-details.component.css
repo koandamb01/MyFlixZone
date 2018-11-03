@@ -1,0 +1,38 @@
+.container {
+            
+}
+.noTextDeco{
+    text-decoration: none;
+}
+.noMarginTop{
+    margin-top: 0px;
+}
+.price{
+    color: #B12704!important;
+}
+.inStock{
+    font-size: 17px;
+    color: #008a00;
+}
+.noStock{
+    font-size: 17px;
+    color: rgb(230, 62, 20);
+}
+.productInfo li{
+    list-style: none;
+}
+.productInfo ul{
+    padding-left: 0px;
+}
+.productInfo li::before {
+    color: #949494;
+    content: "\2022"; 
+    font-size: 1em; 
+    padding-right: 1.1225em; 
+    position: relative;
+    top: 0em;           
+}
+.box{
+    border-radius: 4px;
+    border: 1px #ddd solid;
+}

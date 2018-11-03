@@ -18,12 +18,18 @@ export class ShoppingProfileComponent implements OnInit {
   messages: any;
   user = new User();
   address = new Address();
+  showAddress: boolean;
+  showEditTitle: boolean;
+  showPayment: boolean;
   // States: any;
 
   constructor(private userService: UsersService) { }
 
   ngOnInit() {
     // initiall variables
+    this.showAddress = false;
+    this.showEditTitle = false;
+    this.showPayment = false;
     this.messages = { success: "", error: "", firstName: "", lastName: "", email: "", password: "", confirm_password: "" };
     this.getUserData();
   }
@@ -36,6 +42,7 @@ export class ShoppingProfileComponent implements OnInit {
       }
       else {
         this.user = res['data'][0];
+        console.log("user: ", this.user);
       }
     });
   }
@@ -67,9 +74,7 @@ export class ShoppingProfileComponent implements OnInit {
 
   // create a new address
   newAddress() {
-    console.log("address Form: ", this.address);
     this.userService.createAddress(this.address).subscribe(res => {
-      console.log("addres res: ", res);
       if (res['status'] == false) {
         this.formatErrorMessage(res['data']);
         this.messages.error = res['messages'];
@@ -81,7 +86,25 @@ export class ShoppingProfileComponent implements OnInit {
     })
   }
 
+  // set default shipping address
+  setDefaultShipping(targetAddress: Address) {
+    this.userService.setDeafaultShippingAddress(targetAddress.id).subscribe(res => {
+      if (res['status'] == false) {
+        this.messages.error = res['messages'];
+      }
+      else {
+        this.messages.success = res['message'];
+        setTimeout(() => { this.ngOnInit() }, 2000);
+      }
+    })
+  }
 
+  //showEditAddress
+  showEditAddress(target) {
+    this.address = target;
+    this.showAddress = true;
+    this.showEditTitle = true;
+  }
   formatErrorMessage(errors: any[]) {
     errors.forEach(data => {
       this.messages[data.field] = data.defaultMessage;

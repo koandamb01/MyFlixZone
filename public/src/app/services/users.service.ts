@@ -22,8 +22,15 @@ export class UsersService {
     this.loggedInStatus = value;
   }
 
+  // check if user is logged in
   get isLoggedIn() {
     return this.loggedInStatus;
+  }
+
+  // check if user is Authenticated
+  isAuthenticated() {
+    let token = localStorage.getItem('access_token');
+    if (token) { return true; } else { return false; }
   }
 
   // get user profile data
@@ -31,11 +38,7 @@ export class UsersService {
     return this._http.get(this.baseUrl + '/users/profile', this.options)
       .pipe(map((response: Response) => response.json()), catchError(this.errorHandler));
   }
-  // check if user is Authenticated
-  isAuthenticated() {
-    let token = localStorage.getItem('access_token');
-    if (token) { return true; } else { return false; }
-  }
+
 
   // register a user
   createUser(newUser: User) {
@@ -49,6 +52,16 @@ export class UsersService {
   // add a new address
   createAddress(newAddress: Address) {
     return this._http.post(this.baseUrl + '/users/newAddress', JSON.stringify(newAddress), this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  // Set address to default shipping 
+  setDeafaultShippingAddress(addressId) {
+    return this._http.get(this.baseUrl + '/paypal/changeAddress/' + addressId, this.options)
       .pipe
       (
       map((response: Response) => response.json()),

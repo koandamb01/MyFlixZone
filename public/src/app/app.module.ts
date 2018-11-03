@@ -49,6 +49,7 @@ import { ShoppingCartComponent } from './components/shopping-components/shopping
 import { ShoppingReviewOrderComponent } from './components/shopping-components/shopping-review-order/shopping-review-order.component';
 import { ShoppingOrderDetailsComponent } from './components/shopping-components/shopping-order-details/shopping-order-details.component';
 import { ShoppingOrderListComponent } from './components/shopping-components/shopping-order-list/shopping-order-list.component';
+import { ShoppingProductDetailsComponent } from './components/shopping-components/shopping-product-details/shopping-product-details.component';
 
 // authentification
 import { RegisterComponent } from './components/authentification/register/register.component';
@@ -96,7 +97,8 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     ShoppingCartComponent,
     ShoppingReviewOrderComponent,
     ShoppingOrderDetailsComponent,
-    ShoppingOrderListComponent
+    ShoppingOrderListComponent,
+    ShoppingProductDetailsComponent
 
   ],
   imports: [

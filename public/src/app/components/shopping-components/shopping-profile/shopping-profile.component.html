@@ -71,7 +71,10 @@
       <div class="row p-3" *ngIf="showAddress">
         <div class="col">
           <form class="form-signin border shadow-lg rounded p-3" (submit)="newAddress()">
-            <h1 class="h3 mb-3 font-weight-normal">Add a shipping address</h1>
+            <h1 class="h3 mb-3 font-weight-normal" *ngIf="showEditTitle; else newTitle">Edit a shipping address</h1>
+            <ng-template #newTitle>
+              <h1 class="h3 mb-3 font-weight-normal">Add a shipping address</h1>
+            </ng-template>
             <div class="row">
               <div class="col">
                 <div class="form-group">
@@ -191,7 +194,8 @@
               <div class="col">
                 <div class="form-group">
                   <label>Zip Code</label>
-                  <input type="text" class="form-control form-control-sm validate" name="zipcode" #zipcode="ngModel" [(ngModel)]="address.zipcode" minlength="2" required/>
+                  <input type="text" class="form-control form-control-sm validate" name="zipcode" #zipcode="ngModel"
+                    [(ngModel)]="address.zipcode" minlength="2" required />
                   <span class="text-danger" *ngIf="messages.zipcode">{{ messages.zipcode }}</span>
                   <div *ngIf="!zipcode.valid && (zipcode.dirty || zipcode.touched)">
                     <span class="text-danger" *ngIf="zipcode.errors.required">*Zipcode is required.</span>
@@ -259,34 +263,41 @@
     </div>
 
     <div class="col-md-4 p-3">
-      <ul class="list-group shadow-lg rounded bg-secondary">
-        <li class="list-group-item d-flex justify-content-between align-items-center bg-danger text-white">
-          Address 1
-          <a class="btn btn-sm btn-primary">Set Default Shipping</a>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Street Address:
-          <span class="font-weight-bold">1222 Street 9th</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          City:
-          <span class="font-weight-bold">San Jose</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          State:
-          <span class="font-weight-bold">CA</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          Zipcode:
-          <span class="font-weight-bold">991521</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <div>
-            <button class="btn btn-sm btn-warning mr-2">Edit</button>
-            <button class="btn btn-sm btn-danger">Remove</button>
-          </div>
-        </li>
-      </ul>
+      <div style="height: 400px; overflow: scroll;">
+        <ul class="list-group mb-4 shadow-lg rounded bg-secondary" *ngFor="let address of user.addresses; let i = index;">
+          <li class="list-group-item d-flex justify-content-between align-items-center bg-danger text-white">
+            Address {{i + 1}}
+            <a class="btn btn-sm btn-primary" *ngIf="!address.defaultShippingAddress" (click)="setDefaultShipping(address)">Set
+              Default Shipping</a>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Name:
+            <span class="font-weight-bold">{{address.name}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Street Address:
+            <span class="font-weight-bold">{{address.street}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            City:
+            <span class="font-weight-bold">{{address.city}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            State:
+            <span class="font-weight-bold">{{address.state}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            Zipcode:
+            <span class="font-weight-bold">{{address.zipcode}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+              <button class="btn btn-sm btn-warning mr-2" (click)="showEditAddress(address)">Edit</button>
+              <button class="btn btn-sm btn-danger">Remove</button>
+            </div>
+          </li>
+        </ul>
+      </div>
 
       <!-- Payment Info -->
       <mat-accordion>
