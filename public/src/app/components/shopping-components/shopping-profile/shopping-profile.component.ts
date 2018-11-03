@@ -47,7 +47,7 @@ export class ShoppingProfileComponent implements OnInit {
       }
       else {
         this.user = res['data'][0];
-        console.log("user: ", this.user);
+        console.log("profile user: ", this.user);
       }
     });
   }
@@ -132,26 +132,26 @@ export class ShoppingProfileComponent implements OnInit {
 
 
   // setBillingAddress
-  setBillingAddress() {
-    // get the address using address id
-    this.user['addresses'].forEach(data => {
-      if (data.id == this.tempAddressId) {
-        this.paymentInfo.address = data;
-        this.tempAddressId = data.id;
-      }
-    });
+  // setBillingAddress() {
+  //   // get the address using address id
+  //   this.user['addresses'].forEach(data => {
+  //     if (data.id == this.tempAddressId) {
+  //       this.paymentInfo.address = data;
+  //       this.tempAddressId = data.id;
+  //     }
+  //   });
 
-    console.log("full: ", this.paymentInfo);
-    this.userService.setBillingInfo(this.paymentInfo, this.tempAddressId).subscribe(res => {
-      if (res['status'] == false) {
-        this.messages.error = res['messages'];
-      }
-      else {
-        this.messages.success = res['message'];
-        setTimeout(() => { this.ngOnInit() }, 2000);
-      }
-    });
-  }
+  //   console.log("full: ", this.paymentInfo);
+  //   this.userService.setBillingInfo(this.paymentInfo, this.tempAddressId).subscribe(res => {
+  //     if (res['status'] == false) {
+  //       this.messages.error = res['messages'];
+  //     }
+  //     else {
+  //       this.messages.success = res['message'];
+  //       setTimeout(() => { this.ngOnInit() }, 2000);
+  //     }
+  //   });
+  // }
 
 
 }

@@ -71,15 +71,15 @@ export class UsersService {
       )
   }
 
-  // Set address to default shipping 
-  setBillingInfo(paymentInfo: PaymentInfo, addrressId) {
-    return this._http.put(this.baseUrl + '/paypal/setBillingInfo/' + addrressId, JSON.stringify(paymentInfo), this.options)
-      .pipe
-      (
-      map((response: Response) => response.json()),
-      catchError(this.errorHandler)
-      )
-  }
+  // // Set address to default shipping 
+  // setBillingInfo(paymentInfo: PaymentInfo, addrressId) {
+  //   return this._http.put(this.baseUrl + '/paypal/setBillingInfo/' + addrressId, JSON.stringify(paymentInfo), this.options)
+  //     .pipe
+  //     (
+  //     map((response: Response) => response.json()),
+  //     catchError(this.errorHandler)
+  //     )
+  // }
 
   // logged a user
   login(user) {
