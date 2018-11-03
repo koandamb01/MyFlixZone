@@ -101,12 +101,12 @@ public class JavaProjectApplication implements CommandLineRunner {
 //		 product3.getCategories().add(cat3);product3.getCategories().add(cat1);
 //		 product4.getCategories().add(cat3);product4.getCategories().add(cat4);
 //		 productRepo.save(product1);productRepo.save(product2);productRepo.save(product3);productRepo.save(product4);
-
-//		 Order order1 = orderRepo.save(new Order("cart", shipping1, pay1, user1));
-//		 Order order2 = orderRepo.save(new Order("cart", shipping2, pay2, user2));
-//		 Order order3 = orderRepo.save(new Order("cart", shipping3, pay3, user3));
-//		 Order order4 = orderRepo.save(new Order("cart", shipping4, pay4, user4));
 //
+//		 Order order1 = orderRepo.save(new Order("unshipped", shipping1, pay1, user1));
+//		 Order order2 = orderRepo.save(new Order("unshipped", shipping2, pay2, user2));
+//		 Order order3 = orderRepo.save(new Order("unshipped", shipping3, pay3, user3));
+//		 Order order4 = orderRepo.save(new Order("unshipped", shipping4, pay4, user4));
+
 //		 OrderProduct op1 = orderProductRepo.save(new OrderProduct(order1,
 //		 product1,2));OrderProduct op2 = orderProductRepo.save(new
 //		 OrderProduct(order1, product2,15));
