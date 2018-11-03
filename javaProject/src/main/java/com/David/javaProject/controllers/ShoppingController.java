@@ -450,31 +450,33 @@ public class ShoppingController {
 	}
 
 	
-	// set payment info
-	@PutMapping("setBillingInfo/{addressId}")
-	public Response setBillingInfo(@RequestBody PaymentInfo paymentInfo, @PathVariable("addressId") Long addressId) {
-		Response res = new Response();
-		
-		// find the user
-		Long userId = this.sessionService.getUserId();
-		User user = this.userService.findUserById(userId);
-		
-		// get the address
-		Address address = this.addressService.findAddressById(addressId);
-		
-		// check if user if login
-		if(user == null) {
-			res.setStatus(false);
-			res.setMessage("You must logged In first!");
-			return res;
-		}
-		
-		paymentInfo.setUser(user);
-		paymentInfo.setAddress(address);
-		this.paymentInfoRepo.save(paymentInfo);
-		
-		res.setStatus(true);
-		res.setMessage("You have successfully Set your Billing Address!");
-		return res;
-	}
+//	// set payment info
+//	@PutMapping("setBillingInfo/{addressId}")
+//	public Response setBillingInfo(@RequestBody PaymentInfo paymentInfo, @PathVariable("addressId") Long addressId) {
+//		Response res = new Response();
+//		
+//		// find the user
+//		Long userId = this.sessionService.getUserId();
+//		User user = this.userService.findUserById(userId);
+//		
+//		// get the address
+//		Address address = this.addressService.findAddressById(addressId);
+//		
+//		// check if user if login
+//		if(user == null) {
+//			res.setStatus(false);
+//			res.setMessage("You must logged In first!");
+//			return res;
+//		}
+//		
+//		paymentInfo.setUser(user);
+//		paymentInfo.setAddress(address);
+//		this.paymentInfoRepo.save(paymentInfo);
+//		
+//		res.setStatus(true);
+//		res.setMessage("You have successfully Set your Billing Address!");
+//		return res;
+//	}
+	
+	
 }
