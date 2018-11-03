@@ -4,7 +4,6 @@
   <div class="alert alert-danger alert-sm center" role="alert" *ngIf="messages.error">{{messages.error}}</div>
 
   <div class="row">
-
     <div class="col-md-8">
       <!-- Personal Information -->
       <div class="row p-3">
@@ -65,8 +64,8 @@
         </div>
       </div>
 
-      <button class="btn btn-sm btn-dark ml-3 right" (click)="showAddress=!showAddress; showPayment=false;">Add Adress</button>
-      <button class="btn btn-sm btn-dark ml-3 right" (click)="showPayment=!showPayment; showAddress=false;">Add Payment</button>
+      <button class="btn btn-sm btn-dark ml-3 right" (click)="showNewAddressForm()">Add Adress</button>
+      <button class="btn btn-sm btn-dark ml-3 right" (click)="showNewPaymentForm()">Add Payment</button>
       <!-- Shipping Forms -->
       <div class="row p-3" *ngIf="showAddress">
         <div class="col">
@@ -214,43 +213,30 @@
       <!-- Payment Info -->
       <div class="row p-3" *ngIf="showPayment">
         <div class="col">
-          <form class="form-signin border shadow-lg rounded p-3">
+          <form class="form-signin border shadow-lg rounded p-3" (submit)="setBillingAddress()">
             <h1 class="h3 mb-3 font-weight-normal">Add a payment option</h1>
 
             <div class="row">
-              <div class="col-4">
+              <div class="col">
                 <div class="form-group">
                   <label>Credit Card</label>
-                  <input type="text" class="form-control form-control-sm validate" />
+                  <input type="email" class="form-control form-control-sm validate" name="ccnumber" #ccnumber="ngModel"
+                    [(ngModel)]="paymentInfo.ccnumber" required minlength="16" />
+                  <span class="text-danger" *ngIf="messages.ccnumber">{{ messages.ccnumber }}</span>
+                  <div *ngIf="!ccnumber.valid && (ccnumber.dirty || ccnumber.touched)">
+                    <span class="text-danger" *ngIf="ccnumber.errors.required">*Card Number is required.</span>
+                    <span class="text-danger" *ngIf="ccnumber.errors.minlength">*Must be at least 2 characters.</span>
+                  </div>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col">
                 <div class="form-group">
                   <label>Address</label>
-                  <input type="text" class="form-control form-control-sm validate" />
-                </div>
-              </div>
-              <div class="col-4">
-                <div class="form-group">
-                  <label>City</label>
-                  <input type="text" class="form-control form-control-sm validate" />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col">
-                <div class="form-group">
-                  <label>State</label>
-                  <select class="form-control form-control-sm validate">
-                    <option value="#"></option>
+                  <select class="form-control form-control-sm validate" name="tempAddressId" [(ngModel)]="tempAddressId">
+                    <option *ngFor="let address of user.addresses;" value="{{address.id}}">{{address.name}},
+                      {{address.street}},
+                      {{address.state}}, {{address.zipcode}}</option>
                   </select>
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-group">
-                  <label>Zip Code</label>
-                  <input type="text" class="form-control form-control-sm validate" />
                 </div>
               </div>
             </div>
@@ -292,7 +278,7 @@
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-              <button class="btn btn-sm btn-warning mr-2" (click)="showEditAddress(address)">Edit</button>
+              <button class="btn btn-sm btn-warning mr-2" (click)="showEditAddressFrom(address)">Edit</button>
               <button class="btn btn-sm btn-danger">Remove</button>
             </div>
           </li>

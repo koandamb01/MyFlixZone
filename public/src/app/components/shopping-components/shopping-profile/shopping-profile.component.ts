@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { User } from '../../../models/user';
 import { Address } from '../../../models/address';
+import { PaymentInfo } from '../../../models/paymentInfo';
 import StateList from '../../../models/state';
 import { UsersService } from '../../../services/users.service';
 
@@ -12,12 +13,15 @@ import { UsersService } from '../../../services/users.service';
 })
 export class ShoppingProfileComponent implements OnInit {
 
+  user = new User();
+  address = new Address();
+  paymentInfo = new PaymentInfo();
+
   // variables
+  tempAddressId: any;
   panelOpenState = false;
   confirm_password: string;
   messages: any;
-  user = new User();
-  address = new Address();
   showAddress: boolean;
   showEditTitle: boolean;
   showPayment: boolean;
@@ -27,6 +31,7 @@ export class ShoppingProfileComponent implements OnInit {
 
   ngOnInit() {
     // initiall variables
+    this.tempAddressId = "";
     this.showAddress = false;
     this.showEditTitle = false;
     this.showPayment = false;
@@ -99,8 +104,22 @@ export class ShoppingProfileComponent implements OnInit {
     })
   }
 
+
+  // showNewAddressForm
+  showNewAddressForm() {
+    this.address = new Address();
+    this.showAddress = true;
+    this.showEditTitle = false;
+  }
+  // showNewPaymentForm
+  showNewPaymentForm() {
+    this.address = new Address();
+    this.showPayment = true;
+    this.showAddress = false;
+    this.showEditTitle = false;
+  }
   //showEditAddress
-  showEditAddress(target) {
+  showEditAddressFrom(target) {
     this.address = target;
     this.showAddress = true;
     this.showEditTitle = true;
@@ -110,5 +129,29 @@ export class ShoppingProfileComponent implements OnInit {
       this.messages[data.field] = data.defaultMessage;
     });
   }
+
+
+  // setBillingAddress
+  setBillingAddress() {
+    // get the address using address id
+    this.user['addresses'].forEach(data => {
+      if (data.id == this.tempAddressId) {
+        this.paymentInfo.address = data;
+        this.tempAddressId = data.id;
+      }
+    });
+
+    console.log("full: ", this.paymentInfo);
+    this.userService.setBillingInfo(this.paymentInfo, this.tempAddressId).subscribe(res => {
+      if (res['status'] == false) {
+        this.messages.error = res['messages'];
+      }
+      else {
+        this.messages.success = res['message'];
+        setTimeout(() => { this.ngOnInit() }, 2000);
+      }
+    });
+  }
+
 
 }

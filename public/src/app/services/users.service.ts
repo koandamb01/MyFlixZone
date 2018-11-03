@@ -4,6 +4,8 @@ import { Observable, Subject, asapScheduler, pipe, of, from, interval, merge, fr
 import { map, filter, scan, catchError } from 'rxjs/operators';
 import { User } from '../models/user';
 import { Address } from '../models/address';
+import { PaymentInfo } from '../models/paymentInfo';
+
 
 
 @Injectable({
@@ -62,6 +64,16 @@ export class UsersService {
   // Set address to default shipping 
   setDeafaultShippingAddress(addressId) {
     return this._http.get(this.baseUrl + '/paypal/changeAddress/' + addressId, this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+  // Set address to default shipping 
+  setBillingInfo(paymentInfo: PaymentInfo, addrressId) {
+    return this._http.put(this.baseUrl + '/paypal/setBillingInfo/' + addrressId, JSON.stringify(paymentInfo), this.options)
       .pipe
       (
       map((response: Response) => response.json()),
