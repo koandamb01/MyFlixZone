@@ -78,8 +78,8 @@ public class User {
 	}
 	
 	@JsonIgnore
-    @OneToOne(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-    private PaymentInfo paymentInfo;
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<PaymentInfo> paymentInfos = new ArrayList<>();
 
 	@JsonIgnore
     @ManyToMany(fetch=FetchType.LAZY)
@@ -88,7 +88,7 @@ public class User {
 		joinColumns = @JoinColumn(name="user_id"),
 		inverseJoinColumns = @JoinColumn(name = "favorite_id")
 	)
-    private List<Favorite> favorites = new ArrayList<>();;
+    private List<Favorite> favorites = new ArrayList<>();
 
     
     
@@ -163,10 +163,7 @@ public class User {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	public PaymentInfo getPaymentInfo() {
-		return paymentInfo;
-	}
-
+	
 	public String getRole() {
 		return role;
 	}
@@ -175,9 +172,6 @@ public class User {
 		this.role = role;
 	}
 
-	public void setPaymentInfo(PaymentInfo paymentInfo) {
-		this.paymentInfo = paymentInfo;
-	}
 
 	public List<Product> getProduct() {
 		return product;
@@ -217,6 +211,16 @@ public class User {
 	public void setShippingAddresses(List<Address> shippingAddresses) {
 		this.shippingAddresses = shippingAddresses;
 	}
+	public List<PaymentInfo> getPaymentInfos() {
+		return paymentInfos;
+	}
+	public void setPaymentInfos(List<PaymentInfo> paymentInfos) {
+		this.paymentInfos = paymentInfos;
+	}
+	
+	
+	
+	
 	
 	
 }

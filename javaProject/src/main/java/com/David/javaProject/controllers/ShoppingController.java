@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,7 @@ import com.David.javaProject.models.shopping.ProductRepo;
 import com.David.javaProject.repositories.UserRepository;
 import com.David.javaProject.services.AddressService;
 import com.David.javaProject.services.ShoppingService;
+import com.David.javaProject.services.UserService;
 
 @RestController
 @RequestMapping("/paypal")
@@ -60,6 +63,10 @@ public class ShoppingController {
 	private SessionService sessionService;
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired
+	private UserService userService;
+	
 	
 //	public ShoppingController(UserRepository userRepo, CategoryRepo categoryRepo, OrderRepo orderRepo, ProductRepo productRepo, OrderProductRepo orderProductRepo, ShoppingService shoppingService, AddressRepo addressRepo, PaymentInfoRepo paymentInfoRepo, SessionService sessionService){
 //		this.userRepo =userRepo;
@@ -460,4 +467,32 @@ public class ShoppingController {
 
 	}
 
+	
+	// set payment info
+	@PutMapping("setBillingInfo/{addressId}")
+	public Response setBillingInfo(@RequestBody PaymentInfo paymentInfo, @PathVariable("addressId") Long addressId) {
+		Response res = new Response();
+		
+		// find the user
+		Long userId = this.sessionService.getUserId();
+		User user = this.userService.findUserById(userId);
+		
+		// get the address
+		Address address = this.addressService.findAddressById(addressId);
+		
+		// check if user if login
+		if(user == null) {
+			res.setStatus(false);
+			res.setMessage("You must logged In first!");
+			return res;
+		}
+		
+		paymentInfo.setUser(user);
+		paymentInfo.setAddress(address);
+		this.paymentInfoRepo.save(paymentInfo);
+		
+		res.setStatus(true);
+		res.setMessage("You have successfully Set your Billing Address!");
+		return res;
+	}
 }

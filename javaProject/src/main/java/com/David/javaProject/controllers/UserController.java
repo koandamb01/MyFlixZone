@@ -22,6 +22,7 @@ import com.David.javaProject.models.Response;
 import com.David.javaProject.models.general.User;
 import com.David.javaProject.models.music.FavoriteService;
 import com.David.javaProject.models.paypal.Address;
+import com.David.javaProject.models.paypal.PaymentInfo;
 import com.David.javaProject.services.AddressService;
 import com.David.javaProject.services.UserService;
 
@@ -80,23 +81,30 @@ public class UserController extends HandlerInterceptorAdapter {
 			res.setMessage("Invalid email or password!");
 		}
 		else {
-			User u = this.userService.findByEmail(logUser.getEmail());
-			session.setAttribute("userId", u.getId());
-			
-			this.sessionService.setUserId(u.getId());
-			
-			System.out.println("Testing session: " + u.getId());
-			
-			u.setCreatedAt(null);
-			u.setUpdatedAt(null);
-			u.setPassword(null);
-			
-			List<User> list = new ArrayList<>();
-			list.add(u);
-			
-			res.setStatus(true);
-			res.setMessage("You have successfully Login!");
-			res.setData(list);
+//			User u = this.userService.findByEmail(logUser.getEmail());
+//			session.setAttribute("userId", u.getId());
+//			
+//			this.sessionService.setUserId(u.getId());
+//			
+//			System.out.println("Testing session: " + u.getId());
+//			
+//			u.setCreatedAt(null);
+//			u.setUpdatedAt(null);
+//			u.setPassword(null);
+//			
+//			PaymentInfo payment = u.getPaymentInfo();
+//			
+//			u.setPaymentInfo(null);
+//			List<User> list1 = new ArrayList<>();
+//			List<PaymentInfo> list2 = new ArrayList<>();
+//			list1.add(u);
+//			list2.add(payment);
+//		
+//			
+//			res.setStatus(true);
+//			res.setMessage("You have successfully Login!");
+//			res.setData(list1);
+//			
 		}
 		return res;
 	}
