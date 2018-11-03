@@ -27,11 +27,11 @@
       <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" alt="searchImg">
     </div>
   </div>
-  <div class="box">
-    <div *ngFor="let order for listOfOrders" class="box1 p-2 row">
+  <div *ngFor="let order of listOfOrders" class="box">
+    <div class="box1 p-2 row">
       <div class="col-3">
         <span class="info font-weight-light">ORDER PLACED</span>
-        <span>{{order.order.datePaid}}</span>
+        <span>{{order.order.datePaid | date:"long"}}</span>
       </div>
       <div class="col-2">
         <span class="info font-weight-light">TOTAL</span>
@@ -39,34 +39,30 @@
       </div>
       <div class="col-7 text-right">
         <span class="info font-weight-light">ORDER # 842-251-304-00{{order.order.id}}</span>
-        <!-- pass in the order Id to navigate to order details -->
         <a href="">Order Details</a>
       </div>
     </div>
     <hr>
     <div class="box1 p-3 row">
       <div class="deliveryStatus col-8">
-        <span *ngIf="order.order.status==shipped" id="primaryStatus" class="font-weight-bold">
-          Delievered Oct 9, 2018
+        <span *ngIf="order.order.status == 'completed'" id="primaryStatus" class="font-weight-bold">
+          Delievered {{order.order.expectedDate | date}}
         </span>
-        <span id="primaryStatus" class="font-weight-bold">
-          Delievered Oct 9, 2018
-        </span>
-        <span id="primaryStatus" class="font-weight-bold">
-          Delievered Oct 9, 2018
-        </span>
-        <div id="secondaryStatus">
+        <div *ngIf="order.order.status == 'completed'" id="secondaryStatus">
           Your package was left near the front door or porch.
         </div>
-        <div class="productInfo row pr-5 pb-5 mt-3">
+        <span *ngIf="order.order.status != 'completed'" id="primaryStatus" class="font-weight-bold">
+          Will be Delivered by {{order.order.expectedDate | date}}
+        </span>
+        <div *ngFor="let product of order.details" class="productInfo row pr-5 pb-5 mt-3">
           <div class="col-2">
-            <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+            <img src={{product.imgLink}} alt="image">
           </div>
           <div class="col-8 ml-2">
-            <div><a href="">Chocolate Box Yum</a></div>
+            <div><a href="">{{product.name}}</a></div>
             <div><span>Sold by: Amazon.com Services, inc</span></div>
             <div><span>Return eligible through Nov 22, 2018</span></div>
-            <div><span class="price">$4.99</span></div>
+            <div><span class="price">${{product.price}}</span></div>
             <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
             <a href=""><button class="btn btn-primary">Buy it again</button></a>
           </div>
