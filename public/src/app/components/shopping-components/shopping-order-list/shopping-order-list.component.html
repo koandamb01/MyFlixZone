@@ -35,7 +35,7 @@
       </div>
       <div class="col-2">
         <span class="info font-weight-light">TOTAL</span>
-        <span>${{order.order.total}}</span>
+        <span>${{order.order.total | number:'.2-2'}}</span>
       </div>
       <div class="col-7 text-right">
         <span class="info font-weight-light">ORDER # 842-251-304-00{{order.order.id}}</span>
@@ -61,7 +61,7 @@
           <div class="col-8 ml-2">
             <div><a href="">{{product.name}}</a></div>
             <div><span>Sold by: Amazon.com Services, inc</span></div>
-            <div><span>Return eligible through Nov 22, 2018</span></div>
+            <div><span>Return eligible through {{order.order.expectedDate | date}}</span></div>
             <div><span class="price">${{product.price}}</span></div>
             <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
             <a href=""><button class="btn btn-primary">Buy it again</button></a>
