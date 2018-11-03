@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Route } from '@angular/router';
 import { User } from '../../../models/user';
 import { ShoppingService } from '../../../services/shopping.service';
 
@@ -12,10 +12,10 @@ export class ShoppingOrderDetailsComponent implements OnInit {
   @Output() goToCartOrReviewEmitter = new EventEmitter();
   constructor(
     private shopService: ShoppingService,
-    private _router: Router
+    private _router: ActivatedRoute
   ) { }
 
-  orderId:any;
+  orderId: any;
   total: any;
   tax: any;
   grandTotal: any;
@@ -24,9 +24,16 @@ export class ShoppingOrderDetailsComponent implements OnInit {
   listOfItems: any[];
 
   ngOnInit() {
-
+    this._router.params.subscribe((params: Params) => {
+      this.orderId = params['orderId'];
+      console.log("id: ", this.orderId);
+    });
   }
-  getOrderDetail(){
+
+
+
+
+  getOrderDetail() {
     this.shopService.getOrderDetail(this.orderId).subscribe(res => {
       if (res['status'] == false) {
         console.log("Could not get orderTotal");
@@ -38,7 +45,7 @@ export class ShoppingOrderDetailsComponent implements OnInit {
         this.shippingInfo = res.orderDetail.shippingAddress;
         console.log(this.shippingInfo);
         this.paymentInfo = res.orderDetail.paymentInfo;
-        this.tax = (this.total)*(0.1);
+        this.tax = (this.total) * (0.1);
         this.grandTotal = this.tax + this.total;
         this.orderId = res.orderDetail.order.id;
       }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 
 // Root component
@@ -25,6 +25,7 @@ import { ShoppingProfileComponent } from './components/shopping-components/shopp
 import { ShoppingInventoryComponent } from './components/shopping-components/shopping-inventory/shopping-inventory.component';
 import { ShoppingCartComponent } from './components/shopping-components/shopping-cart/shopping-cart.component';
 import { ShoppingOrderListComponent } from './components/shopping-components/shopping-order-list/shopping-order-list.component';
+import { ShoppingOrderDetailsComponent } from './components/shopping-components/shopping-order-details/shopping-order-details.component';
 
 // authentification
 import { AuthHomeComponent } from './components/authentification/auth-home/auth-home.component';
@@ -40,6 +41,7 @@ export const appRoutes: Routes = [
   { path: 'shopping/inventory', component: ShoppingInventoryComponent },
   { path: 'shopping/cart', component: ShoppingCartComponent },
   { path: 'shopping/orders', component: ShoppingOrderListComponent },
+  { path: 'shopping/order/:orderId', component: ShoppingOrderDetailsComponent },
 
   // Auth Routes
   {
