@@ -49,6 +49,12 @@ public class ShoppingService {
     }
 
     public Address findDefaultAddress(User user){
+    	// check user has address
+    	if(user.getAddresses().isEmpty()) {
+    		return null;
+    	}
+    	
+    	// get the default address now
         for (Address shippingAddress : user.getAddresses()){
             if (shippingAddress.isDefaultShippingAddress()){
                 return shippingAddress;

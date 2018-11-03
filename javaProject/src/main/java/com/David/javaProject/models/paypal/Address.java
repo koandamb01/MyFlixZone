@@ -33,6 +33,7 @@ public class Address {
 	@Column(updatable = false)
 	private Date createdAt;
 	private Date updatedAt;
+	
 	private boolean defaultShippingAddress = true;
 
 	@JsonIgnore
