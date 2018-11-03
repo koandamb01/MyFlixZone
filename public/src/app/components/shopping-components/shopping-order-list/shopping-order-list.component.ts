@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingService } from '../../../services/shopping.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FilterPipe } from 'ngx-filter-pipe';
 
 @Component({
   selector: 'app-shopping-order-list',

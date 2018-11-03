@@ -15,7 +15,7 @@
       </li>
       <li>
         <span>
-          <a (click)="goToOrderReview()">Your Orders</a>
+          <a routerLink="/shopping/orders">Your Orders</a>
         </span>
       </li>
       <li class="divider">
@@ -34,14 +34,14 @@
   </div>
   <h1 class="orderDetails">Order Details</h1>
   <div class="spacing">
-    <span class="orderDate">
-      Ordered on Ordered Date
+    <span *ngIf="gotIt"  class="orderDate">
+      Ordered on {{order.datePaid | date}}
     </span>
     <span class="textDivider">
       |
     </span>
-    <span class="orderNumber">
-      Order# 112-232-323-2323232
+    <span *ngIf="gotIt" class="orderNumber">
+      Order# 842-251-304-00{{order.id}}
     </span>
   </div>
   <div class="box">
@@ -49,10 +49,10 @@
       <div class="col">
         <h5>Shipping Address</h5>
         <ul class="displayAddress">
-          <li>Name</li>
-          <li>1920 Zanker Road</li>
-          <li>City, State, 94020</li>
-          <li>Country</li>
+          <li *ngIf="gotIt">{{shippingInfo.name}}</li>
+          <li *ngIf="gotIt">{{shippingInfo.street}}</li>
+          <li *ngIf="gotIt">{{shippingInfo.city}}, {{shippingInfo.state}}, {{shippingInfo.zipcode}}</li>
+          <li>United States</li>
         </ul>
       </div>
       <div class="col">
@@ -68,7 +68,7 @@
             <span>Items(s) Subtotal:</span>
           </div>
           <div class="col text-right">
-            <span>$4.99</span>
+            <span *ngIf="gotIt">${{total}}</span>
           </div>
         </div>
         <div class="row">
@@ -84,7 +84,7 @@
             <span>Total before tax:</span>
           </div>
           <div class="col text-right">
-            <span>$4.99</span>
+            <span *ngIf="gotIt">${{total}}</span>
           </div>
         </div>
         <div class="row">
@@ -92,7 +92,7 @@
             <span>Estimated tax:</span>
           </div>
           <div class="col text-right">
-            <span>$0.45</span>
+            <span *ngIf="gotIt">${{tax}}</span>
           </div>
         </div>
         <div class="row">
@@ -100,31 +100,34 @@
             <span class="font-weight-bold">Grand Total:</span>
           </div>
           <div class="col text-right">
-            <span class="font-weight-bold">$5.44</span>
+            <span *ngIf="gotIt" class="font-weight-bold">${{grandTotal}}</span>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="box">
-    <div class="row p-3">
+    <div *ngFor="let item of listOfItems" class="row p-3">
       <div class="deliveryStatus col-8">
-        <span id="primaryStatus" class="font-weight-bold">
-          Delievered Oct 9, 2018
+        <span *ngIf="order.status == 'completed'" id="primaryStatus" class="font-weight-bold">
+          Delievered {{order.expectedDate | date}}
         </span>
-        <div id="secondaryStatus">
+        <div *ngIf="order.status == 'completed'" id="secondaryStatus">
           Your package was left near the front door or porch.
         </div>
+        <span *ngIf="order.status != 'completed'" id="primaryStatus" class="font-weight-bold">
+          Will be Delivered by {{order.expectedDate | date}}
+        </span>
         <div class="productInfo row pr-5 pb-5 mt-3">
           <div class="col-2">
-            <img src="https://images-na.ssl-images-amazon.com/images/I/91QL47x2RoL._SY550_.jpg" alt="image">
+            <img *ngIf="gotIt" src={{item.imgLink}} alt="image">
           </div>
           <div class="col-8 ml-2">
-            <div><a href="">Chocolate Box Yum</a></div>
+            <div><a *ngIf="gotIt" href="">{{item.name}}</a></div>
             <div><span>Sold by: Amazon.com Services, inc</span></div>
-            <div><span>Return eligible through Nov 22, 2018</span></div>
-            <div><span class="price">$4.99</span></div>
-            <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
+            <div><span>Return eligible through {{order.expectedDate | date}}</span></div>
+            <div><span *ngIf="gotIt" class="price">${{item.price}}</span></div>
+            <div><span *ngIf="gotIt" class="font-weight-bold">Condition:</span> <span>New</span></div>
             <a href=""><button class="btn btn-primary">Buy it again</button></a>
           </div>
         </div>

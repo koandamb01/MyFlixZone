@@ -27,24 +27,19 @@
       <img src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png" alt="searchImg">
     </div>
   </div>
-<<<<<<< HEAD
-  <!-- <div class="box">
-    <div *ngFor="let order for listOfOrders" class="box1 p-2 row">
-=======
   <div *ngFor="let order of listOfOrders" class="box">
     <div class="box1 p-2 row">
->>>>>>> 4686a32b5f3ffde8c7aa87ca6dd30f6d68cbb01b
       <div class="col-3">
         <span class="info font-weight-light">ORDER PLACED</span>
         <span>{{order.order.datePaid | date:"long"}}</span>
       </div>
       <div class="col-2">
         <span class="info font-weight-light">TOTAL</span>
-        <span>${{order.order.total}}</span>
+        <span>${{order.order.total | number:'.2-2'}}</span>
       </div>
       <div class="col-7 text-right">
         <span class="info font-weight-light">ORDER # 842-251-304-00{{order.order.id}}</span>
-        <a href="">Order Details</a>
+        <a routerLink="/shopping/order/{{order.order.id}}">Order Details</a>
       </div>
     </div>
     <hr>
@@ -66,7 +61,7 @@
           <div class="col-8 ml-2">
             <div><a href="">{{product.name}}</a></div>
             <div><span>Sold by: Amazon.com Services, inc</span></div>
-            <div><span>Return eligible through Nov 22, 2018</span></div>
+            <div><span>Return eligible through {{order.order.expectedDate | date}}</span></div>
             <div><span class="price">${{product.price}}</span></div>
             <div><span class="font-weight-bold">Condition:</span> <span>New</span></div>
             <a href=""><button class="btn btn-primary">Buy it again</button></a>
@@ -81,5 +76,5 @@
         <a href=""><button class="mt-2 btn-lg btn-block btn-warning">Option5</button></a>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>

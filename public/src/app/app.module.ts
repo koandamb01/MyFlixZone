@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { AuthGuard } from './guards/auth.guard';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
 
 
 import { HeaderComponent } from './components/movies-components/ui/header/header.component';
@@ -114,7 +116,8 @@ import { AuthHomeComponent } from './components/authentification/auth-home/auth-
     MatExpansionModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    FilterPipeModule
   ],
   providers: [DzService, EbusService, LikesService, AuthGuard],
   bootstrap: [AppComponent]
