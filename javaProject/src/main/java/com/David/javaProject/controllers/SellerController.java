@@ -230,8 +230,8 @@ public class SellerController {
 			Product productFromDb = opt.get();
 			if (product.getId() != null) { productFromDb.setId(product.getId()); }
 			if (product.getName() != null) { productFromDb.setName(product.getName()); }
-			if (product.getPrice() == 0.00) { productFromDb.setPrice(product.getPrice()); }
-			if (product.getStock() == 0) { productFromDb.setPrice(product.getStock()); }
+			if (!Double.isNaN(product.getPrice())) { productFromDb.setPrice(product.getPrice()); }
+			if (product.getStock()!=0) { productFromDb.setStock(product.getStock()); }
 			if (product.getDescription() != null) { productFromDb.setDescription(product.getDescription()); }
 			if (product.getImg() != null) { productFromDb.setImg(product.getImg()); }
 			

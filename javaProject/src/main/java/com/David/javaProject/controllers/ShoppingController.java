@@ -86,6 +86,7 @@ public class ShoppingController {
 		return res;
 	}
 
+	//add address
 	@PostMapping("/addAddress")
 	public Response addAddress(@RequestBody Address address, Errors errors, HttpSession session) {
 		if (errors.hasErrors()) {
@@ -147,6 +148,7 @@ public class ShoppingController {
 		}
 	}
 
+	//add paymentinfo
 	@PostMapping("/addPaymentInfo")
 	public Response addPaymentInfo(@RequestBody PaymentInfo paymentInfo, Errors errors, @RequestBody Address address, Errors addressErrors, HttpSession session) {
 		//checking errors for payment Info
@@ -195,6 +197,7 @@ public class ShoppingController {
 		}
 	}
 
+	//add a product to order
 	@GetMapping("/addToOrder/{pathProductId}/{quantity}")
 	public Response addToOrder(@PathVariable("pathProductId") Long productId, @PathVariable("quantity") int quantity, HttpSession session) {
 		//finding user
@@ -239,6 +242,7 @@ public class ShoppingController {
 		}
 	}
 
+	//submit order
 	@GetMapping("/submitOrder")
 	public Response submitOrder(HttpSession session) {
 //		//demo setting session userId as 1
@@ -266,6 +270,7 @@ public class ShoppingController {
 		}
 	}
 
+	//get cart info
 	@GetMapping("/getCart")
 	public Response getCart(){
 		Long userId = this.sessionService.getUserId();
@@ -300,6 +305,7 @@ public class ShoppingController {
 		}
 	}
 
+	//get checkOut information
 	@GetMapping("/getCheckOut")
 	public Response checkOutInformation(HttpSession session){
 		//finding user
@@ -343,6 +349,7 @@ public class ShoppingController {
 			}
 		}
 
+		//get one order information for detail
 	@GetMapping("/getOneOrder/{orderId}")
 	public Response getOneOrder(@PathVariable("orderId") Long orderId, HttpSession session){
 		//finding user
@@ -392,6 +399,7 @@ public class ShoppingController {
 		}
 	}
 
+	//get All orders
 	@GetMapping("/getAllOrders")
 	public Response getAllOrders(HttpSession session){
 //		//demo setting session userId as 1
