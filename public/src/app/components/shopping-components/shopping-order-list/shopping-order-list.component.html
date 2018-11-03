@@ -28,23 +28,30 @@
     </div>
   </div>
   <div class="box">
-    <div class="box1 p-2 row">
+    <div *ngFor="let order for listOfOrders" class="box1 p-2 row">
       <div class="col-3">
         <span class="info font-weight-light">ORDER PLACED</span>
-        <span>October 21, 2018</span>
+        <span>{{order.order.datePaid}}</span>
       </div>
       <div class="col-2">
         <span class="info font-weight-light">TOTAL</span>
-        <span>$4.99</span>
+        <span>${{order.order.total}}</span>
       </div>
       <div class="col-7 text-right">
-        <span class="info font-weight-light">ORDER # 1231-213-123-32-232</span>
+        <span class="info font-weight-light">ORDER # 842-251-304-00{{order.order.id}}</span>
+        <!-- pass in the order Id to navigate to order details -->
         <a href="">Order Details</a>
       </div>
     </div>
     <hr>
     <div class="box1 p-3 row">
       <div class="deliveryStatus col-8">
+        <span *ngIf="order.order.status==shipped" id="primaryStatus" class="font-weight-bold">
+          Delievered Oct 9, 2018
+        </span>
+        <span id="primaryStatus" class="font-weight-bold">
+          Delievered Oct 9, 2018
+        </span>
         <span id="primaryStatus" class="font-weight-bold">
           Delievered Oct 9, 2018
         </span>

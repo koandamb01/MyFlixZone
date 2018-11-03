@@ -14,7 +14,7 @@ export class ShoppingService {
 
   constructor(private _http: Http) { }
 
-//inventory related
+//shopping related
   getCart() {
     return this._http.get(this.baseUrl + '/paypal/getCart', this.options)
       .pipe
@@ -51,6 +51,19 @@ export class ShoppingService {
       )
   }
 
+  getAllOrders(){
+    return this._http.get(this.baseUrl + '/paypal/getAllOrders', this.options)
+      .pipe
+      (
+      map((response: Response) => response.json()),
+      catchError(this.errorHandler)
+      )
+  }
+
+//end of shopping
+
+
+  //inventory
   getInventory(){
     return this._http.get(this.baseUrl + '/admin/product', this.options)
       .pipe
