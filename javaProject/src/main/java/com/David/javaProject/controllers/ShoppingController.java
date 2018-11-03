@@ -449,6 +449,24 @@ public class ShoppingController {
 		}
 	}
 
+	@GetMapping("/getOneProduct/{productId}")
+	public Response getOneProduct(@PathVariable("productId") Long productId, HttpSession session){
+			Optional<Product> optional = productRepo.findById(productId);{
+				if(!optional.isPresent()){
+					Response res = new Response(false, "Could not find product");
+					return res;
+				}
+				else{
+					Product product = optional.get();
+					List<Product> data = new ArrayList<>();
+					data.add(product);
+					Response res = new Response(true, "Product Information", data);
+					return res;
+				}
+			}
+
+	}
+
 	
 //	// set payment info
 //	@PutMapping("setBillingInfo/{addressId}")
