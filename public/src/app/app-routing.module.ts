@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 // Root component
 import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/movies-components/ui/header/header.component';
 
 // movie components
 import { MoviesComponent } from './components/movies-components/movies/movies.component';
@@ -35,6 +36,7 @@ import { RegisterComponent } from './components/authentification/register/regist
 
 
 export const appRoutes: Routes = [
+  { path: '', pathMatch: 'full', component: HeaderComponent },
 
   // Shopping Routes
   { path: 'shopping', component: ShoppingHomeComponent },
